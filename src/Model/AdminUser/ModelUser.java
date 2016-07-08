@@ -8,9 +8,8 @@ public class ModelUser extends Model.Conection.Conection{
 
     public boolean InsertPerson(String id, String firstname, String lastname, String email, String status)
     {
-        //armamos la consulta
         String insert = "Insert into person(id, firstname, lastname, email, status)" + "Values('" + id + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + status + "')";
-        //ejecutamos la consulta
+
         try {
             PreparedStatement ps = connectDataBase.prepareStatement(insert);
             ps.execute();
