@@ -2,6 +2,8 @@ package View.Events;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+
 import Controller.UserAdmin.ControllerUsers;
 import View.AdminUser.AddUserUI;
 
@@ -18,15 +20,15 @@ public class UserEvent implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // send this information to the controller
-        /*addUserUI.getName();
-        addUserUI.getLastName();
-        addUserUI.getUserName();
-        addUserUI.getPassword();
-        addUserUI.getAddress();
-        addUserUI.getEmail();
-        addUserUI.getRole();
-        addUserUI.getPossition();
-        userController.addUserUI();*/
+        ArrayList<String> user = new ArrayList<String>();
+        user.add(addUserUI.getName());
+        user.add(addUserUI.getLastName());
+        user.add(addUserUI.getUserName());
+        user.add(addUserUI.getPassword());
+        user.add(addUserUI.getAddress());
+        user.add(addUserUI.getEmail());
+        user.add(addUserUI.getRole());
+        user.add(addUserUI.getPossition());
+        userController.save(user);
     }
 }
