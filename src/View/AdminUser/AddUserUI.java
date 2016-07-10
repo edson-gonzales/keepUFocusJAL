@@ -1,10 +1,20 @@
 package View.AdminUser;
 
-import javax.swing.*;
-import java.awt.*;
-import View.Events.UserEvent;
-import Utilities.SpringUtilities;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
+import javax.swing.SpringLayout;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import javax.swing.BoxLayout;
+import javax.swing.BorderFactory;
+import java.awt.Component;
 
+import Utilities.SpringUtilities;
+import View.Events.UserEvent;
 
 /**
  * Created by LuLy on 06/07/2016.
@@ -152,6 +162,7 @@ public class AddUserUI extends JPanel {
     public String getPassword(){
         return passwordTxt.getText();
     }
+    public boolean getStatus(){ return activeCbox.isSelected();}
     public String getAddress(){
         return addressTxt.getText();
     }

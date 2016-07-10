@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import Controller.UserAdmin.ControllerUsers;
 import View.AdminUser.AddUserUI;
+import Model.AdminUser.User;
 
 /**
  * Created by LuLy on 07/07/2016.
@@ -18,15 +19,20 @@ public class UserEvent implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        // send this information to the controller
-        /*addUserUI.getName();
-        addUserUI.getLastName();
-        addUserUI.getUserName();
-        addUserUI.getPassword();
+        //send this information to the controller
+        User user = new User();
+        user.setFirstName(addUserUI.getName());
+        user.setLastName(addUserUI.getLastName());
+        user.setUserName(addUserUI.getUserName());
+        user.setPassword(addUserUI.getPassword());
+        user.setEnable(addUserUI.getStatus());
         addUserUI.getAddress();
         addUserUI.getEmail();
         addUserUI.getRole();
         addUserUI.getPossition();
-        userController.addUserUI();*/
+
+        ControllerUsers controllerUsers = new ControllerUsers();
+        controllerUsers.saveUser(user);
+
     }
 }
