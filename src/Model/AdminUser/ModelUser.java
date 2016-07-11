@@ -1,23 +1,18 @@
 package Model.AdminUser;
 
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import Model.Conection.Connection;
 
 
-public class ModelUser extends Model.Conection.Conection{
-
-    public boolean InsertPerson(String id, String firstname, String lastname, String email, String status)
+public class ModelUser extends Connection
+{
+    public ModelUser()
     {
-        String insert = "Insert into person(id, firstname, lastname, email, status)" + "Values('" + id + "', '" + firstname + "', '" + lastname + "', '" + email + "', '" + status + "')";
-
-        try {
-            PreparedStatement ps = connectDataBase.prepareStatement(insert);
-            ps.execute();
-            ps.close();
-            return true;
-        }catch(SQLException e){
-            System.err.println( e.getMessage() );
-        }
-        return false;
+        super();
+    }
+    public boolean InsertPerson()
+    {
+        String sql = "Insert into Person(firstName,lastName,gender,positionId) Values('pepe','gonzales',0,1)";
+        this.execute(sql);
+        return true;
     }
 }
