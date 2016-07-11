@@ -1,5 +1,8 @@
 package Model.AdminUser;
 
+import Model.Common.Position;
+import Model.Conection.Connection;
+
 /**
  * Created by AldoBalderrama on 7/5/2016.
  */
@@ -10,6 +13,7 @@ public class User extends Model.Common.Person
     private String userName;
     private String password;
     private boolean enable;
+    private Connection db;
 
     //Property
     public int getUserId()
@@ -48,13 +52,21 @@ public class User extends Model.Common.Person
         this.setUserName("");
         this.setPassword("");
         this.setEnable(false);
+        this.setPersonId(0);
+        this.setFirstName("");
+        this.setLastName("");
+        this.setEnable(false);
+        this.setPosition(new Position());
+        db = new Connection();
     }
 
     //Methods
     public boolean save()
     {
-        System.out.printf("method will implements");
-        return true;
+        StringBuilder sql = new StringBuilder();
+        sql.append("insert into Person(firstName,lastName,gender,positionId) ");
+        sql.append(String.format("Values('%s','%s',0,1)",this.getFirstName(),this.getLastName()));
+        return db.execute(sql.toString());
     }
     public boolean update()
     {
