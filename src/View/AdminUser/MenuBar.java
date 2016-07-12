@@ -9,11 +9,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by LuLy on 06/07/2016.
+ * Class to build the main menu
+ * @author: Lourdes Villca
  */
 public class MenuBar extends JMenuBar {
     private JMenu menu;
     private JMenuItem menuContent;
+
 
     public MenuBar(final JFrame mainWindow)
     {
@@ -21,6 +23,10 @@ public class MenuBar extends JMenuBar {
         this.add(menu);
         menuContent = new JMenuItem("New User");
         menu.add(menuContent);
+        /*
+         * Display the form of Menu user
+         *
+         */
         menuContent.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ae){
 

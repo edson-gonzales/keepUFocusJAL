@@ -17,8 +17,10 @@ import Utilities.SpringUtilities;
 import View.Events.UserEvent;
 
 /**
- * Created by LuLy on 06/07/2016.
+ * UI to Add User, Form with the fields of user
+ * @author: Lourdes Villca
  */
+
 public class AddUserUI extends JPanel {
     private JLabel nameLabel;
     private JLabel lastNameLabel;
@@ -48,7 +50,6 @@ public class AddUserUI extends JPanel {
 
         leftPanel = makeLeftPanel();
         rightPanel = makeRightPanel();
-
         acceptBtn = new JButton("Accept");
         cancelBtn = new JButton("Cancel");
         this.setLayout(new BorderLayout());
@@ -66,90 +67,61 @@ public class AddUserUI extends JPanel {
         this.add(bottomPanel, BorderLayout.PAGE_END);
 
         this.setBorder(BorderFactory.createTitledBorder("Add New User"));
-
     }
-
+    /**
+     * Method to build the left panel with the corresponding data
+     * @return return a panel with all their components
+     */
     private JPanel makeLeftPanel(){
         JPanel panel = new JPanel(new SpringLayout());
         Dimension txtSize = new Dimension(150, 25);
+        InitComponent.initLabel(nameLabel, "Name", panel);
+        InitComponent.initTextBox(nameTxt, txtSize, panel);
 
-        initLabel(nameLabel, "Name", panel);
-        initTextBox(nameTxt, txtSize, panel);
+        InitComponent.initLabel(lastNameLabel, "Last Name", panel);
+        InitComponent.initTextBox(lastNameTxt, txtSize, panel);
 
-        initLabel(lastNameLabel, "Last Name", panel);
-        initTextBox(lastNameTxt, txtSize, panel);
+        InitComponent.initLabel(userLabel, "User", panel);
+        InitComponent.initTextBox(userTxt, txtSize, panel);
 
-        initLabel(userLabel, "User", panel);
-        initTextBox(userTxt, txtSize, panel);
-
-        initLabel(passwordLabel, "Password", panel);
-        initTextBox(passwordTxt, txtSize, panel);
-        initLabel(activeLabel, "Active", panel);
+        InitComponent.initLabel(passwordLabel, "Password", panel);
+        InitComponent.initTextBox(passwordTxt, txtSize, panel);
+        InitComponent.initLabel(activeLabel, "Active", panel);
 
         activeCbox = new JCheckBox();
-
-        panel.setMaximumSize(new Dimension(310, 50));
-        panel.setPreferredSize(new Dimension(310, 50));
-        panel.setMinimumSize(new Dimension(310, 50));
-
         panel.add(activeCbox);
 
-        SpringUtilities.makeCompactGrid(panel,
-                5, 2, //rows, cols
-                6, 6,        //initX, initY
-                6, 6);       //xPad, yPad
+        InitComponent.setSizeComponent(panel, new Dimension(310, 50));
+        SpringUtilities.makeCompactGrid(panel, 5, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
 
         return panel;
     }
-
+    /**
+     * Method to build the right panel with the corresponding data
+     * @return return a panel with all their components
+     */
     private JPanel makeRightPanel()
     {
         JPanel rightPanel = new JPanel(new SpringLayout());
         Dimension txtSize = new Dimension(150, 25);
-        initLabel(addressLabel, "Address", rightPanel);
-        initTextBox(addressTxt, txtSize, rightPanel);
+        InitComponent.initLabel(addressLabel, "Address", rightPanel);
+        InitComponent.initTextBox(addressTxt, txtSize, rightPanel);
 
-        initLabel(emailLabel, "E-mail", rightPanel);
-        initTextBox(emailTxt, txtSize, rightPanel);
+        InitComponent.initLabel(emailLabel, "E-mail", rightPanel);
+        InitComponent.initTextBox(emailTxt, txtSize, rightPanel);
 
-        initLabel(possitionLabel, "Possition", rightPanel);
-        initComboBox(possitionCbox, txtSize, rightPanel);
+        InitComponent.initLabel(possitionLabel, "Possition", rightPanel);
+        InitComponent.initComboBox(possitionCbox, txtSize, rightPanel);
 
-        initLabel(roleLabel, "Role", rightPanel);
-        initComboBox(roleCbox, txtSize, rightPanel);
+        InitComponent.initLabel(roleLabel, "Role", rightPanel);
+        InitComponent.initComboBox(roleCbox, txtSize, rightPanel);
 
-
-        rightPanel.setMaximumSize(new Dimension(300, 50));
-        rightPanel.setPreferredSize(new Dimension(300, 50));
-        rightPanel.setMinimumSize(new Dimension(300, 50));
-
-        SpringUtilities.makeCompactGrid(rightPanel,4,2,6,6,6,6);
+        InitComponent.setSizeComponent(rightPanel, new Dimension(310, 50));
+        SpringUtilities.makeCompactGrid(rightPanel,4,2,6,6,6,6); /* rows, cols, initX, initY, xPad, yPad*/
 
         return rightPanel;
     }
 
-    private void setSizeComponent(Component comp, Dimension txtSize) {
-        comp.setMaximumSize(txtSize);
-        comp.setPreferredSize(txtSize);
-        comp.setMinimumSize(txtSize);
-    }
-    public void initLabel(JLabel jlabel, String text, JPanel panel){
-        jlabel=new JLabel(text);
-        panel.add(jlabel);
-    }
-
-    public void initTextBox(JTextField textField,Dimension txtSize, JPanel rightPanel){
-        textField = new JTextField(20);
-        setSizeComponent(textField, txtSize);
-        rightPanel.add(textField);
-
-    }
-    public void initComboBox(JComboBox comboBox, Dimension cboxSize, JPanel rightPanel){
-        comboBox = new JComboBox();
-        setSizeComponent(comboBox, cboxSize);
-        rightPanel.add(comboBox);
-
-    }
     public String getName(){
         return nameTxt.getText();
     }
