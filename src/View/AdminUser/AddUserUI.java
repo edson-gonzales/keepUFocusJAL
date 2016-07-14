@@ -11,13 +11,15 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
-import java.awt.Component;
+import java.util.ResourceBundle;
 
 import Utilities.SpringUtilities;
+import Utils.Constants;
 import View.Events.UserEvent;
 
 /**
  * UI to Add User, Form with the fields of user
+ *
  * @author: Lourdes Villca
  */
 
@@ -45,13 +47,19 @@ public class AddUserUI extends JPanel {
     private UserEvent userEvent;
     private JPanel leftPanel;
     private JPanel rightPanel;
+    private ResourceBundle resource;
 
-    public AddUserUI(){
+    /**
+     * Init the components and define a layout for panels
+     */
+    public AddUserUI() {
 
-        leftPanel = makeLeftPanel();
-        rightPanel = makeRightPanel();
-        acceptBtn = new JButton("Accept");
-        cancelBtn = new JButton("Cancel");
+        resource = resource.getBundle(Constants.APLICATION_RESOURCES);
+
+        leftPanel = buildLeftPanel();
+        rightPanel = buildRightPanel();
+        acceptBtn = new JButton(resource.getString("admin.label.acceptButton"));
+        cancelBtn = new JButton(resource.getString("admin.label.cancelButton"));
         this.setLayout(new BorderLayout());
 
         acceptBtn.addActionListener(new UserEvent(this));
@@ -68,25 +76,27 @@ public class AddUserUI extends JPanel {
 
         this.setBorder(BorderFactory.createTitledBorder("Add New User"));
     }
+
     /**
      * Method to build the left panel with the corresponding data
+     *
      * @return return a panel with all their components
      */
-    private JPanel makeLeftPanel(){
+    private JPanel buildLeftPanel() {
         JPanel panel = new JPanel(new SpringLayout());
         Dimension txtSize = new Dimension(150, 25);
-        InitComponent.initLabel(nameLabel, "Name", panel);
+        InitComponent.initLabel(nameLabel, resource.getString("admin.label.name"), panel);
         InitComponent.initTextBox(nameTxt, txtSize, panel);
 
-        InitComponent.initLabel(lastNameLabel, "Last Name", panel);
+        InitComponent.initLabel(lastNameLabel, resource.getString("admin.label.LastName"), panel);
         InitComponent.initTextBox(lastNameTxt, txtSize, panel);
 
-        InitComponent.initLabel(userLabel, "User", panel);
+        InitComponent.initLabel(userLabel, resource.getString("admin.label.userName"), panel);
         InitComponent.initTextBox(userTxt, txtSize, panel);
 
-        InitComponent.initLabel(passwordLabel, "Password", panel);
+        InitComponent.initLabel(passwordLabel, resource.getString("admin.label.passwordLabel"), panel);
         InitComponent.initTextBox(passwordTxt, txtSize, panel);
-        InitComponent.initLabel(activeLabel, "Active", panel);
+        InitComponent.initLabel(activeLabel, resource.getString("admin.label.activeLabel"), panel);
 
         activeCbox = new JCheckBox();
         panel.add(activeCbox);
@@ -96,56 +106,66 @@ public class AddUserUI extends JPanel {
 
         return panel;
     }
+
     /**
      * Method to build the right panel with the corresponding data
+     *
      * @return return a panel with all their components
      */
-    private JPanel makeRightPanel()
-    {
+    private JPanel buildRightPanel() {
         JPanel rightPanel = new JPanel(new SpringLayout());
         Dimension txtSize = new Dimension(150, 25);
-        InitComponent.initLabel(addressLabel, "Address", rightPanel);
+        InitComponent.initLabel(addressLabel, resource.getString("admin.label.addressLabel"), rightPanel);
         InitComponent.initTextBox(addressTxt, txtSize, rightPanel);
 
-        InitComponent.initLabel(emailLabel, "E-mail", rightPanel);
+        InitComponent.initLabel(emailLabel, resource.getString("admin.label.emailLabel"), rightPanel);
         InitComponent.initTextBox(emailTxt, txtSize, rightPanel);
 
-        InitComponent.initLabel(possitionLabel, "Possition", rightPanel);
+        InitComponent.initLabel(possitionLabel, resource.getString("admin.label.possitionLabel"), rightPanel);
         InitComponent.initComboBox(possitionCbox, txtSize, rightPanel);
 
-        InitComponent.initLabel(roleLabel, "Role", rightPanel);
+        InitComponent.initLabel(roleLabel, resource.getString("admin.label.roleLabel"), rightPanel);
         InitComponent.initComboBox(roleCbox, txtSize, rightPanel);
 
         InitComponent.setSizeComponent(rightPanel, new Dimension(310, 50));
-        SpringUtilities.makeCompactGrid(rightPanel,4,2,6,6,6,6); /* rows, cols, initX, initY, xPad, yPad*/
+        SpringUtilities.makeCompactGrid(rightPanel, 4, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
 
         return rightPanel;
     }
 
-    public String getName(){
+    public String getName() {
         return nameTxt.getText();
     }
-    public String getLastName(){
+
+    public String getLastName() {
         return lastNameTxt.getText();
     }
-    public String getUserName(){
+
+    public String getUserName() {
         return userTxt.getText();
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return passwordTxt.getText();
     }
-    public boolean getStatus(){ return activeCbox.isSelected();}
-    public String getAddress(){
-        return addressTxt.getText();
-    }
-    public String getEmail(){
-        return emailTxt.getText();
-    }
-    public String getRole(){
-        return roleCbox.getSelectedItem().toString();
-    }
-    public String getPossition(){
-        return possitionCbox.getSelectedItem().toString();
+
+    public boolean getStatus() {
+        return activeCbox.isSelected();
     }
 
+    public String getAddress() {
+        return addressTxt.getText();
+    }
+
+    public String getEmail() {
+        return emailTxt.getText();
+    }
+
+    public String getRole() {
+        return roleCbox.getSelectedItem().toString();
+    }
+
+    public String getPossition() {
+        return possitionCbox.getSelectedItem().toString();
+    }
 }
