@@ -5,13 +5,18 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 /**
- * Created by JuanaRodriguez on 7/7/2016.
+ * This class does the connection to the dbKeepUFocus.sqlite data base
+ * @autor JuanaRodriguez
  */
 public class Connection
 {
-    String url = "C:\\Users\\Juanita\\Desktop\\keepUFocusJAL\\dataBase\\dbFocusUTime.sqlite";
+
+    String url = "dataBase\\dbFocusUTime.sqlite";
     public java.sql.Connection connectDataBase;
 
+    /**
+     * This method connect to the dbFocusUTime.sqlite database and use a try-catch for get the exceptions
+     */
     public void connect()
     {
         try {
@@ -24,7 +29,9 @@ public class Connection
         }
     }
 
-    //Method
+     /**
+     * This method close the connection to dbFocusUTime.sqlite database
+     */
     public void closeDataBase() {
         try {
             connectDataBase.close();
@@ -32,6 +39,12 @@ public class Connection
             e.printStackTrace();
         }
     }
+
+    /**
+     * This method receives a string containing a sql query to execute and get back a boolean value (false) if isn't successfully
+     * @param sql
+     * @return
+     */
     public boolean execute(String sql)
     {
         try {
