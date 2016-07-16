@@ -3,10 +3,10 @@ package Utils;
 /**
  * Manage Properties resources
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 public abstract class Constants {
 
-    public static final String APLICATION_RESOURCES = "Resources.AplicationResource";
+    public static final String APLICATION_RESOURCES = "Resources.ApplicationResource";
 
 }

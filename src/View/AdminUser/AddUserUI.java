@@ -20,7 +20,7 @@ import View.Events.UserEvent;
 /**
  * UI to Add User, Form with the fields of user
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 
 public class AddUserUI extends JPanel {
@@ -58,8 +58,8 @@ public class AddUserUI extends JPanel {
 
         leftPanel = buildLeftPanel();
         rightPanel = buildRightPanel();
-        acceptBtn = new JButton(resource.getString("admin.label.acceptButton"));
-        cancelBtn = new JButton(resource.getString("admin.label.cancelButton"));
+        acceptBtn = new JButton(resource.getString("common.label.acceptButton"));
+        cancelBtn = new JButton(resource.getString("common.label.cancelButton"));
         this.setLayout(new BorderLayout());
 
         acceptBtn.addActionListener(new UserEvent(this));
@@ -133,38 +133,74 @@ public class AddUserUI extends JPanel {
         return rightPanel;
     }
 
+    /**
+     * Returns the first name of the user
+     * @return the Name
+     */
     public String getName() {
         return nameTxt.getText();
     }
 
+    /**
+     * Returns the Last name of the user
+     * @return the Last Name
+     */
     public String getLastName() {
         return lastNameTxt.getText();
     }
 
+    /**
+     * Returns the user name of the user
+     * @return the user name
+     */
     public String getUserName() {
         return userTxt.getText();
     }
 
+    /**
+     * Returns the password of the user
+     * @return the password
+     */
     public String getPassword() {
         return passwordTxt.getText();
     }
 
+    /**
+     * Returns true if the checkbox is selected otherwise false
+     * @return the selected status
+     */
     public boolean getStatus() {
         return activeCbox.isSelected();
     }
 
+    /**
+     * Returns the address of the user
+     * @return the address
+     */
     public String getAddress() {
         return addressTxt.getText();
     }
 
+    /**
+     * Returns the email of the user
+     * @return the E-mail
+     */
     public String getEmail() {
         return emailTxt.getText();
     }
 
+    /**
+     * Returns the selected rol of the user
+     * @return the Role
+     */
     public String getRole() {
         return roleCbox.getSelectedItem().toString();
     }
 
+    /**
+     * Returns the selected possition of the user
+     * @return the possition
+     */
     public String getPossition() {
         return possitionCbox.getSelectedItem().toString();
     }
