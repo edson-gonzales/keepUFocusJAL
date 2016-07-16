@@ -8,7 +8,8 @@ import java.sql.SQLException;
  * Created by Administrator on 7/7/2016.
  */
 public class Connection {
-    String url = "\\\\172.20.0.16\\mt01at01\\AT01\\Database\\dbFocusUTime.sqlite";
+    //String url = "\\\\172.20.0.16\\mt01at01\\AT01\\Database\\dbFocusUTime.sqlite";
+    String url = "dataBase\\dbFocusUTime.sqlite";
     public java.sql.Connection connectDataBase;
 
     public void connect() {
