@@ -87,7 +87,7 @@ public class Person {
     //Constructor
 
     /**
-     * Build a new User.
+     * Build a new UserControllersTest.
      */
     public Person() {
         this.personId = 0;

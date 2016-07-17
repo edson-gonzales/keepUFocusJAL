@@ -1,17 +1,16 @@
-package Test.Controller.UserAdmin;
+package Test.Controller.AdminUser;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
-import Controller.AdminUser.UserControllers;
 import Model.AdminUser.User;
+import Controller.AdminUser.UserControllers;
 
 
 /**
  * @author AldoBalderrama on 7/13/2016.
  */
-public class ControllerUserTest {
+public class UserControllersTest {
     @Test
     public void saveOneUserWithUserControllers() {
         User user = new User();

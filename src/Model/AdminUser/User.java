@@ -92,11 +92,11 @@ public class User extends Model.Common.Person {
     //Constructor
 
     /**
-     * Build a new User with required params.
+     * Build a new UserControllersTest with required params.
      *
      * @param firstName First name the user.Required fields.
      * @param lastName  Last name the user.Required fields.
-     * @param userName  User name the user.Required fields.
+     * @param userName  UserControllersTest name the user.Required fields.
      * @param password  Password the user.Required fields.
      */
     public User(String firstName, String lastName, String userName, String password) {
@@ -111,7 +111,7 @@ public class User extends Model.Common.Person {
     }
 
     /**
-     * Build a new User.
+     * Build a new UserControllersTest.
      */
     public User() {
         super();
@@ -129,7 +129,7 @@ public class User extends Model.Common.Person {
     //Methods
 
     /**
-     * Save User Information in the data base.
+     * Save user Information in the data base.
      *
      * @return Return boolean value (True = Susses;False = Error).
      */
@@ -165,7 +165,7 @@ public class User extends Model.Common.Person {
      * Get an existing user in the data base.
      *
      * @param userId ID for search in the data base.
-     * @return Exits an User.
+     * @return Exits an UserControllersTest.
      */
     public static User getUser(int userId) {
         User user = new User("Oscar Martin", "Balderrama Vaca", "oBalderrama", "1234");

@@ -58,4 +58,10 @@ public class Position
         System.out.printf("method will implements");
         return true;
     }
+    public  static Position getPosition(int positionId)
+    {
+        Position position = new Position();
+        position.setPositionId(positionId);
+        return position;
+    }
 }
