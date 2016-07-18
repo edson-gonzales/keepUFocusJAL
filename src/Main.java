@@ -6,7 +6,7 @@ import View.AdminUser.MenuBar;
 /**
  * Main class to create the window
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 public class Main extends JFrame {
     private MenuBar mainMenuBar;

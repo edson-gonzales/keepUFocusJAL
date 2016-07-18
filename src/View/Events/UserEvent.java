@@ -9,7 +9,7 @@ import Model.AdminUser.User;
 /**
  * Class to manage user events
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 public class UserEvent implements ActionListener {
     private ControllerUsers userController;
@@ -27,7 +27,7 @@ public class UserEvent implements ActionListener {
     public void actionPerformed(ActionEvent e) {
 
         // send this information to the controller
-        User user = new User();
+       User user = new User();
         user.setFirstName(addUserUI.getName());
         user.setLastName(addUserUI.getLastName());
         user.setUserName(addUserUI.getUserName());

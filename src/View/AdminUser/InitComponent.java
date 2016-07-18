@@ -10,7 +10,7 @@ import java.awt.Component;
 /**
  * Class to help us to add components like JLabel, JTextBox, JComboBox
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 public class InitComponent {
     /**
@@ -54,12 +54,12 @@ public class InitComponent {
     /**
      * Method to define the Component size
      *
-     * @param comp    component to be resized
-     * @param txtSize dimension of the component
+     * @param comp component to be resized
+     * @param componentSize dimension of the component
      */
-    public static void setSizeComponent(Component comp, Dimension txtSize) {
-        comp.setMaximumSize(txtSize);
-        comp.setPreferredSize(txtSize);
-        comp.setMinimumSize(txtSize);
+    public static void setSizeComponent(Component comp, Dimension componentSize) {
+        comp.setMaximumSize(componentSize);
+        comp.setPreferredSize(componentSize);
+        comp.setMinimumSize(componentSize);
     }
 }
