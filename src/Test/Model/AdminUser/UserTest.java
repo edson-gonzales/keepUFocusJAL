@@ -1,9 +1,9 @@
 package Test.Model.AdminUser;
 
-import static org.junit.Assert.*;
-
 import Model.AdminUser.User;
 import org.junit.Test;
+
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author AldoBalderrama on 7/14/2016.

@@ -23,33 +23,32 @@ public class ApplicationCategory {
         this.applicationCategoryName = applicationCategoryName;
     }
 
-    public ApplicationCategory()
-    {
+    public ApplicationCategory() {
         this.applicationCategoryId = 0;
         this.applicationCategoryName = "";
     }
-    public ApplicationCategory(String applicationCategoryName)
-    {
+
+    public ApplicationCategory(String applicationCategoryName) {
         this.applicationCategoryId = 0;
         this.applicationCategoryName = applicationCategoryName;
     }
-    public boolean save()
-    {
+
+    public boolean save() {
         System.out.printf("method will implements");
         return true;
     }
-    public boolean update()
-    {
+
+    public boolean update() {
         System.out.printf("method will implements");
         return true;
     }
-    public boolean delete()
-    {
+
+    public boolean delete() {
         System.out.printf("method will implements");
         return true;
     }
-    public  static ApplicationCategory getApplicationCategory(int applicationCategoryId)
-    {
+
+    public static ApplicationCategory getApplicationCategory(int applicationCategoryId) {
         ApplicationCategory applicationCategory = new ApplicationCategory("Work");
         return applicationCategory;
     }

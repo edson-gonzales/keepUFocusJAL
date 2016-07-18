@@ -23,16 +23,16 @@ public class Role {
         this.rolName = rolName;
     }
 
-    public Role(String rolName)
-    {
+    public Role(String rolName) {
         this.roleId = 0;
         this.rolName = rolName;
     }
-    public Role()
-    {
+
+    public Role() {
         this.roleId = 0;
         this.rolName = "";
     }
+
     /**
      * Save user Information in the data base.
      *
@@ -62,6 +62,7 @@ public class Role {
         System.out.printf("method will implements");
         return true;
     }
+
     /**
      * Get an existing user in the data base.
      *

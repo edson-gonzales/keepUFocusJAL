@@ -1,10 +1,10 @@
 package Test.Controller.AdminUser;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import Model.AdminUser.User;
 import Controller.AdminUser.UserControllers;
+import Model.AdminUser.User;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 
 /**

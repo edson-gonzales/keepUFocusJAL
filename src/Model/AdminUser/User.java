@@ -100,7 +100,7 @@ public class User extends Model.Common.Person {
      * @param password  Password the user.Required fields.
      */
     public User(String firstName, String lastName, String userName, String password) {
-        super(firstName,lastName);
+        super(firstName, lastName);
         this.userId = 0;
         this.userName = userName;
         this.password = password;
@@ -134,11 +134,8 @@ public class User extends Model.Common.Person {
      * @return Return boolean value (True = Susses;False = Error).
      */
     public boolean save() {
-        StringBuilder sql = new StringBuilder();
-        sql.append("insert into Person(firstName,lastName,gender,positionId) ");
-        sql.append(String.format("Values('%s','%s',0,1)", this.getFirstName(), this.getLastName()));
-
-        return db.execute(sql.toString());
+        System.out.printf("method will implements");
+        return true;
     }
 
     /**

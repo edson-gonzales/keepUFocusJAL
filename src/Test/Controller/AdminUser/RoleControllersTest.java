@@ -1,10 +1,10 @@
 package Test.Controller.AdminUser;
 
-import static org.junit.Assert.*;
-
-import org.junit.Test;
-import Model.AdminUser.Role;
 import Controller.AdminUser.RoleControllers;
+import Model.AdminUser.Role;
+import org.junit.Test;
+
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by ALDO on 16/7/2016.

@@ -32,36 +32,34 @@ public class Application {
         this.applicationCategoryId = applicationCategoryId;
     }
 
-    public Application()
-    {
+    public Application() {
         this.applicationId = 0;
         this.applicationName = "";
         this.applicationCategoryId = 0;
     }
 
-    public Application(String applicationName)
-    {
+    public Application(String applicationName) {
         this.applicationId = 0;
         this.applicationName = applicationName;
         this.applicationCategoryId = 0;
     }
-    public boolean save()
-    {
+
+    public boolean save() {
         System.out.printf("method will implements");
         return true;
     }
-    public boolean update()
-    {
+
+    public boolean update() {
         System.out.printf("method will implements");
         return true;
     }
-    public boolean delete()
-    {
+
+    public boolean delete() {
         System.out.printf("method will implements");
         return true;
     }
-    public  static Application getApplication(int applicationId)
-    {
+
+    public static Application getApplication(int applicationId) {
         Application application = new Application("Ruby Mine");
         return application;
     }
