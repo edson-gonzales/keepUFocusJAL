@@ -12,15 +12,16 @@ public class Connection {
     String url = "dataBase\\dbFocusUTime.sqlite";
     public java.sql.Connection connectDataBase;
 
-    public void connect() {
+    public boolean connect() {
         try {
             connectDataBase = DriverManager.getConnection("jdbc:sqlite:" + url);
             if (connectDataBase != null) {
-                System.out.println("Connect ok");
+                return true;
             }
         } catch (SQLException ex) {
             System.err.println("Error connect \n" + ex.getMessage());
         }
+        return false;
     }
 
     //Method
