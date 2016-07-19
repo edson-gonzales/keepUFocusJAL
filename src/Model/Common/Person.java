@@ -95,7 +95,11 @@ public class Person {
         this.setPosition(new Position());
         db = new Connection();
     }
-    //Methods
+
+    /**
+     * This method save a person in the dbKeepUFocus.sqlite database
+     * @return the sql query.
+     */
     public boolean save()
     {
         StringBuilder sql = new StringBuilder();

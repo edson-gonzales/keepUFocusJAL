@@ -4,6 +4,7 @@ import Model.Conection.Connection;
 
 /**
  * This class contains the information of every position, save, update and delete a position of dbKeepUFocus.sqlite data base
+ *
  * @autor: JuanaRodriguez
  */
 public class Position {
@@ -14,6 +15,7 @@ public class Position {
 
     /**
      * Give back the Id from position
+     *
      * @return positionId
      */
     public int getPositionId() {
@@ -22,6 +24,7 @@ public class Position {
 
     /**
      * Modify the Id of the  position
+     *
      * @param positionId
      */
     public void setPositionId(int positionId) {
@@ -30,6 +33,7 @@ public class Position {
 
     /**
      * Give back the position name
+     *
      * @return positionName
      */
     public String getPositionName() {
@@ -38,6 +42,7 @@ public class Position {
 
     /**
      * Modify the Name from position
+     *
      * @param positionName
      */
     public void setPositionName(String positionName) {
@@ -55,20 +60,16 @@ public class Position {
 
     /**
      * This method save a position in the dbKeepUFocus.sqlite database
+     *
      * @return: the sql query.
      */
     public boolean save() {
-
         StringBuilder sql = new StringBuilder();
         sql.append("insert into Position(positionName)");
         sql.append(String.format("Values('%s')", this.getPositionName()));
         return db.execute(sql.toString());
     }
 
-    /**
-     *
-     * @return
-     */
     public boolean update() {
         System.out.printf("method will implements");
         return true;

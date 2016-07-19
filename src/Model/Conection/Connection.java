@@ -6,31 +6,33 @@ import java.sql.SQLException;
 
 /**
  * This class does the connection to the dbKeepUFocus.sqlite data base
+ *
  * @autor JuanaRodriguez
  */
-public class Connection
-{
+public class Connection {
 
     String url = "dataBase\\dbFocusUTime.sqlite";
     public java.sql.Connection connectDataBase;
 
     /**
      * This method connect to the dbFocusUTime.sqlite database and use a try-catch for get the exceptions
+     *
+     * @return true if the connection was successful
      */
-    public void connect()
-    {
+    public boolean connect() {
         try {
             connectDataBase = DriverManager.getConnection("jdbc:sqlite:" + url);
-            if (connectDataBase!=null) {
-                System.out.println("Connect ok");
+            if (connectDataBase != null) {
+                return true;
             }
-        }catch (SQLException ex) {
-            System.err.println("Error connect \n"+ex.getMessage());
+        } catch (SQLException ex) {
+            System.err.println("Error connect \n" + ex.getMessage());
         }
+        return false;
     }
 
-     /**
-     * This method close the connection to dbFocusUTime.sqlite database
+    /**
+     * This method close the connection to dbFocusUTime.sqlite database.
      */
     public void closeDataBase() {
         try {
@@ -41,20 +43,20 @@ public class Connection
     }
 
     /**
-     * This method receives a string containing a sql query to execute and get back a boolean value (false) if isn't successfully
-     * @param sql
-     * @return
+     * This method execute a sql query
+     *
+     * @param sql retreive the sql query
+     * @return true if the execution was successful
      */
-    public boolean execute(String sql)
-    {
+    public boolean execute(String sql) {
         try {
             connect();
             PreparedStatement ps = connectDataBase.prepareStatement(sql);
             ps.execute();
             ps.close();
             return true;
-        }catch(SQLException e){
-            System.err.println( e.getMessage() );
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
         }
         return false;
     }
