@@ -1,9 +1,6 @@
 package View.AdminUser;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
+import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Component;
 
@@ -31,11 +28,13 @@ public class InitComponent {
      * @param textField  component to be created
      * @param txtSize    dimension of the TextBox
      * @param rightPanel Panel where the component will be added
+     * @return the created JTextfield
      */
-    public static void initTextBox(JTextField textField, Dimension txtSize, JPanel rightPanel) {
+    public static JTextField initTextBox(JTextField textField, Dimension txtSize, JPanel rightPanel) {
         textField = new JTextField(20);
         setSizeComponent(textField, txtSize);
         rightPanel.add(textField);
+        return textField;
     }
 
     /**
@@ -44,11 +43,13 @@ public class InitComponent {
      * @param comboBox   component to be created
      * @param cboxSize   dimension of the ComboBox
      * @param rightPanel Panel where the component will be added
+     * @return the created JCombobox
      */
-    public static void initComboBox(JComboBox comboBox, Dimension cboxSize, JPanel rightPanel) {
+    public static JComboBox initComboBox(JComboBox comboBox, Dimension cboxSize, JPanel rightPanel) {
         comboBox = new JComboBox();
         setSizeComponent(comboBox, cboxSize);
         rightPanel.add(comboBox);
+        return comboBox;
     }
 
     /**
@@ -61,5 +62,18 @@ public class InitComponent {
         comp.setMaximumSize(componentSize);
         comp.setPreferredSize(componentSize);
         comp.setMinimumSize(componentSize);
+    }
+
+    /**
+     * Method to initialize JButton component
+     * @param button component to be created
+     * @param buttonLabel name of the button
+     * @param searchPanel panel where the component is added
+     * @return the created JButton
+     */
+    public static JButton initButton(JButton button, String buttonLabel, JPanel searchPanel) {
+        button = new JButton(buttonLabel);
+        searchPanel.add(button);
+        return button;
     }
 }

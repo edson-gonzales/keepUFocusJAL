@@ -6,7 +6,7 @@ import View.AdminUser.MenuBar;
 /**
  * Main class to create the window
  *
- * @author: Lourdes Villca
+ * @author Lourdes Villca
  */
 public class Main extends JFrame {
     private MenuBar mainMenuBar;
@@ -22,7 +22,7 @@ public class Main extends JFrame {
         this.setJMenuBar(mainMenuBar);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(700, 700);
+        setSize(800, 700);
         setVisible(true);
     }
 

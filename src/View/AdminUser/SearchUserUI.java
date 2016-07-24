@@ -1,6 +1,7 @@
 package View.AdminUser;
 
 import Utils.Constants;
+import View.Events.UserEvent;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -19,7 +20,10 @@ public class SearchUserUI extends JPanel {
     private JLabel searchLabel;
     private JTextField searchField;
     private JButton searchButton;
+    private JButton newUserButton;
     private JPanel searchPanel;
+    private UserEvent userEvent;
+    private AddUserUI addUserUI;
     private ResourceBundle resource;
 
     /**
@@ -44,8 +48,19 @@ public class SearchUserUI extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         InitComponent.initLabel(searchLabel, resource.getString("admin.label.name"), panel);
-        InitComponent.initTextBox(searchField, new Dimension(150, 25), panel);
-        InitComponent.initButton(searchButton, resource.getString("common.label.searchButton"), panel);
+        searchField = InitComponent.initTextBox(searchField, new Dimension(150, 25), panel);
+
+        searchButton = InitComponent.initButton(searchButton, resource.getString("common.label.searchButton"), panel);
+        newUserButton = InitComponent.initButton(newUserButton, resource.getString("common.label.newUser"), panel);
+
+        searchButton.setActionCommand("1");
+        newUserButton.setActionCommand("2");
+
+        addUserUI = new AddUserUI();
+        userEvent = new UserEvent(addUserUI);
+
+        searchButton.addActionListener(userEvent);
+        newUserButton.addActionListener(userEvent);
 
         InitComponent.setSizeComponent(panel, new Dimension(640, 50));
         return panel;
