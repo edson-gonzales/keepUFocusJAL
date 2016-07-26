@@ -1,13 +1,18 @@
 package View.Events;
 
+import Controller.UserAdmin.UserControllers;
+import Model.UserAdmin.User;
+import View.AdminUser.AddUserUI;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import Controller.UserAdmin.ControllerUsers;
+import Controller.UserAdmin.UserControllers;
 import View.AdminUser.AddUserUI;
-import Model.AdminUser.User;
+import Model.UserAdmin.User;
 import View.AdminUser.LeftPanelUserUI;
 import View.AdminUser.TableUser;
 
@@ -19,12 +24,13 @@ import javax.swing.*;
  * @author Lourdes Villca
  */
 public class UserEvent implements ActionListener, MouseListener {
-    private ControllerUsers userController;
+    private UserControllers userController;
     private AddUserUI addUserUI;
     private TableUser tableUser;
 
     /**
      * Create a User event object
+     *
      * @param addUserUI view form where the action happens
      */
     public UserEvent(AddUserUI addUserUI) {
@@ -58,12 +64,12 @@ public class UserEvent implements ActionListener, MouseListener {
                 user.setUserName(addUserUI.getLeftPanel().getUserName());
                 user.setPassword(addUserUI.getLeftPanel().getPassword());
                 user.setEnable(addUserUI.getLeftPanel().getStatus());
-                user.setAddress(addUserUI.getRightPanel().getAddress());
-                user.setEmail(addUserUI.getRightPanel().getEmail());
-                user.setRole(addUserUI.getRightPanel().getRole());
-                user.setPossition(addUserUI.getRightPanel().getPosition());
+//                user.setAddress(addUserUI.getRightPanel().getAddress());
+//                user.setEmail(addUserUI.getRightPanel().getEmail());
+//                user.setRole(addUserUI.getRightPanel().getRole());
+//                user.setPossition(addUserUI.getRightPanel().getPosition());
 
-                ControllerUsers controllerUsers = new ControllerUsers();
+                UserControllers controllerUsers = new UserControllers();
                 controllerUsers.saveUser(user);
                 break;
 
@@ -93,7 +99,6 @@ public class UserEvent implements ActionListener, MouseListener {
     public void mousePressed(MouseEvent e) {
 
     }
-
     @Override
     public void mouseReleased(MouseEvent e) {
 
