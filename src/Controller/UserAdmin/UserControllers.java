@@ -1,9 +1,9 @@
 package Controller.UserAdmin;
 
 
+import Model.Common.Position;
 import Model.UserAdmin.Role;
 import Model.UserAdmin.User;
-import Model.Common.Position;
 
 import java.util.List;
 
@@ -49,8 +49,7 @@ public class UserControllers {
      * @return Get list Users.
      */
     public List<User> getListUser() {
-        User user = new User();
-        return user.getListUser();
+        return User.getListUser();
     }
 
     /**
@@ -89,8 +88,7 @@ public class UserControllers {
      * @return Get list Roles.
      */
     public List<Role> getListRole() {
-        Role role = new Role();
-        return role.getListRole();
+        return Role.getListRole();
     }
 
     /**
@@ -129,7 +127,6 @@ public class UserControllers {
      * @return Get list Positions.
      */
     public List<Position> getListPosition() {
-        Position position = new Position();
-        return position.getListPosition();
+        return Position.getListPosition();
     }
 }

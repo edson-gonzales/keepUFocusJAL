@@ -1,11 +1,12 @@
 package Test.Controller.Applications;
 
+import Controller.Applications.ApplicationControllers;
 import Model.Applications.Application;
 import Model.Applications.ApplicationCategory;
-import Controller.Applications.ApplicationControllers;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
+
 /**
  * Created by AldoBalderrama on 7/25/2016.
  */
@@ -19,7 +20,7 @@ public class ApplicationControllersTest {
 
     @Test
     public void updateOneApplicationWithApplicationControllers() {
-        Application application = Application.getApplication(1);
+        Application application = Application.getApplicationById(1);
         application.setApplicationName("Ruby Mine Test");
         ApplicationControllers applicationControllers = new ApplicationControllers();
         assertTrue(applicationControllers.updateApplication(application));
@@ -27,7 +28,7 @@ public class ApplicationControllersTest {
 
     @Test
     public void deleteOneApplicationWithApplicationControllers() {
-        Application applicationCategory = Application.getApplication(1);
+        Application applicationCategory = Application.getApplicationById(1);
         ApplicationControllers applicationControllers = new ApplicationControllers();
         assertTrue(applicationControllers.deleteApplication(applicationCategory));
     }
@@ -41,7 +42,7 @@ public class ApplicationControllersTest {
 
     @Test
     public void updateOneApplicationCategoryWithApplicationCategoryControllers() {
-        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategory(1);
+        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(1);
         applicationCategory.setApplicationCategoryName("Test");
         ApplicationControllers applicationControllers = new ApplicationControllers();
         assertTrue(applicationControllers.updateApplicationCategory(applicationCategory));
@@ -49,7 +50,7 @@ public class ApplicationControllersTest {
 
     @Test
     public void deleteOneApplicationCategoryWithApplicationCategoryControllers() {
-        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategory(1);
+        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(1);
         ApplicationControllers applicationControllers = new ApplicationControllers();
         assertTrue(applicationControllers.deleteApplicationCategory(applicationCategory));
     }

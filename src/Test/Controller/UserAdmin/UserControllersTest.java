@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import java.util.Random;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -34,7 +33,7 @@ public class UserControllersTest {
 
     @Test
     public void updateOneUserWithUserControllers() {
-        User user = User.getUser(15);
+        User user = User.getUserById(15);
         user.setUserName("omBalderrama");
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.updateUser(user));
@@ -42,7 +41,7 @@ public class UserControllersTest {
 
     @Test
     public void deleteOneUserWithUserControllers() {
-        User user = User.getUser(15);
+        User user = User.getUserById(15);
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.deleteUser(user));
     }
@@ -62,7 +61,7 @@ public class UserControllersTest {
 
     @Test
     public void updateOneRoleWithUserControllers() {
-        Role role = Role.getRole(1);
+        Role role = Role.getRoleById(1);
         role.setRolName("User-update");
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.updateRole(role));
@@ -70,7 +69,7 @@ public class UserControllersTest {
 
     @Test
     public void deleteOneRoleWithUserControllers() {
-        Role role = Role.getRole(1);
+        Role role = Role.getRoleById(1);
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.deleteRole(role));
     }
@@ -94,10 +93,9 @@ public class UserControllersTest {
     @Test
     public void updateOnePositionWithUserControllers() {
         Random r = new Random();
-        Position position = Position.getPosition(1);
+        Position position = Position.getPositionById(1);
         position.setPositionName("Test-" + r.nextInt(100));
         UserControllers userControllers = new UserControllers();
-
         assertTrue(userControllers.updatePosition(position));
     }
 
