@@ -24,6 +24,7 @@ public class MenuBar extends JMenuBar {
     private JMenuItem itemUser;
     private JMenuItem itemApplication;
     private JMenuItem itemFocusTime;
+    private MenuEvents menuEvents;
 
     private ResourceBundle resource;
 
@@ -34,33 +35,54 @@ public class MenuBar extends JMenuBar {
      */
     public MenuBar(final JFrame mainWindow) {
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
+        menuEvents = new MenuEvents(mainWindow);
+        buildMenuAdmin();
+        buildMenuConfiguration();
+        buildMenuReport();
 
+    }
+
+    /**
+     * Build the Menu Administration
+     *
+     */
+    public void buildMenuAdmin() {
         menuAdministration = new JMenu(resource.getString("menu.label.administration"));
-        menuConfiguration = new JMenu(resource.getString("menu.label.configuration"));
-        menuReports = new JMenu(resource.getString("menu.label.reports"));
-
         itemUser = new JMenuItem(resource.getString("menuItem.label.user"));
-        itemApplication = new JMenuItem(resource.getString("menuItem.label.application"));
-        itemFocusTime = new JMenuItem(resource.getString("menuItem.label.focusTime"));
 
-        this.add(menuAdministration);
-        this.add(menuConfiguration);
-        this.add(menuReports);
 
         menuAdministration.add(itemUser);
+        itemUser.setActionCommand("1");
+        itemUser.addActionListener(menuEvents);
+
+        this.add(menuAdministration);
+    }
+
+    /**
+     * Build the Configuration menu
+     */
+    public void buildMenuConfiguration() {
+        menuConfiguration = new JMenu(resource.getString("menu.label.configuration"));
+        itemApplication = new JMenuItem(resource.getString("menuItem.label.application"));
+        itemFocusTime = new JMenuItem(resource.getString("menuItem.label.focusTime"));
 
         menuConfiguration.add(itemApplication);
         menuConfiguration.add(itemFocusTime);
 
-        itemUser.setActionCommand("1");
         itemFocusTime.setActionCommand("2");
         itemApplication.setActionCommand("3");
 
-        MenuEvents menuEvents = new MenuEvents(mainWindow);
-
-        itemUser.addActionListener(menuEvents);
-        itemApplication.addActionListener(menuEvents);
         itemFocusTime.addActionListener(menuEvents);
+        itemApplication.addActionListener(menuEvents);
 
+        this.add(menuConfiguration);
+    }
+
+    /**
+     * Build the Report Menu
+     */
+    public void buildMenuReport() {
+        menuReports = new JMenu(resource.getString("menu.label.reports"));
+        this.add(menuReports);
     }
 }

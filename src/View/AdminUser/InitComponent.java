@@ -76,4 +76,9 @@ public class InitComponent {
         searchPanel.add(button);
         return button;
     }
+    public static JCheckBox initCheckBox(JCheckBox checkBox, String checkLabel, JPanel panel) {
+        checkBox = new JCheckBox(checkLabel);
+        panel.add(checkBox);
+        return checkBox;
+    }
 }

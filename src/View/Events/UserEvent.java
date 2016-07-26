@@ -8,6 +8,7 @@ import java.awt.event.MouseListener;
 import Controller.UserAdmin.ControllerUsers;
 import View.AdminUser.AddUserUI;
 import Model.AdminUser.User;
+import View.AdminUser.LeftPanelUserUI;
 import View.AdminUser.TableUser;
 
 import javax.swing.*;
@@ -52,15 +53,15 @@ public class UserEvent implements ActionListener, MouseListener {
 
                 // send this information to the controller
                 User user = new User();
-                user.setFirstName(addUserUI.getName());
-                user.setLastName(addUserUI.getLastName());
-                user.setUserName(addUserUI.getUserName());
-                user.setPassword(addUserUI.getPassword());
-                user.setEnable(addUserUI.getStatus());
-                user.setAddress(addUserUI.getAddress());
-                user.setEmail(addUserUI.getEmail());
-                user.setRole(addUserUI.getRole());
-                user.setPossition(addUserUI.getPosition());
+                user.setFirstName(addUserUI.getLeftPanel().getName());
+                user.setLastName(addUserUI.getLeftPanel().getLastName());
+                user.setUserName(addUserUI.getLeftPanel().getUserName());
+                user.setPassword(addUserUI.getLeftPanel().getPassword());
+                user.setEnable(addUserUI.getLeftPanel().getStatus());
+                user.setAddress(addUserUI.getRightPanel().getAddress());
+                user.setEmail(addUserUI.getRightPanel().getEmail());
+                user.setRole(addUserUI.getRightPanel().getRole());
+                user.setPossition(addUserUI.getRightPanel().getPosition());
 
                 ControllerUsers controllerUsers = new ControllerUsers();
                 controllerUsers.saveUser(user);
