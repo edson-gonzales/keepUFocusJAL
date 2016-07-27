@@ -14,9 +14,6 @@ import static org.junit.Assert.assertTrue;
  * Created by AldoBalderrama on 7/25/2016.
  */
 public class UserControllersTest {
-    /**
-     *
-     */
     @Test
     public void saveOneUserWithUserControllers() {
         User user = new User();
@@ -27,22 +24,27 @@ public class UserControllersTest {
         user.setPassword("1234");
         user.setEnable(true);
         UserControllers userControllers = new UserControllers();
-
         assertTrue(userControllers.saveUser(user));
+        userControllers.deleteUser(user);
     }
 
     @Test
     public void updateOneUserWithUserControllers() {
-        User user = User.getUserById(15);
-        user.setUserName("omBalderrama");
         UserControllers userControllers = new UserControllers();
+        User otherUser = new User("Aldo", "Balderrama", "mabalderramav", "1234");
+        userControllers.saveUser(otherUser);
+        User user = User.getUserById(otherUser.getUserId());
+        user.setUserName("omBalderrama");
         assertTrue(userControllers.updateUser(user));
+        userControllers.deleteUser(user);
     }
 
     @Test
     public void deleteOneUserWithUserControllers() {
-        User user = User.getUserById(15);
         UserControllers userControllers = new UserControllers();
+        User otherUser = new User("Aldo", "Balderrama", "mabalderramav", "1234");
+        userControllers.saveUser(otherUser);
+        User user = User.getUserById(otherUser.getUserId());
         assertTrue(userControllers.deleteUser(user));
     }
 
@@ -57,20 +59,26 @@ public class UserControllersTest {
         Role role = new Role("User");
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.saveRole(role));
+        userControllers.deleteRole(role);
     }
 
     @Test
     public void updateOneRoleWithUserControllers() {
-        Role role = Role.getRoleById(1);
-        role.setRolName("User-update");
         UserControllers userControllers = new UserControllers();
+        Role otherRole = new Role("User");
+        userControllers.saveRole(otherRole);
+        Role role = Role.getRoleById(otherRole.getRoleId());
+        role.setRolName("User-update");
         assertTrue(userControllers.updateRole(role));
+        userControllers.deleteRole(role);
     }
 
     @Test
     public void deleteOneRoleWithUserControllers() {
-        Role role = Role.getRoleById(1);
         UserControllers userControllers = new UserControllers();
+        Role otherRole = new Role("User");
+        userControllers.saveRole(otherRole);
+        Role role = Role.getRoleById(otherRole.getRoleId());
         assertTrue(userControllers.deleteRole(role));
     }
 
@@ -82,32 +90,31 @@ public class UserControllersTest {
 
     @Test
     public void saveOnePositionWithUserControllers() {
-        Random r = new Random();
-        Position position = new Position();
-        position.setPositionName("Development-" + r.nextInt(100));
-        position.setEnable(true);
         UserControllers userControllers = new UserControllers();
+        Position position = new Position();
+        position.setPositionName("Development");
+        position.setEnable(true);
         assertTrue(userControllers.savePosition(position));
+        userControllers.deletePosition(position);
     }
 
     @Test
     public void updateOnePositionWithUserControllers() {
-        Random r = new Random();
-        Position position = Position.getPositionById(1);
-        position.setPositionName("Test-" + r.nextInt(100));
         UserControllers userControllers = new UserControllers();
+        Position otherPosition = new Position("Development",true);
+        userControllers.savePosition(otherPosition);
+        Position position = Position.getPositionById(otherPosition.getPositionId());
+        position.setPositionName("Development-update");
         assertTrue(userControllers.updatePosition(position));
+        userControllers.deletePosition(position);
     }
 
     @Test
     public void deleteOnePositionWithUserControllers() {
-
-        Random r = new Random();
-        Position position = new Position();
-        position.setPositionName("Development-" + r.nextInt(100));
-        position.setEnable(true);
         UserControllers userControllers = new UserControllers();
-        userControllers.savePosition(position);
+        Position otherPosition = new Position("Development",true);
+        userControllers.savePosition(otherPosition);
+        Position position = Position.getPositionById(otherPosition.getPositionId());
         assertTrue(userControllers.deletePosition(position));
     }
 

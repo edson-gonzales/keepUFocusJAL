@@ -16,42 +16,54 @@ public class ApplicationControllersTest {
         Application application = new Application("Ruby Mine");
         ApplicationControllers applicationControllers = new ApplicationControllers();
         assertTrue(applicationControllers.saveApplication(application));
+        applicationControllers.deleteApplication(application);
     }
 
     @Test
     public void updateOneApplicationWithApplicationControllers() {
-        Application application = Application.getApplicationById(1);
-        application.setApplicationName("Ruby Mine Test");
         ApplicationControllers applicationControllers = new ApplicationControllers();
+        Application otherApplication = new Application("Ruby mine");
+        applicationControllers.saveApplication(otherApplication);
+        Application application = Application.getApplicationById(otherApplication.getApplicationId());
+        application.setApplicationName("Ruby Mine Update");
         assertTrue(applicationControllers.updateApplication(application));
+        applicationControllers.deleteApplication(application);
     }
 
     @Test
     public void deleteOneApplicationWithApplicationControllers() {
-        Application applicationCategory = Application.getApplicationById(1);
         ApplicationControllers applicationControllers = new ApplicationControllers();
-        assertTrue(applicationControllers.deleteApplication(applicationCategory));
+        Application otherApplication = new Application("Ruby mine");
+        applicationControllers.saveApplication(otherApplication);
+        Application application = Application.getApplicationById(otherApplication.getApplicationId());
+        assertTrue(applicationControllers.deleteApplication(application));
     }
 
     @Test
     public void saveOneApplicationCategoryWithApplicationCategoryControllers() {
-        ApplicationCategory applicationCategory = new ApplicationCategory("Work");
         ApplicationControllers applicationControllers = new ApplicationControllers();
+        ApplicationCategory applicationCategory = new ApplicationCategory("Work");
         assertTrue(applicationControllers.saveApplicationCategory(applicationCategory));
+        applicationControllers.deleteApplicationCategory(applicationCategory);
     }
 
     @Test
     public void updateOneApplicationCategoryWithApplicationCategoryControllers() {
-        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(1);
-        applicationCategory.setApplicationCategoryName("Test");
         ApplicationControllers applicationControllers = new ApplicationControllers();
+        ApplicationCategory otherApplicationCategory = new ApplicationCategory("Work");
+        applicationControllers.saveApplicationCategory(otherApplicationCategory);
+        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(otherApplicationCategory.getApplicationCategoryId());
+        applicationCategory.setApplicationCategoryName("Test");
         assertTrue(applicationControllers.updateApplicationCategory(applicationCategory));
+        applicationControllers.deleteApplicationCategory(applicationCategory);
     }
 
     @Test
     public void deleteOneApplicationCategoryWithApplicationCategoryControllers() {
-        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(1);
         ApplicationControllers applicationControllers = new ApplicationControllers();
+        ApplicationCategory otherApplicationCategory = new ApplicationCategory("Work");
+        applicationControllers.saveApplicationCategory(otherApplicationCategory);
+        ApplicationCategory applicationCategory = ApplicationCategory.getApplicationCategoryById(otherApplicationCategory.getApplicationCategoryId());
         assertTrue(applicationControllers.deleteApplicationCategory(applicationCategory));
     }
 }
