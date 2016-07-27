@@ -24,6 +24,7 @@ public class MenuBar extends JMenuBar {
     private JMenuItem itemUser;
     private JMenuItem itemApplication;
     private JMenuItem itemFocusTime;
+    private JMenuItem itemActivityReport;
     private MenuEvents menuEvents;
 
     private ResourceBundle resource;
@@ -52,7 +53,7 @@ public class MenuBar extends JMenuBar {
 
 
         menuAdministration.add(itemUser);
-        itemUser.setActionCommand("1");
+        itemUser.setActionCommand(Constants.USER_LIST);
         itemUser.addActionListener(menuEvents);
 
         this.add(menuAdministration);
@@ -69,8 +70,8 @@ public class MenuBar extends JMenuBar {
         menuConfiguration.add(itemApplication);
         menuConfiguration.add(itemFocusTime);
 
-        itemFocusTime.setActionCommand("2");
-        itemApplication.setActionCommand("3");
+        itemFocusTime.setActionCommand(Constants.FOCUS_TIME_CONFIG);
+        itemApplication.setActionCommand(Constants.APP_CONFIG);
 
         itemFocusTime.addActionListener(menuEvents);
         itemApplication.addActionListener(menuEvents);
@@ -83,6 +84,12 @@ public class MenuBar extends JMenuBar {
      */
     public void buildMenuReport() {
         menuReports = new JMenu(resource.getString("menu.label.reports"));
+        itemActivityReport = new JMenuItem(resource.getString("menu.label.activityReport"));
+
+        itemActivityReport.setActionCommand(Constants.ACTIVITY_REPORT);
+
+        itemActivityReport.addActionListener(menuEvents);
+        menuReports.add(itemActivityReport);
         this.add(menuReports);
     }
 }
