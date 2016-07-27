@@ -2,11 +2,12 @@ package Test.Controller.UserAdmin;
 
 import Controller.UserAdmin.UserControllers;
 import Model.Common.Position;
+import Model.Connections.DataAccess;
 import Model.UserAdmin.Role;
 import Model.UserAdmin.User;
 import org.junit.Test;
 
-import java.util.Random;
+import java.sql.ResultSet;
 
 import static org.junit.Assert.assertTrue;
 
@@ -50,8 +51,24 @@ public class UserControllersTest {
 
     @Test
     public void getListUserWithUserControllers() {
+        DataAccess dataAccess = new DataAccess();
+        int count = 0;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT Count(*) as Count ");
+        sql.append("FROM User");
+        ResultSet resultSet = dataAccess.select(sql.toString());
+        try {
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            resultSet.close();
+            dataAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
         UserControllers userControllers = new UserControllers();
-        assertTrue(userControllers.getListUser().size() > 0);
+        int countUsers = userControllers.getListUser().size();
+        assertTrue(countUsers == count);
     }
 
     @Test
@@ -84,8 +101,23 @@ public class UserControllersTest {
 
     @Test
     public void getListRoleWithUserControllers() {
+        DataAccess dataAccess = new DataAccess();
+        int count = 0;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT Count(*) as Count ");
+        sql.append("FROM Role");
+        ResultSet resultSet = dataAccess.select(sql.toString());
+        try {
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            resultSet.close();
+            dataAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
         UserControllers userControllers = new UserControllers();
-        assertTrue(userControllers.getListRole().size() > 0);
+        assertTrue(userControllers.getListRole().size() == count);
     }
 
     @Test
@@ -101,7 +133,7 @@ public class UserControllersTest {
     @Test
     public void updateOnePositionWithUserControllers() {
         UserControllers userControllers = new UserControllers();
-        Position otherPosition = new Position("Development",true);
+        Position otherPosition = new Position("Development", true);
         userControllers.savePosition(otherPosition);
         Position position = Position.getPositionById(otherPosition.getPositionId());
         position.setPositionName("Development-update");
@@ -112,7 +144,7 @@ public class UserControllersTest {
     @Test
     public void deleteOnePositionWithUserControllers() {
         UserControllers userControllers = new UserControllers();
-        Position otherPosition = new Position("Development",true);
+        Position otherPosition = new Position("Development", true);
         userControllers.savePosition(otherPosition);
         Position position = Position.getPositionById(otherPosition.getPositionId());
         assertTrue(userControllers.deletePosition(position));
@@ -120,7 +152,22 @@ public class UserControllersTest {
 
     @Test
     public void getListPositionWithUserControllers() {
+        DataAccess dataAccess = new DataAccess();
+        int count = 0;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT Count(*) as Count ");
+        sql.append("FROM Position");
+        ResultSet resultSet = dataAccess.select(sql.toString());
+        try {
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            resultSet.close();
+            dataAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
         UserControllers userControllers = new UserControllers();
-        assertTrue(userControllers.getListPosition().size() > 0);
+        assertTrue(userControllers.getListPosition().size() == count);
     }
 }
