@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import Controller.UserAdmin.ControllerUsers;
+import Utils.Constants;
 import View.AdminUser.AddUserUI;
 import Model.AdminUser.User;
 import View.AdminUser.LeftPanelUserUI;
@@ -41,15 +42,17 @@ public class UserEvent implements ActionListener, MouseListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        int action = Integer.parseInt(e.getActionCommand());
+
+        String action = e.getActionCommand();
+
         switch(action){
-            case 1://search a user
+            case Constants.USER_LIST://search a user
                 break;
-            case 2://open a form to create a new user
+            case Constants.CREATE_USER://open a form to create a new user
                 updateDialog();
                 break;
 
-            case 3: // accept button to save a user
+            case Constants.SAVE_USER: // accept button to save a user
 
                 // send this information to the controller
                 User user = new User();
@@ -58,16 +61,16 @@ public class UserEvent implements ActionListener, MouseListener {
                 user.setUserName(addUserUI.getLeftPanel().getUserName());
                 user.setPassword(addUserUI.getLeftPanel().getPassword());
                 user.setEnable(addUserUI.getLeftPanel().getStatus());
-                user.setAddress(addUserUI.getRightPanel().getAddress());
+                /*user.setAddress(addUserUI.getRightPanel().getAddress());
                 user.setEmail(addUserUI.getRightPanel().getEmail());
                 user.setRole(addUserUI.getRightPanel().getRole());
                 user.setPossition(addUserUI.getRightPanel().getPosition());
 
                 ControllerUsers controllerUsers = new ControllerUsers();
-                controllerUsers.saveUser(user);
+                controllerUsers.saveUser(user);*/
                 break;
 
-            case 4:
+            case Constants.CANCEL_USER: // Cancel save user
                 break;
         }
 
@@ -77,18 +80,17 @@ public class UserEvent implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent evt) {
         int row = tableUser.table.rowAtPoint(evt.getPoint());
         int column = tableUser.table.columnAtPoint(evt.getPoint());
-        System.out.println(column);
+
         switch (column){
-            case 4:
+            case Constants.UPDATE_USER: //Update User
                 updateDialog();
                 break;
-            case 5:
+            case Constants.DELETE_USER: //Delete User
                 deleteDialog(row);
                 break;
         }
 
     }
-
     @Override
     public void mousePressed(MouseEvent e) {
 

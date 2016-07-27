@@ -55,8 +55,8 @@ public class AddUserUI extends JPanel {
 
         userEvent = new UserEvent(this);
 
-        acceptBtn.setActionCommand("3");
-        cancelBtn.setActionCommand("4");
+        acceptBtn.setActionCommand(Constants.SAVE_USER);
+        cancelBtn.setActionCommand(Constants.CANCEL_USER);
 
         acceptBtn.addActionListener(userEvent);
         cancelBtn.addActionListener(userEvent);
