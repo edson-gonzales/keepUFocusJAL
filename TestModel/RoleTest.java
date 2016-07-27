@@ -12,12 +12,13 @@ public class RoleTest {
         role.setRoleName("Administrator");
         role.save();
         Assert.assertEquals(role.getRoleName(), Role.getRoleById(role.getRoleId()).getRoleName());
+        role.delete();
     }
 
     @Test
     public void VerifyThatARoleWasUpdated() {
         Role role = new Role();
-        role.setRoleName("s");
+        role.setRoleName("Administrato");
         role.save();
         Role otherRole = Role.getRoleById(role.getRoleId());
         otherRole.setRoleName("Administrator");

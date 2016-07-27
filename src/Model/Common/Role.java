@@ -3,7 +3,7 @@ package Model.Common;
 import Model.Conection.DataAccess;
 
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  * @autor: JuanaRodriguez
@@ -14,43 +14,43 @@ public class Role {
     private DataAccess dbAccess;
 
     /**
-     * Give back a role
+     * The method return the Id of the role
      *
-     * @return roleId
+     * @return roleId, this variable is a integer value
      */
     public int getRoleId() {
         return roleId;
     }
 
     /**
-     * Modify the id from the role
+     * The method set the id of the role
      *
-     * @param roleId
+     * @param roleId will be set in the role
      */
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
     /**
-     * Give back a role
+     * The method return the name of the role
      *
-     * @return roleId
+     * @return roleName, this variable is string value
      */
     public String getRoleName() {
         return roleName;
     }
 
     /**
-     * Modify the id from the role
+     * The method set the name of the role
      *
-     * @param roleName
+     * @param roleName will be set in the role
      */
     public void setRoleName(String roleName) {
         this.roleName = roleName;
     }
 
     /**
-     * This method construct the object Role
+     * The method construct the Role object and instance the DataAccess class.
      */
     public Role() {
         this.setRoleId(0);
@@ -59,7 +59,7 @@ public class Role {
     }
 
     /**
-     * This method insert a role in the database, catch the id from the role inserted in the "result" variable
+     * The method insert a role in the database, catch the id from the role inserted in the "result" variable
      *
      * @return the saved flag that help us to check if the role was inserted, this  flag return true if the
      * role was inserted correctly.
@@ -86,10 +86,10 @@ public class Role {
     }
 
     /**
-     * This method find a specific role through of its Id
+     * The method get a specific role given an Id
      *
-     * @param roleId
-     * @return the object role
+     * @param roleId the id of the role to get a specific role
+     * @return the Role object
      */
     public static Role getRoleById(int roleId) {
         Role role = null;
@@ -113,7 +113,7 @@ public class Role {
     }
 
     /**
-     * This method updates a role and give back true through of updated variable if the date was modify successfully
+     * The method updates a role and give back true through of updated variable if the date was modify successfully
      * using the method update from DataAccess class.
      *
      * @return updated true if the date was modify successfully and false if it wasn't modify
@@ -121,7 +121,7 @@ public class Role {
     public boolean update() {
         boolean updated = false;
         StringBuilder sql = new StringBuilder("update Role set ");
-        sql.append(String.format("roleName = '%s' ", this.getRoleName()));
+        sql.append(String.format("roleName = '%s' ", getRoleName()));
         sql.append(String.format("where roleId = %s", getRoleId()));
         updated = dbAccess.update(sql.toString());
         dbAccess.closeConnection();
@@ -129,7 +129,7 @@ public class Role {
     }
 
     /**
-     * This method deletes a role and give back true through of deleted variable if the date was delete successfully
+     * The method deletes a role and give back true through of deleted variable if the date was delete successfully
      * using the method deleted from DataAccess class.     *
      *
      * @return deleted true if the date was deleted successfully
@@ -142,6 +142,4 @@ public class Role {
         dbAccess.closeConnection();
         return deleted;
     }
-
-
 }
