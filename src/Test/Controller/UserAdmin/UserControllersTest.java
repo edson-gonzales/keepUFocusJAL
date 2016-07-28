@@ -85,7 +85,7 @@ public class UserControllersTest {
         Role otherRole = new Role("User");
         userControllers.saveRole(otherRole);
         Role role = Role.getRoleById(otherRole.getRoleId());
-        role.setRolName("User-update");
+        role.setRoleName("User-update");
         assertTrue(userControllers.updateRole(role));
         userControllers.deleteRole(role);
     }
