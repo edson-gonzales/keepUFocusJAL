@@ -62,6 +62,7 @@ public class MenuEvents implements ActionListener {
      * @param panel to be added into the main frame
      */
     public void refreshMainFrame(JPanel panel) {
+
         mainWindow.getContentPane().add(panel, BorderLayout.CENTER);
         mainWindow.setSize(mainWindow.getWidth() + 1, mainWindow.getHeight() + 1);
         mainWindow.setSize(mainWindow.getWidth() - 1, mainWindow.getHeight() - 1);

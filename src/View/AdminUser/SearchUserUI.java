@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
+
 import Utils.Constants;
 import View.Events.UserEvent;
 

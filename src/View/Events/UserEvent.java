@@ -53,6 +53,7 @@ public class UserEvent extends MouseAdapter implements ActionListener {
         String action = e.getActionCommand();
 
         switch (action) {
+
             case Constants.USER_LIST://search a user
                 break;
             case Constants.CREATE_USER://open a form to create a new user

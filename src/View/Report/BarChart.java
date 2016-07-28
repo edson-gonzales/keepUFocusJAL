@@ -38,7 +38,6 @@ public class BarChart extends JPanel {
         final String millage = "Postman";
         final String userrating = "Ruby";
         final String safety = "safety";
-
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
 
         dataset.addValue(1.0, fiat, speed);
