@@ -14,6 +14,9 @@ import java.awt.Dimension;
 public class TableUser extends JPanel {
     public JTable table;
 
+    /**
+     * Initialize the table that contain the user list
+     */
     public TableUser() {
         super(new GridLayout(1, 0));
 

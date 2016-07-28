@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import java.util.ResourceBundle;
+
 import Utils.Constants;
 import View.AdminUser.InitComponent;
 
@@ -17,7 +18,7 @@ import View.AdminUser.InitComponent;
  *
  * @author Lourdes Villca
  */
-public class ConfigureFocusTime extends JPanel{
+public class ConfigureFocusTime extends JPanel {
     private JLabel daysToSelectTitleLabel;
     private JLabel sundayLabel;
     private JLabel mondayLabel;
@@ -41,9 +42,11 @@ public class ConfigureFocusTime extends JPanel{
     private JPanel hoursPanel;
     private ResourceBundle resource;
 
-    public ConfigureFocusTime(){
+    /**
+     * Init the components and define the Layout for panels
+     */
+    public ConfigureFocusTime() {
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
-
         daysPanel = buildDaysPanel();
         hoursPanel = buildHoursPanel();
         this.add(daysPanel, BorderLayout.LINE_START);
@@ -56,18 +59,17 @@ public class ConfigureFocusTime extends JPanel{
      *
      * @return the Panel with the days to be selected
      */
-
-    public JPanel buildDaysPanel(){
+    public JPanel buildDaysPanel() {
         JPanel daysPanel = new JPanel();
         daysPanel.setLayout(new BoxLayout(daysPanel, BoxLayout.Y_AXIS));
         InitComponent.initLabel(daysToSelectTitleLabel, resource.getString("config.label.daysTitle"), daysPanel);
-        sundayCheckBox = InitComponent.initCheckBox(sundayCheckBox,resource.getString("config.label.sunday"),daysPanel);
-        mondayCheckBox = InitComponent.initCheckBox(mondayCheckBox,resource.getString("config.label.monday"),daysPanel);
-        tuesdayCheckBox = InitComponent.initCheckBox(tuesdayCheckBox,resource.getString("config.label.tuesday"),daysPanel);
-        wednesdayCheckBox = InitComponent.initCheckBox(wednesdayCheckBox,resource.getString("config.label.wednesday"),daysPanel);
+        sundayCheckBox = InitComponent.initCheckBox(sundayCheckBox, resource.getString("config.label.sunday"), daysPanel);
+        mondayCheckBox = InitComponent.initCheckBox(mondayCheckBox, resource.getString("config.label.monday"), daysPanel);
+        tuesdayCheckBox = InitComponent.initCheckBox(tuesdayCheckBox, resource.getString("config.label.tuesday"), daysPanel);
+        wednesdayCheckBox = InitComponent.initCheckBox(wednesdayCheckBox, resource.getString("config.label.wednesday"), daysPanel);
         thursdayCheckBox = InitComponent.initCheckBox(thursdayCheckBox, resource.getString("config.label.thursday"), daysPanel);
         fridayCheckBox = InitComponent.initCheckBox(fridayCheckBox, resource.getString("config.label.friday"), daysPanel);
-        saturdayCheckBox = InitComponent.initCheckBox(saturdayCheckBox,resource.getString("config.label.saturday"),daysPanel);
+        saturdayCheckBox = InitComponent.initCheckBox(saturdayCheckBox, resource.getString("config.label.saturday"), daysPanel);
         daysPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         return daysPanel;
 
@@ -78,12 +80,12 @@ public class ConfigureFocusTime extends JPanel{
      *
      * @return the Panel with the ComboBox to select the hours
      */
-    public JPanel buildHoursPanel(){
+    public JPanel buildHoursPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         InitComponent.initLabel(hoursToBeMonitoredLabel, resource.getString("config.label.hoursTitle"), panel);
 
-        startHoursBox = InitComponent.initComboBox(startHoursBox,new Dimension(150, 25),panel);
+        startHoursBox = InitComponent.initComboBox(startHoursBox, new Dimension(150, 25), panel);
         startHoursBox.addItem("8am");
         startHoursBox.addItem("9am");
         endHoursBox = InitComponent.initComboBox(endHoursBox, new Dimension(150, 25), panel);
