@@ -1,8 +1,5 @@
 package View.AdminUser;
 
-import Utils.Constants;
-import View.Events.UserEvent;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -10,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
+import Utils.Constants;
+import View.Events.UserEvent;
 
 /**
  * UI to list users and make search into it

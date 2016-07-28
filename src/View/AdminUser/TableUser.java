@@ -1,10 +1,12 @@
 package View.AdminUser;
 
-import View.Events.UserEvent;
-
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.Dimension;
+
+import View.Events.UserEvent;
 
 /**
  * This class show the users list

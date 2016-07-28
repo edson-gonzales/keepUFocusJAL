@@ -1,15 +1,18 @@
 package View.Events;
 
-import java.awt.event.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 
-import Controller.UserAdmin.ControllerUsers;
-import Utils.Constants;
 import View.AdminUser.AddUserUI;
-import Model.AdminUser.User;
-import View.AdminUser.LeftPanelUserUI;
+import Model.UserAdmin.User;
 import View.AdminUser.TableUser;
+import Controller.UserAdmin.UserControllers;
+import Utils.Constants;
 
-import javax.swing.*;
 
 /**
  * Class to manage user events
@@ -17,7 +20,7 @@ import javax.swing.*;
  * @author Lourdes Villca
  */
 public class UserEvent extends MouseAdapter implements ActionListener {
-    private ControllerUsers userController;
+    private UserControllers userController;
     private AddUserUI addUserUI;
     private TableUser tableUser;
 
@@ -70,7 +73,7 @@ public class UserEvent extends MouseAdapter implements ActionListener {
                 user.setRole(addUserUI.getRightPanel().getRole());
                 user.setPossition(addUserUI.getRightPanel().getPosition());
 
-                ControllerUsers controllerUsers = new ControllerUsers();
+                UserControllers controllerUsers = new UserControllers();
                 controllerUsers.saveUser(user);
                 break;
 

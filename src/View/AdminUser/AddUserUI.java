@@ -2,7 +2,7 @@ package View.AdminUser;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.*;
+import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import java.util.ResourceBundle;

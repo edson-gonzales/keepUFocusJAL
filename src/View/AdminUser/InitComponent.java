@@ -1,6 +1,11 @@
 package View.AdminUser;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JTextField;
+import javax.swing.JButton;
 import java.awt.Dimension;
 import java.awt.Component;
 
@@ -78,6 +83,14 @@ public class InitComponent {
         return button;
     }
 
+    /**
+     * Method to initialize JCheckbox component
+     *
+     * @param checkBox   component to be created
+     * @param checkLabel name of the Checkbox
+     * @param panel      panel where the component is added
+     * @return the created JCheckBox
+     */
     public static JCheckBox initCheckBox(JCheckBox checkBox, String checkLabel, JPanel panel) {
         checkBox = new JCheckBox(checkLabel);
         panel.add(checkBox);

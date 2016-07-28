@@ -1,16 +1,12 @@
 package View.AdminUser;
 
-import Utils.Constants;
-import View.Events.MenuEvents;
-
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JFrame;
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
+import Utils.Constants;
+import View.Events.MenuEvents;
 
 /**
  * Class to build the main menu

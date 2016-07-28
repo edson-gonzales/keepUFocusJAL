@@ -17,7 +17,7 @@ public class TableActivity extends JPanel {
     /**
      * Initialize the table that contain the Activity list
      */
-    public TableActivity(){
+    public TableActivity() {
         super(new GridLayout(1, 0));
 
         tableActivity = new JTable(new ActivityTableModel());

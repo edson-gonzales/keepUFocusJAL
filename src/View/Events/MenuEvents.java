@@ -1,11 +1,9 @@
 package View.Events;
 
 import Utils.Constants;
-import View.AdminUser.AddUserUI;
 import View.AdminUser.SearchUserUI;
 import View.Report.Activity;
 import View.config.ConfigureFocusTime;
-import sun.tools.jar.Main;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
