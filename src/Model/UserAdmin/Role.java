@@ -1,91 +1,145 @@
 package Model.UserAdmin;
 
-import java.util.ArrayList;
-import java.util.List;
+import Model.Connections.DataAccess;
+import java.sql.ResultSet;
 
 /**
- * Created by AldoBalderrama on 7/25/2016.
+ *The class manages roles of the data base
+ *
+ * @autor: JuanaRodriguez
  */
 public class Role {
     private int roleId;
-    private String rolName;
+    private String roleName;
+    private DataAccess dbAccess;
 
+    /**
+     * The method return the Id of the role
+     *
+     * @return roleId, this variable is a integer value
+     */
     public int getRoleId() {
         return roleId;
     }
 
+    /**
+     * The method set the id of the role
+     *
+     * @param roleId will be set in the role
+     */
     public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 
-    public String getRolName() {
-        return rolName;
-    }
-
-    public void setRolName(String rolName) {
-        this.rolName = rolName;
-    }
-
-    public Role(String rolName) {
-        this.roleId = 0;
-        this.rolName = rolName;
-    }
-
-    public Role() {
-        this.roleId = 0;
-        this.rolName = "";
+    /**
+     * The method return the name of the role
+     *
+     * @return roleName, this variable is string value
+     */
+    public String getRoleName() {
+        return roleName;
     }
 
     /**
-     * Save user Information in the data base.
+     * The method set the name of the role
      *
-     * @return Return boolean value (True = Susses;False = Error).
+     * @param roleName will be set in the role
+     */
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
+    }
+
+    /**
+     * The method construct the Role object and instance the DataAccess class.
+     */
+    public Role() {
+        this.setRoleId(0);
+        this.setRoleName("");
+        dbAccess = new DataAccess();
+    }
+
+    /**
+     * The method insert a role in the database, catch the id from the role inserted in the "result" variable
+     *
+     * @return the saved flag that help us to check if the role was inserted, this  flag return true if the
+     * role was inserted correctly.
      */
     public boolean save() {
-        System.out.printf("method will implements");
-        return true;
+        boolean saved = false;
+        ResultSet result = null;
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("insert into Role (roleName) ");
+            sql.append(String.format("Values('%s')", this.getRoleName()));
+            result = dbAccess.save(sql.toString());
+
+            if (result.next()) {
+                this.setRoleId(result.getInt(1));
+                saved = true;
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return saved;
     }
 
     /**
-     * Update the user information in the data base.
+     * The method get a specific role given an Id
      *
-     * @return Return a boolean value (True = Success;False = Error).
+     * @param roleId the id of the role to get a specific role
+     * @return the Role object
+     */
+    public static Role getRoleById(int roleId) {
+        Role role = null;
+        ResultSet result = null;
+        DataAccess dbAccess = new DataAccess();
+        try {
+            StringBuilder sql = new StringBuilder("Select * from Role ");
+            sql.append(String.format("where roleId = %s;", roleId));
+            result = dbAccess.getDataById(sql.toString());
+            if (result.next()) {
+                role = new Role();
+                role.setRoleId(result.getInt(1));
+                role.setRoleName(result.getString(2));
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
+        return role;
+    }
+
+    /**
+     * The method updates a role and give back true through of updated variable if the date was modify successfully
+     * using the method update from DataAccess class.
+     *
+     * @return updated true if the date was modify successfully and false if it wasn't modify
      */
     public boolean update() {
-        System.out.printf("method will implements");
-        return true;
+        boolean updated = false;
+        StringBuilder sql = new StringBuilder("update Role set ");
+        sql.append(String.format("roleName = '%s' ", getRoleName()));
+        sql.append(String.format("where roleId = %s", getRoleId()));
+        updated = dbAccess.update(sql.toString());
+        dbAccess.closeConnection();
+        return updated;
     }
 
     /**
-     * Deleted an existing user in the data base.
+     * The method deletes a role and give back true through of deleted variable if the date was delete successfully
+     * using the method deleted from DataAccess class.
      *
-     * @return Return boolean value (True = Success;False = Error).
+     * @return deleted true if the date was deleted successfully
      */
     public boolean delete() {
-        System.out.printf("method will implements");
-        return true;
-    }
-
-    /**
-     * Get a Role set.
-     *
-     * @return Get list Role.
-     */
-    public List<Role> getListRole() {
-        List<Role> list = new ArrayList<>();
-        list.add(new Role());
-        return list;
-    }
-
-    /**
-     * Get an existing user in the data base.
-     *
-     * @param roleId ID for search in the data base.
-     * @return Exits an UserControllersTest.
-     */
-    public static Role getRole(int roleId) {
-        Role role = new Role("User");
-        role.setRoleId(roleId);
-        return role;
+        boolean deleted = false;
+        StringBuilder sql = new StringBuilder("delete from Role ");
+        sql.append(String.format("where roleId = %s", getRoleId()));
+        deleted = dbAccess.delete(sql.toString());
+        dbAccess.closeConnection();
+        return deleted;
     }
 }
