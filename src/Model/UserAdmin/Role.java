@@ -2,6 +2,7 @@ package Model.UserAdmin;
 
 import Model.Connections.DataAccess;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *The class manages roles of the data base
@@ -141,5 +142,30 @@ public class Role {
         deleted = dbAccess.delete(sql.toString());
         dbAccess.closeConnection();
         return deleted;
+    }
+
+    /**
+     * The method return the role objects and set in an ArrayList
+     * @return roles return a set roles
+     */
+    public static ArrayList<Role> getListRole() {
+        DataAccess dbAccess = new DataAccess();
+        ArrayList<Role> roles = new ArrayList<Role>();
+        ResultSet result = null;
+        StringBuilder sql = new StringBuilder("Select * from Role");
+        try{
+            result = dbAccess.select(sql.toString());
+            while (result.next()) {
+                Role role = new Role();
+                role.setRoleId(result.getInt(1));
+                role.setRoleName(result.getString(2));
+                roles.add(role);
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
+        return roles;
     }
 }
