@@ -1,5 +1,9 @@
 package Model.Applications;
 
+import Model.Connections.DataAccess;
+
+import java.sql.ResultSet;
+
 /**
  * Created by AldoBalderrama on 7/25/2016.
  */
@@ -61,6 +65,27 @@ public class Application {
 
     public static Application getApplication(int applicationId) {
         Application application = new Application("Ruby Mine");
+        return application;
+    }
+
+    public static Application getApplicationById(int applicationId) {
+        Application application = null;
+        ResultSet result = null;
+        DataAccess dbAccess = new DataAccess();
+        try {
+            StringBuilder sql = new StringBuilder("Select * from Application ");
+            sql.append(String.format("where applicationId = %s;", applicationId));
+            result = dbAccess.getDataById(sql.toString());
+            if (result.next()) {
+                application = new Application();
+                application.setApplicationId(result.getInt(1));
+                application.setApplicationName(result.getString(2));
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
         return application;
     }
 }
