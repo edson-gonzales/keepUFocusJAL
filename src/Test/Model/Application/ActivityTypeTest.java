@@ -1,6 +1,7 @@
 package Test.Model.Application;
 
 import Model.Applications.ActivityType;
+import Model.Applications.ActivityTypeHandler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class ActivityTypeTest {
         ActivityType activityType = new ActivityType();
         activityType.setActivityTypeName("Entertainment");
         activityType.save();
-        Assert.assertEquals(activityType.getActivityTypeName(), ActivityType.getActivityTypeById(activityType.getActivityTypeId()).getActivityTypeName());
+        Assert.assertEquals(activityType.getActivityTypeName(), ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId()).getActivityTypeName());
         activityType.delete();
     }
     @Test
@@ -21,10 +22,10 @@ public class ActivityTypeTest {
         ActivityType activityType = new ActivityType();
         activityType.setActivityTypeName("Entertainmen");
         activityType.save();
-        ActivityType otherActivityType = ActivityType.getActivityTypeById(activityType.getActivityTypeId());
+        ActivityType otherActivityType = ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId());
         otherActivityType.setActivityTypeName("Entertainment");
         otherActivityType.update();
-        Assert.assertEquals(otherActivityType.getActivityTypeName(), ActivityType.getActivityTypeById(activityType.getActivityTypeId()));
+        Assert.assertEquals(otherActivityType.getActivityTypeName(), ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId()).getActivityTypeName());
         activityType.delete();
     }
     @Test
@@ -33,6 +34,6 @@ public class ActivityTypeTest {
         activityType.setActivityTypeName("Entertainment");
         activityType.save();
         activityType.delete();
-        Assert.assertNull(ActivityType.getActivityTypeById(activityType.getActivityTypeId()));
+        Assert.assertNull(ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId()));
     }
 }

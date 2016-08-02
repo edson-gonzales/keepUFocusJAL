@@ -1,7 +1,7 @@
 package Test.Model.Application;
 
-import Model.Applications.Application;
 import Model.Applications.ApplicationCategory;
+import Model.Applications.ApplicationCategoryHandler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class ApplicationCategoryTest {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Meeting");
         applicationCategory.save();
-        Assert.assertEquals(applicationCategory.getApplicationCategoryName(), ApplicationCategory.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()).getApplicationCategoryName());
+        Assert.assertEquals(applicationCategory.getApplicationCategoryName(), ApplicationCategoryHandler.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()).getApplicationCategoryName());
         applicationCategory.delete();
     }
 
@@ -23,10 +23,10 @@ public class ApplicationCategoryTest {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Lunchh");
         applicationCategory.save();
-        ApplicationCategory otherApplicationCategory = ApplicationCategory.getApplicationCategoryById(applicationCategory.getApplicationCategoryId());
+        ApplicationCategory otherApplicationCategory = ApplicationCategoryHandler.getApplicationCategoryById(applicationCategory.getApplicationCategoryId());
         otherApplicationCategory.setApplicationCategoryName("Lunch");
         otherApplicationCategory.update();
-        Assert.assertEquals(otherApplicationCategory.getApplicationCategoryName(), ApplicationCategory.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()).getApplicationCategoryName());
+        Assert.assertEquals(otherApplicationCategory.getApplicationCategoryName(), ApplicationCategoryHandler.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()).getApplicationCategoryName());
         applicationCategory.delete();
     }
     @Test
@@ -34,7 +34,7 @@ public class ApplicationCategoryTest {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Lunchhh");
         applicationCategory.save();
-        Assert.assertNotNull(ApplicationCategory.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()));
+        Assert.assertNotNull(ApplicationCategoryHandler.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()));
         applicationCategory.delete();
     }
 }
