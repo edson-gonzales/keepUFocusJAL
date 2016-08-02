@@ -1,6 +1,7 @@
 package Test.Model.UserAdmin;
 
 import Model.UserAdmin.Role;
+import Model.UserAdmin.RoleHandler;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -14,7 +15,7 @@ public class RoleTest {
         Role role = new Role();
         role.setRoleName("Administrator");
         role.save();
-        Assert.assertEquals(role.getRoleName(), Role.getRoleById(role.getRoleId()).getRoleName());
+        Assert.assertEquals(role.getRoleName(), RoleHandler.getRoleById(role.getRoleId()).getRoleName());
         role.delete();
     }
 
@@ -23,10 +24,10 @@ public class RoleTest {
         Role role = new Role();
         role.setRoleName("Administrato");
         role.save();
-        Role otherRole = Role.getRoleById(role.getRoleId());
+        Role otherRole = RoleHandler.getRoleById(role.getRoleId());
         otherRole.setRoleName("Administrator");
         otherRole.update();
-        Assert.assertEquals(otherRole.getRoleName(), Role.getRoleById(role.getRoleId()).getRoleName());
+        Assert.assertEquals(otherRole.getRoleName(), RoleHandler.getRoleById(role.getRoleId()).getRoleName());
         role.delete();
     }
 
@@ -36,6 +37,14 @@ public class RoleTest {
         role.setRoleName("Administrator");
         role.save();
         role.delete();
-        Assert.assertNull(Role.getRoleById(role.getRoleId()));
+        Assert.assertNull(RoleHandler.getRoleById(role.getRoleId()));
+    }
+    @Test
+    public void VerifyGetARoleById(){
+        Role role = new Role();
+        role.setRoleName("Administrator");
+        role.setRoleName("Employee");
+        role.save();
+        //verificamos utilizando getListRole que los dos anteriores roles estan en la bd
     }
 }

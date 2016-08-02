@@ -1,37 +1,38 @@
 package Model.UserAdmin;
 
 import Model.Connections.Connection;
+import Model.Connections.DataAccess;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by AldoBalderrama on 7/5/2016.
+ * The class manages user of the data base
+ *
+ * @autor: JuanaRodriguez
  */
 public class User extends Model.Common.Person
 {
-    //Attribute
+
     private int userId;
     private String userName;
     private String password;
     private boolean enable;
-    private Connection db;
-
-    //Property
+    private DataAccess dbAccess;
 
     /**
-     * Get userId for an user object.
+     * The method return the Id of the user
      *
-     * @return Return userId of user Object.
+     * @return userId, this variable is a integer value
      */
     public int getUserId() {
         return userId;
     }
 
     /**
-     * Set userId for an user object.
+     * The method set the id of the user
      *
-     * @param userId The userId to be store.
+     * @param userId will be set in the user
      */
     public void setUserId(int userId) {
         this.userId = userId;
