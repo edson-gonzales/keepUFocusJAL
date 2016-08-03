@@ -1,6 +1,8 @@
 package View.Report;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import View.Report.ApplicationFocusTime;
 
 /**
  * Initialize the data of the Activity table and define the columns
@@ -9,12 +11,32 @@ import javax.swing.table.AbstractTableModel;
  */
 class ActivityTableModel extends AbstractTableModel {
     private final String[] columnNames = {"%", "Time", "Activity"};
-    private final Object[][] data = {
-            {"50%", "1h 30 m", "Idea"},
-            {"10%", "30 m", "Facebook"},
-            {"5%", "1h 30 m", "Java2s.com"}
-    };
+    private ApplicationFocusTime applicationFocusTime;
+    private Object [][] data;
 
+    /**
+     * Initialize the Table with its content
+     */
+    public ActivityTableModel() {
+
+        fillData();
+    }
+
+    /**
+     * This method fill the table with the tracked Application List
+     */
+    public void fillData(){
+        applicationFocusTime = new ApplicationFocusTime();
+        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication("2016-08-02", "2016-08-02");
+        data = new Object[appFocusTimeList.size()][3];
+        int i = 0;
+        for(ApplicationFocusTime app: appFocusTimeList){
+           data[i][0] = app.getApplication().getApplicationId();
+           data[i][1]= app.getTotalTime();
+           data[i][2]= app.getApplication().getApplicationName();
+           i++;
+        }
+    }
     /**
      * Returns the number of columns in the model
      *
