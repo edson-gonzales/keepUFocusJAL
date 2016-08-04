@@ -36,10 +36,11 @@ public class FocusTime {
         boolean saved = false;
         ResultSet result = null;
         try {
-            StringBuilder sql = new StringBuilder("insert into FocusTime (startDate, endDate, applicationId)");
+            StringBuilder sql = new StringBuilder("insert into FocusTime (startDate, endDate, applicationId, userId)");
             sql.append(String.format("values ('%s', ", this.getStartDate()));
             sql.append(String.format("'%s', ", this.getEndDate()));
-            sql.append(String.format("%s)", this.getApplicationId()));
+            sql.append(String.format("%s, ", this.getApplicationId()));
+            sql.append(String.format("%s)", this.getUserId()));
 
             result = dbAccess.save(sql.toString());
             if (result.next()) {
@@ -60,7 +61,7 @@ public class FocusTime {
      * @param focusTimeId the Id of the Focus Time to be updated
      * @return a boolean, return true if the focus time was updated in the database
      */
-    public boolean update(int focusTimeId){
+    public boolean update(int focusTimeId) {
         boolean updated = false;
         StringBuilder sql = new StringBuilder("update FocusTime set ");
         sql.append(String.format("startDate = '%s', ", this.getStartDate()));
@@ -147,6 +148,7 @@ public class FocusTime {
 
     /**
      * This method returns the User Id associated with the Focus Time
+     *
      * @return the User Id
      */
     public int getUserId() {

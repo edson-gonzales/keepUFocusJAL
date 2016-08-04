@@ -31,6 +31,7 @@ public class FocusTimeHandler {
                 focusTime.setStartDate(resultSet.getTimestamp(2));
                 focusTime.setEndDate(resultSet.getTimestamp(3));
                 focusTime.setApplicationId(resultSet.getInt(4));
+                focusTime.setUserId(resultSet.getInt(5));
 
             }
             resultSet.close();

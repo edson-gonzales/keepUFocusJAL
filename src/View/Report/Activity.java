@@ -1,17 +1,21 @@
 package View.Report;
 
-import Model.Connections.Connection;
-import Model.Connections.DataAccess;
+import View.Events.ReportEvent;
+import com.sun.org.apache.xpath.internal.SourceTree;
+import org.jdatepicker.impl.JDatePanelImpl;
+import org.jdatepicker.impl.JDatePickerImpl;
+import org.jdatepicker.impl.UtilDateModel;
 
 import javax.swing.JPanel;
-import javax.swing.JLabel;
 import javax.swing.BoxLayout;
-import java.sql.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import javax.swing.JLabel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import java.awt.*;
 import java.util.*;
-import java.util.Date;
 
+import Utils.Constants;
+import View.AdminUser.InitComponent;
 
 /**
  * Display the chart and the information of the activity
@@ -20,50 +24,113 @@ import java.util.Date;
  */
 public class Activity extends JPanel {
     private JLabel periodTime;
+    private JLabel fromDate;
+    private JLabel toDate;
+    private UtilDateModel model;
+    private JDatePanelImpl datePanel;
+    private JDatePickerImpl datePickerFrom;
+    private JDatePickerImpl datePickerTo;
+    private JButton generate;
+    private TableActivity tableActivity;
+    private BarChart chart;
+    private ResourceBundle resource;
+    private ReportEvent reportEvent;
+    private JFrame mainWindow;
 
     /**
      * Init the components and define the layout for panels
      */
-    public Activity() {
+    public Activity(JFrame mainWindow, String startDate, String endDate) {
+        resource = resource.getBundle(Constants.APLICATION_RESOURCES);
         periodTime = new JLabel("Test activity");
+        tableActivity = new TableActivity(startDate, endDate);
+        chart = new BarChart(startDate, endDate);
 
-        TableActivity tableActivity = new TableActivity();
-        BarChart chart = new BarChart();
+        this.mainWindow = mainWindow;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(periodTime);
+        this.add(addDatePickerPanel());
         this.add(chart);
         this.add(tableActivity);
-
     }
 
     /**
-     * Method that calculate the total time expressed in seconds and convert it in Hours, Minutes and Seconds
+     * This method build the panel where is the DatePicker
      *
-     * @param totalTime expressed in seconds
-     * @return a String with the time expressed in Hours, Minutes and Seconds
+     * @return the panel with the DatePicker
      */
-    public String convertTime(int totalTime){
-        int hours = 0;
-        int minutes = 0;
-        int seconds = 0;
-        String result = "";
-        if(totalTime > 3600){
-            hours = totalTime/3600;
-            totalTime = totalTime % 3600;
-            result += hours;
-        }
+    public JPanel addDatePickerPanel() {
+        JPanel panel = new JPanel();
+        InitComponent.initLabel(fromDate, resource.getString("report.label.to"), panel);
+        InitComponent.initLabel(toDate, resource.getString("report.label.from"), panel);
+        generate = InitComponent.initButton(generate, resource.getString("report.label.generateButton"), panel);
 
-        if(totalTime > 60){
-            minutes = totalTime/60;
-            seconds = totalTime%60;
-            result += minutes;
-        }
-        else{
-            seconds = totalTime;
-            result += seconds;
-        }
+        datePickerFrom = buildDatePicker();
+        datePickerTo = buildDatePicker();
 
-         return result;
+        reportEvent = new ReportEvent(mainWindow, this);
+        generate.addActionListener(reportEvent);
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
+        panel.add(datePickerFrom);
+        panel.add(datePickerTo);
+        panel.add(generate);
+
+        return panel;
     }
 
+    /**
+     * This method build the DatePicker component
+     *
+     * @return the built DatePicker
+     */
+    public JDatePickerImpl buildDatePicker() {
+        model = new UtilDateModel();
+        JDatePickerImpl datePicker;
+        Properties p = new Properties();
+        p.put("text.today", "Today");
+        p.put("text.month", "Month");
+        p.put("text.year", "Year");
+        datePanel = new JDatePanelImpl(model, p);
+        datePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
+        datePicker.setMaximumSize(new Dimension(250, 30));
+        model.setSelected(true);
+        return datePicker;
+    }
+
+    /**
+     * This method return the selected date
+     *
+     * @return The from date selected from the DatePicker
+     */
+    public Date getDatePickerFrom() {
+        return (Date) datePickerFrom.getModel().getValue();
+    }
+
+    /**
+     * This method set the selected Date
+     *
+     * @param datePickerFrom the selected date from the DatePicker
+     */
+    public void setDatePickerFrom(JDatePickerImpl datePickerFrom) {
+        this.datePickerFrom = datePickerFrom;
+    }
+
+    /**
+     * This method return the selected date from TO DatePicker
+     *
+     * @return the selected DatePicker
+     */
+    public Date getDatePickerTo() {
+        return (Date) datePickerTo.getModel().getValue();
+    }
+
+    /**
+     * This method set the selected date from the TO DatePicker
+     *
+     * @param datePickerTo the selected DatePicker
+     */
+    public void setDatePickerTo(JDatePickerImpl datePickerTo) {
+        this.datePickerTo = datePickerTo;
+    }
 }
