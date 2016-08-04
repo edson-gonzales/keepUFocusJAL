@@ -1,10 +1,14 @@
 package Controller.FocusTime;
 
+import Model.Applications.Application;
+import Model.Applications.FocusTime;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.HWND;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -15,7 +19,10 @@ import java.util.List;
  */
 public class FocusTimeThread extends Thread {
     private List<String> applicationNameList;
+    private FocusTime previousFocusTime;
+    private Application previousApplication;
     private int seconds;
+    private int userId;
 
     /**
      * Gets the applications list.
@@ -31,9 +38,12 @@ public class FocusTimeThread extends Thread {
      *
      * @param seconds Indicate the time in seconds that mean how often the process is executed.
      */
-    public FocusTimeThread(int seconds) {
+    public FocusTimeThread(int seconds, int userId) {
         this.applicationNameList = new ArrayList<>();
         this.seconds = seconds * 1000;
+        this.previousFocusTime = null;
+        this.previousApplication = null;
+        this.userId = userId;
     }
 
     /**
@@ -47,8 +57,6 @@ public class FocusTimeThread extends Thread {
                 sleep(this.seconds);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
-            }
-            if (this.isInterrupted()) {
                 isRun = false;
             }
         }
@@ -58,16 +66,77 @@ public class FocusTimeThread extends Thread {
      * This method processes the information about application activity that is running in the computer.
      */
     private void process() {
-        String[] arrayName = getActiveWindowTitle().split("-");
-        applicationNameList.add(arrayName[arrayName.length - 1].trim());
+        String applicationName = getApplicationName();
+        Date date = new Date();
+        Application application = this.getApplication(applicationName);
+        long starTime = date.getTime();
+        long endTime = 0;
+        if (this.previousFocusTime == null) {
+            this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
+            this.previousApplication = application;
+            System.out.println("previous FocusTime null");
+        } else if (!this.previousApplication.getApplicationName().equals(application.getApplicationName())) {
+            System.out.println(this.previousApplication.getApplicationName());
+            endTime = starTime;
+            this.previousFocusTime.setEndTime(new Timestamp(endTime));
+            this.previousFocusTime.update();
+            endTime = 0;
+            this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
+            this.previousApplication = application;
+        }
+        System.out.println(application.getApplicationName());
+        this.applicationNameList.add(applicationName);
+    }
+
+    /**
+     * Gets the name of the application that is active in the computer.
+     *
+     * @return the name of the active application.
+     */
+    private String getApplicationName() {
+        String name = getActiveWindowTitle();
+        String[] arrayName = name.split("-");
+        return arrayName[arrayName.length - 1].trim();
+    }
+
+    /**
+     * Gets object Application.
+     *
+     * @param startTime     initial start time.
+     * @param endTime       end time.
+     * @param applicationId id the application.
+     * @param userId        id the user.
+     * @return Gets object Application.
+     */
+    private FocusTime getFocusTime(Timestamp startTime, Timestamp endTime, int applicationId, int userId) {
+        FocusTime focusTime = new FocusTime(startTime, endTime, applicationId, userId);
+        focusTime.save();
+        return focusTime;
+    }
+
+    /**
+     * Gets object Application.
+     *
+     * @param applicationName To find the application name.
+     * @return Gets object Application.
+     */
+    private Application getApplication(String applicationName) {
+        Application application;
+        if (Application.exist(applicationName)) {
+            application = Application.getApplicationByName(applicationName);
+        } else {
+            application = new Application(applicationName);
+            application.save();
+        }
+        return application;
     }
 
     /***
      * Gets the name of the application that is active in the computer.
      *
-     * @return the name of the active application
+     * @return the name of the active application.
      */
-    private static String getActiveWindowTitle() {
+    private String getActiveWindowTitle() {
         HWND fgWindow = User32.INSTANCE.GetForegroundWindow();
         int titleLength = User32.INSTANCE.GetWindowTextLength(fgWindow) + 1;
         char[] title = new char[titleLength];

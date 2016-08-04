@@ -1,10 +1,12 @@
+package View;
+
 import javax.swing.JFrame;
 import java.awt.*;
 
 import View.AdminUser.MenuBar;
 
 /**
- * Main class to create the window
+ * View.Main class to create the window
  *
  * @author Lourdes Villca
  */

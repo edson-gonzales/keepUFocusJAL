@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 public class FocusTimeThreadTest {
     @Test
     public void runOneThreadWithFocusTimeThreadClass() throws InterruptedException, IOException {
-        FocusTimeThread focusTimeThread = new FocusTimeThread(1);
+        FocusTimeThread focusTimeThread = new FocusTimeThread(1, 25);
         focusTimeThread.start();
         Process process = Runtime.getRuntime().exec("notepad");
         Thread.sleep(1000);
