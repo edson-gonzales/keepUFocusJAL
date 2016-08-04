@@ -1,7 +1,8 @@
 package Model.UserAdmin;
 
-import Model.Connections.DataAccess;
 import Model.Common.Person;
+import Model.Connections.DataAccess;
+
 import java.sql.ResultSet;
 
 /**
@@ -115,6 +116,26 @@ public class User extends Person {
         this.userId = 0;
         this.userName = "";
         this.password = "";
+        this.roleId = 0;
+        this.personId = 0;
+        dbAccess = new DataAccess();
+    }
+
+    /**
+     * The method build the Role object and instance the DataAccess class.
+     *
+     * @param firstName
+     * @param lastName
+     * @param userName
+     * @param password
+     */
+    public User(String firstName, String lastName, String userName, String password) {
+        super();
+        this.userId = 0;
+        this.setFirstName(firstName);
+        this.setLastName(lastName);
+        this.userName = userName;
+        this.password = password;
         this.roleId = 0;
         this.personId = 0;
         dbAccess = new DataAccess();

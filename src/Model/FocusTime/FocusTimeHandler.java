@@ -1,9 +1,8 @@
 package Model.FocusTime;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import Model.Connections.DataAccess;
-import Model.FocusTime.FocusTime;
+
+import java.sql.ResultSet;
 
 /**
  * @author Lourdes Villca

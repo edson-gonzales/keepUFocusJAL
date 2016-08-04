@@ -1,7 +1,8 @@
 package Controller.FocusTime;
 
 import Model.Applications.Application;
-import Model.Applications.FocusTime;
+import Model.Applications.ApplicationHandler;
+import Model.FocusTime.FocusTime;
 import com.sun.jna.Native;
 import com.sun.jna.platform.win32.User32;
 import com.sun.jna.platform.win32.WinDef.HWND;
@@ -78,7 +79,7 @@ public class FocusTimeThread extends Thread {
         } else if (!this.previousApplication.getApplicationName().equals(application.getApplicationName())) {
             System.out.println(this.previousApplication.getApplicationName());
             endTime = starTime;
-            this.previousFocusTime.setEndTime(new Timestamp(endTime));
+            this.previousFocusTime.setEndDate(new Timestamp(endTime));
             this.previousFocusTime.update();
             endTime = 0;
             this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
@@ -122,8 +123,8 @@ public class FocusTimeThread extends Thread {
      */
     private Application getApplication(String applicationName) {
         Application application;
-        if (Application.exist(applicationName)) {
-            application = Application.getApplicationByName(applicationName);
+        if (ApplicationHandler.exist(applicationName)) {
+            application = ApplicationHandler.getApplicationByName(applicationName);
         } else {
             application = new Application(applicationName);
             application.save();

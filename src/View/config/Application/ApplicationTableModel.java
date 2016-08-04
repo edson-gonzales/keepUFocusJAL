@@ -1,6 +1,5 @@
 package View.config.Application;
 
-import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
 
 /**

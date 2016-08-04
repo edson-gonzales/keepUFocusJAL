@@ -1,14 +1,11 @@
 package View.AdminUser;
 
-import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
-import javax.swing.BorderFactory;
-import java.util.ResourceBundle;
-
 import Utils.Constants;
 import View.Events.UserEvent;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ResourceBundle;
 
 /**
  * UI to Add User, Form with the fields of user

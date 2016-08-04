@@ -10,7 +10,7 @@ import java.sql.SQLException;
  */
 
 public class Connection {
-    String url = "database\\f.sqlite";
+    String url = "database\\dbFocusTime.sqlite";
     public java.sql.Connection connectDataBase;
 
     /**

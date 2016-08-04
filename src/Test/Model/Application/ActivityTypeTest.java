@@ -17,8 +17,9 @@ public class ActivityTypeTest {
         Assert.assertEquals(activityType.getActivityTypeName(), ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId()).getActivityTypeName());
         activityType.delete();
     }
+
     @Test
-    public void VerifyThatAnActivityWasUpdated(){
+    public void VerifyThatAnActivityWasUpdated() {
         ActivityType activityType = new ActivityType();
         activityType.setActivityTypeName("Entertainmen");
         activityType.save();
@@ -28,8 +29,9 @@ public class ActivityTypeTest {
         Assert.assertEquals(otherActivityType.getActivityTypeName(), ActivityTypeHandler.getActivityTypeById(activityType.getActivityTypeId()).getActivityTypeName());
         activityType.delete();
     }
+
     @Test
-    public void VerifyThatAnActivityWasDeleted(){
+    public void VerifyThatAnActivityWasDeleted() {
         ActivityType activityType = new ActivityType();
         activityType.setActivityTypeName("Entertainment");
         activityType.save();

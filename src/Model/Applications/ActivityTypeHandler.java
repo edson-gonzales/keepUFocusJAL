@@ -36,6 +36,7 @@ public class ActivityTypeHandler {
         }
         return activityType;
     }
+
     /**
      * This method returns data of ActivityType and puts in an array
      *

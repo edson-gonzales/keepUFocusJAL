@@ -8,7 +8,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by AldoBalderrama on 8/1/2016.
+ * Created by Aldo Balderrama on 8/1/2016.
  */
 public class FocusTimeThreadTest {
     @Test
@@ -16,7 +16,7 @@ public class FocusTimeThreadTest {
         FocusTimeThread focusTimeThread = new FocusTimeThread(1, 25);
         focusTimeThread.start();
         Process process = Runtime.getRuntime().exec("notepad");
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         focusTimeThread.interrupt();
         process.destroy();
         assertTrue(focusTimeThread.getApplicationNameList().contains("Notepad"));

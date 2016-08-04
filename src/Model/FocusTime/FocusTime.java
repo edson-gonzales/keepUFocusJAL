@@ -1,10 +1,9 @@
 package Model.FocusTime;
 
+import Model.Connections.DataAccess;
+
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-
-import Model.Connections.DataAccess;
 
 /**
  * Manage Focus Time in the database
@@ -24,7 +23,28 @@ public class FocusTime {
      */
     public FocusTime() {
         dbAccess = new DataAccess();
+        this.startDate = new Timestamp(0);
+        this.endDate = new Timestamp(0);
+        this.focusTimeId = 0;
+        this.applicationId = 0;
+        this.userId = 0;
+    }
 
+    /**
+     * The method build an Application FocusTime
+     *
+     * @param startDate
+     * @param endDate
+     * @param applicationId
+     * @param userId
+     */
+    public FocusTime(Timestamp startDate, Timestamp endDate, int applicationId, int userId) {
+        dbAccess = new DataAccess();
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.focusTimeId = 0;
+        this.applicationId = applicationId;
+        this.userId = userId;
     }
 
     /**
@@ -58,17 +78,16 @@ public class FocusTime {
     /**
      * This method update the information for a given Focus Time
      *
-     * @param focusTimeId the Id of the Focus Time to be updated
      * @return a boolean, return true if the focus time was updated in the database
      */
-    public boolean update(int focusTimeId) {
-        boolean updated = false;
+    public boolean update() {
+        boolean updated;
         StringBuilder sql = new StringBuilder("update FocusTime set ");
         sql.append(String.format("startDate = '%s', ", this.getStartDate()));
         sql.append(String.format("endDate = '%s', ", this.getEndDate()));
         sql.append(String.format("applicationId = %s, ", this.getApplicationId()));
         sql.append(String.format("userId = %s ", this.getUserId()));
-        sql.append(String.format("where focusTimeId = %s", focusTimeId));
+        sql.append(String.format("where focusTimeId = %s", this.getFocusTimeId()));
         updated = dbAccess.update(sql.toString());
         return updated;
 

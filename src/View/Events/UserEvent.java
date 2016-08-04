@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import View.AdminUser.AddUserUI;
 import Model.UserAdmin.User;
 import View.AdminUser.TableUser;
-//import Controller.UserAdmin.UserControllers;
+import Controller.UserAdmin.UserControllers;
 import Utils.Constants;
 
 
@@ -20,7 +20,6 @@ import Utils.Constants;
  * @author Lourdes Villca
  */
 public class UserEvent extends MouseAdapter implements ActionListener {
-//    private UserControllers userController;
     private AddUserUI addUserUI;
     private TableUser tableUser;
     private JDialog userForm;
@@ -69,14 +68,11 @@ public class UserEvent extends MouseAdapter implements ActionListener {
                 user.setLastName(addUserUI.getLeftPanel().getLastName());
                 user.setUserName(addUserUI.getLeftPanel().getUserName());
                 user.setPassword(addUserUI.getLeftPanel().getPassword());
-                user.setEnable(addUserUI.getLeftPanel().getStatus());
-                /*user.setAddress(addUserUI.getRightPanel().getAddress());
-                user.setEmail(addUserUI.getRightPanel().getEmail());
-                user.setRole(addUserUI.getRightPanel().getRole());
-                user.setPossition(addUserUI.getRightPanel().getPosition());
+                //user.setRoleId(addUserUI.getRightPanel().getRole());
+                //user.setPositionId(addUserUI.getRightPanel().getPosition());
 
                 UserControllers controllerUsers = new UserControllers();
-                controllerUsers.saveUser(user);*/
+                controllerUsers.saveUser(user);
                 break;
 
             case Constants.CANCEL_USER: // Cancel save user

@@ -4,10 +4,9 @@ import Model.Connections.DataAccess;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 /**
- *The class manages the position of the database
+ * The class manages the position of the database
  *
  * @autor: JuanaRodriguez
  */
@@ -15,7 +14,6 @@ import java.util.ArrayList;
 public class Position {
     private int positionId;
     private String positionName;
-    private boolean enable;
     private DataAccess dbAccess;
 
 
@@ -55,7 +53,7 @@ public class Position {
         this.positionName = positionName;
     }
 
-       /**
+    /**
      * The method build a Position object
      */
     public Position() {
@@ -63,6 +61,17 @@ public class Position {
         this.setPositionName("");
         this.dbAccess = new DataAccess();
     }
+
+    /**
+     * The method build a Position object
+     * @param positionName
+     */
+    public Position(String positionName) {
+        this.setPositionId(0);
+        this.setPositionName(positionName);
+        this.dbAccess = new DataAccess();
+    }
+
     /**
      * The method insert a position in the database, catch the id from the position inserted in the "result" variable
      *
@@ -90,6 +99,7 @@ public class Position {
         }
         return res;
     }
+
     /**
      * The method updates a position and give back true through of updated variable if the date was modify successfully
      * using the method update from DataAccess class.
@@ -105,6 +115,7 @@ public class Position {
         this.dbAccess.closeConnection();
         return updated;
     }
+
     /**
      * The method delete a position and give back true through of deleted variable if the date was delete successfully
      * using the method deleted from DataAccess class.

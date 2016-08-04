@@ -37,13 +37,12 @@ public class BarChart extends JPanel {
      * @return the dataset with the information of the activities
      */
     private CategoryDataset createDataset(String startDate, String endDate) {
-        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         applicationFocusTime = new ApplicationFocusTime();
         ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate);
         for (ApplicationFocusTime app : appFocusTimeList){
             dataset.addValue(app.getTotalTime()/3600,app.getApplicationCategory().getApplicationCategoryName(),app.getApplication().getApplicationName());
         }
-
         return dataset;
     }
 

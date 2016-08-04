@@ -1,9 +1,9 @@
 package View;
 
-import javax.swing.JFrame;
-import java.awt.*;
-
 import View.AdminUser.MenuBar;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * View.Main class to create the window
@@ -23,19 +23,16 @@ public class Main extends JFrame {
         mainMenuBar = new MenuBar(this);
         this.setJMenuBar(mainMenuBar);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(800, 700);
         setVisible(true);
     }
 
     /**
      * Create the principal class
+     *
      * @param arg arguments
      */
     public static void main(String arg[]) {
         Main principal = new Main();
     }
 }
-
-
-
