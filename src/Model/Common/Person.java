@@ -1,111 +1,182 @@
 package Model.Common;
 
+import Model.Connections.DataAccess;
+
+import java.sql.ResultSet;
+
 /**
- * Created by AldoBalderrama on 7/5/2016.
+ * The class manages persons of the database
+ *
+ * @autor: JuanaRodriguez
  */
 public class Person {
-    //Attribute
     private int personId;
     private String firstName;
     private String lastName;
     private int positionId;
-
-    //Property
+    private int gender;
+    private DataAccess dbAccess;
 
     /**
-     * Get personId for an person object.
+     * The method return the Id of the person
      *
-     * @return Return userId of person Object.
+     * @return personId, this variable is an integer value
      */
     public int getPersonId() {
         return personId;
     }
 
     /**
-     * Set personId for an parson object.
+     * The method set the personId of the person
      *
-     * @param personId The personId to be store.
+     * @param personId will be set in the person
      */
     public void setPersonId(int personId) {
         this.personId = personId;
     }
 
     /**
-     * Get firstName for an person object.
+     * The method return the first name of the person
      *
-     * @return Return firstName of person Object.
+     * @return firstName, this variable is a string value
      */
     public String getFirstName() {
         return firstName;
     }
 
     /**
-     * Set firstName for an parson object.
+     * The method set the first name of the person
      *
-     * @param firstName The firstName to be store.
+     * @param firstName will be set in the person
      */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
 
     /**
-     * Get lastName for an person object.
+     * The method return the last name of the person
      *
-     * @return Return lastName of person Object.
+     * @return lastName, this variable is a string value
      */
     public String getLastName() {
         return lastName;
     }
 
     /**
-     * Set lastName for an parson object.
+     * The method set the last name of the person
      *
-     * @param lastName The lastName to be store.
+     * @param lastName will be set in the person
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
     /**
-     * Get positionId for an person object.
+     * The method return the positionId of the person
      *
-     * @return Return positionId of person Object.
+     * @return positionId, this variable is an integer value
      */
     public int getPositionId() {
         return positionId;
     }
 
     /**
-     * Set positionId for an parson object.
+     * The method set the positionId of the person
      *
-     * @param positionId The positionId to be store.
+     * @param positionId will be set in the person
      */
     public void setPositionId(int positionId) {
         this.positionId = positionId;
     }
 
-    //Constructor
+    /**
+     * The method return the gender of the person
+     *
+     * @return gender, this variable is an integer value
+     */
+    public int getGender() {
+        return gender;
+    }
 
     /**
-     * Build a new UserControllersTest.
+     * The method set the gender of the person
+     *
+     * @param gender will be set in the person
+     */
+    public void setGender(int gender) {
+        this.gender = gender;
+    }
+
+    /**
+     * The method construct the Person object and instance the DataAccess class.
      */
     public Person() {
         this.personId = 0;
         this.firstName = "";
         this.lastName = "";
+        this.gender = 0;
         this.positionId = 0;
+        dbAccess = new DataAccess();
     }
 
     /**
-     * Build a new person with required params.
+     * The method insert a person in the database, catch the id from the person inserted in the "result" variable
      *
-     * @param firstName First name the user.Required fields.
-     * @param lastName  Last name the user.Required fields.
+     * @return the saved flag that help us to check if the person was inserted, this  flag return true if the
+     * person was inserted correctly.
      */
-    public Person(String firstName, String lastName) {
-        this.personId = 0;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.positionId = 1;
+    public boolean save() {
+        boolean saved = false;
+        ResultSet result = null;
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("insert into Person (firstName,lastName,gender,positionId) ");
+            sql.append(String.format("Values('%s','%s',0,0)", this.getFirstName(), this.getLastName()));
+            result = dbAccess.save(sql.toString());
+            if (result.next()) {
+                this.setPersonId(result.getInt(1));
+                saved = true;
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return saved;
     }
+
+    /**
+     * The method updates a person and give back true through of updated variable if the date was modify successfully
+     * using the method update from DataAccess class.
+     *
+     * @return updated true if the date was modify successfully and false if it wasn't modify
+     */
+    public boolean update() {
+        boolean updated = false;
+        StringBuilder sql = new StringBuilder("update Person set ");
+        sql.append(String.format("firstName = '%s', ", getFirstName()));
+        sql.append(String.format("lastName = '%s', ", getLastName()));
+        sql.append(String.format("gender = '%s', ", getGender()));
+        sql.append(String.format("positionId = %s ", getPositionId()));
+        sql.append(String.format("where personId = %s", getPersonId()));
+        updated = dbAccess.update(sql.toString());
+        dbAccess.closeConnection();
+        return updated;
+    }
+
+    /**
+     * The method delete a person and give back true through of deleted variable if the date was delete successfully
+     * using the method deleted from DataAccess class.
+     *
+     * @return deleted true if the date was deleted successfully
+     */
+    public boolean delete() {
+        boolean deleted = false;
+        StringBuilder sql = new StringBuilder("delete from Person ");
+        sql.append(String.format("where PersonId = %s", getPersonId()));
+        deleted = dbAccess.delete(sql.toString());
+        dbAccess.closeConnection();
+        return deleted;
+    }
+
 }
