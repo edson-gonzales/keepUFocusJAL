@@ -8,6 +8,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 /**
  * Class to draw the chart for activities
@@ -15,10 +16,16 @@ import javax.swing.*;
  * @author Lourdes Villca
  */
 public class BarChart extends JPanel {
+    private ApplicationFocusTime applicationFocusTime;
 
-    public BarChart() {
+    /**
+     * Initialize the components for build the BarChart
+     * @param startDate Start date to make the query
+     * @param endDate end date to make the query
+     */
+    public BarChart(String startDate, String endDate) {
 
-        JFreeChart barChart = ChartFactory.createBarChart("All Activities", "Application", "Time", createDataset(), PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart barChart = ChartFactory.createBarChart("All Activities", "Application", "Time", createDataset(startDate,endDate), PlotOrientation.VERTICAL, true, true, false);
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
         this.add(chartPanel);
@@ -29,32 +36,15 @@ public class BarChart extends JPanel {
      *
      * @return the dataset with the information of the activities
      */
-    private CategoryDataset createDataset() {
-        //application list
-        final String fiat = "productivo";
-        final String audi = "no productivo";
-        final String ford = "IntelliJ";
-        final String speed = "Facebook";
-        final String millage = "Postman";
-        final String userrating = "Ruby";
-        final String safety = "safety";
+    private CategoryDataset createDataset(String startDate, String endDate) {
         final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-
-        dataset.addValue(1.0, fiat, speed);
-        dataset.addValue(3.0, fiat, userrating);
-        dataset.addValue(5.0, fiat, millage);
-        dataset.addValue(5.0, fiat, safety);
-
-        dataset.addValue(5.0, audi, speed);
-        dataset.addValue(6.0, audi, userrating);
-        dataset.addValue(10.0, audi, millage);
-        dataset.addValue(4.0, audi, safety);
-
-        dataset.addValue(4.0, ford, speed);
-        dataset.addValue(2.0, ford, userrating);
-        dataset.addValue(3.0, ford, millage);
-        dataset.addValue(6.0, ford, safety);
+        applicationFocusTime = new ApplicationFocusTime();
+        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate);
+        for (ApplicationFocusTime app : appFocusTimeList){
+            dataset.addValue(app.getTotalTime()/3600,app.getApplicationCategory().getApplicationCategoryName(),app.getApplication().getApplicationName());
+        }
 
         return dataset;
     }
+
 }

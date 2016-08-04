@@ -60,6 +60,7 @@ public class AddUserUI extends JPanel {
 
         acceptBtn.addActionListener(userEvent);
         cancelBtn.addActionListener(userEvent);
+
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
         bottomPanel.add(acceptBtn);

@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import View.AdminUser.AddUserUI;
 import Model.UserAdmin.User;
 import View.AdminUser.TableUser;
-import Controller.UserAdmin.UserControllers;
+//import Controller.UserAdmin.UserControllers;
 import Utils.Constants;
 
 
@@ -20,10 +20,10 @@ import Utils.Constants;
  * @author Lourdes Villca
  */
 public class UserEvent extends MouseAdapter implements ActionListener {
-    private UserControllers userController;
+//    private UserControllers userController;
     private AddUserUI addUserUI;
     private TableUser tableUser;
-
+    private JDialog userForm;
     /**
      * Create a User event object
      *
@@ -57,7 +57,8 @@ public class UserEvent extends MouseAdapter implements ActionListener {
             case Constants.USER_LIST://search a user
                 break;
             case Constants.CREATE_USER://open a form to create a new user
-                updateDialog();
+                userForm = updateDialog();
+                System.out.println(userForm);
                 break;
 
             case Constants.SAVE_USER: // accept button to save a user
@@ -69,16 +70,17 @@ public class UserEvent extends MouseAdapter implements ActionListener {
                 user.setUserName(addUserUI.getLeftPanel().getUserName());
                 user.setPassword(addUserUI.getLeftPanel().getPassword());
                 user.setEnable(addUserUI.getLeftPanel().getStatus());
-                user.setAddress(addUserUI.getRightPanel().getAddress());
+                /*user.setAddress(addUserUI.getRightPanel().getAddress());
                 user.setEmail(addUserUI.getRightPanel().getEmail());
                 user.setRole(addUserUI.getRightPanel().getRole());
                 user.setPossition(addUserUI.getRightPanel().getPosition());
 
                 UserControllers controllerUsers = new UserControllers();
-                controllerUsers.saveUser(user);
+                controllerUsers.saveUser(user);*/
                 break;
 
             case Constants.CANCEL_USER: // Cancel save user
+                this.userForm.dispose();
                 break;
         }
 
@@ -108,7 +110,7 @@ public class UserEvent extends MouseAdapter implements ActionListener {
     /**
      * Dialog to display the User form
      */
-    public void updateDialog() {
+    public JDialog updateDialog() {
         JDialog userForm = new JDialog();
         userForm.setSize(700, 400);
 
@@ -116,6 +118,8 @@ public class UserEvent extends MouseAdapter implements ActionListener {
 
         userForm.add(user);
         userForm.setVisible(true);
+
+        return userForm;
     }
 
     /**

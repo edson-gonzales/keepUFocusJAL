@@ -1,48 +1,26 @@
-package View.Report;
+package View.config.Application;
 
+import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-
-import Utils.FocusTimeUtils;
-import View.Report.ApplicationFocusTime;
 
 /**
- * Initialize the data of the Activity table and define the columns
+ * Initialize the data of the Application table and define the Columns
  *
  * @author Lourdes Villca
  */
-class ActivityTableModel extends AbstractTableModel {
-    private final String[] columnNames = {"%", "Time", "Activity"};
-    private ApplicationFocusTime applicationFocusTime;
-    private FocusTimeUtils utils;
-    private Object[][] data;
+class ApplicationTableModel extends AbstractTableModel {
+    private final String[] columnNames = {"Application",
+            "Productive",
+            "Non Productive"
+    };
 
-    /**
-     * Initialize the Table with its content
-     * @param startDate start date to Fill the DataSet
-     * @param endDate end date to fill the DataSet
-     */
-    public ActivityTableModel(String startDate, String endDate) {
-        utils = new FocusTimeUtils();
-        fillData(startDate,endDate);
-    }
-
-    /**
-     * This method fill the table with the tracked Application List
-     * @param startDate start date to build the query
-     * @param endDate end date to build the query
-     */
-    public void fillData(String startDate, String endDate) {
-        applicationFocusTime = new ApplicationFocusTime();
-        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate);
-        data = new Object[appFocusTimeList.size()][3];
-        for (int i = 0; i < appFocusTimeList.size();i++) {
-            data[i][0] = appFocusTimeList.get(i).getPercentaje();
-            data[i][1] = utils.convertTime(appFocusTimeList.get(i).getTotalTime());
-            data[i][2] = appFocusTimeList.get(i).getApplication().getApplicationName();
-
-        }
-    }
+    private final Object[][] data = {
+            {"app1", false, false},
+            {"app2", false, true},
+            {"app3", false, true},
+            {"app4", true, false},
+            {"app5", false, true}
+    };
 
     /**
      * Returns the number of columns in the model
@@ -55,7 +33,7 @@ class ActivityTableModel extends AbstractTableModel {
     }
 
     /**
-     * Returns the number of rows in the activity model
+     * Returns the number of rows in the application model
      *
      * @return the number of rows
      */
@@ -107,7 +85,7 @@ class ActivityTableModel extends AbstractTableModel {
      */
     @Override
     public boolean isCellEditable(int row, int col) {
-        return false;
+        return true;
     }
 
     /**
