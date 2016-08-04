@@ -1,10 +1,12 @@
 package View.AdminUser;
 
-import View.Events.UserEvent;
-
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JScrollPane;
 import java.awt.GridLayout;
 import java.awt.Dimension;
+
+import View.Events.UserEvent;
 
 /**
  * This class show the users list
@@ -14,6 +16,9 @@ import java.awt.Dimension;
 public class TableUser extends JPanel {
     public JTable table;
 
+    /**
+     * Initialize the table that contain the user list
+     */
     public TableUser() {
         super(new GridLayout(1, 0));
 

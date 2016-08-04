@@ -1,185 +1,182 @@
 package Model.UserAdmin;
 
-import Model.Connections.Connection;
-
-import java.util.ArrayList;
-import java.util.List;
+import Model.Connections.DataAccess;
+import Model.Common.Person;
+import java.sql.ResultSet;
 
 /**
- * Created by AldoBalderrama on 7/5/2016.
+ * The class manages user of the data base
+ *
+ * @autor: JuanaRodriguez
  */
-public class User extends Model.Common.Person
-{
-    //Attribute
+public class User extends Person {
     private int userId;
     private String userName;
     private String password;
-    private boolean enable;
-    private Connection db;
-
-    //Property
+    private int roleId;
+    private int personId;
+    private DataAccess dbAccess;
 
     /**
-     * Get userId for an user object.
+     * The method return the Id of the user
      *
-     * @return Return userId of user Object.
+     * @return userId, this variable is an integer value
      */
     public int getUserId() {
         return userId;
     }
 
     /**
-     * Set userId for an user object.
+     * The method set the id of the user
      *
-     * @param userId The userId to be store.
+     * @param userId will be set in the user
      */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
     /**
-     * Get userName of user object.
+     * The method return the userName of the user.
      *
-     * @return Return userName of user Object.
+     * @return userName, this variable is a string value
      */
     public String getUserName() {
         return userName;
     }
 
     /**
-     * Set userName for an user object.
+     * The method set the username of the user
      *
-     * @param userName The userName to be store.
+     * @param userName will be set in the user.
      */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
     /**
-     * Get password of user object.
+     * The method return the password of the user.
      *
-     * @return Return password of user Object.
+     * @return password, this variable is a string value.
      */
     public String getPassword() {
         return password;
     }
 
     /**
-     * Set password for an user object.
+     * The method set the password of the user.
      *
-     * @param password The password to be store.
+     * @param password, will be set in the user.
      */
     public void setPassword(String password) {
         this.password = password;
     }
 
     /**
-     * Get enable of user object.
+     * The method return the Id of the user
      *
-     * @return Return enable of user Object.
+     * @return userId, this variable is an integer value
      */
-    public boolean isEnable() {
-        return enable;
+    public int getRoleId() {
+        return roleId;
     }
 
     /**
-     * Set enable for an user object.
+     * The method set the roleId of the user
      *
-     * @param enable The enable to be store.
+     * @param roleId will be set in the user
      */
-    public void setEnable(boolean enable) {
-        this.enable = enable;
-    }
-
-    //Constructor
-
-    /**
-     * Build a new UserControllersTest with required params.
-     *
-     * @param firstName First name the user.Required fields.
-     * @param lastName  Last name the user.Required fields.
-     * @param userName  UserControllersTest name the user.Required fields.
-     * @param password  Password the user.Required fields.
-     */
-    public User(String firstName, String lastName, String userName, String password) {
-        super(firstName, lastName);
-        this.userId = 0;
-        this.userName = userName;
-        this.password = password;
-        this.enable = false;
-        this.setPersonId(0);
-        this.setPositionId(1);
-        db = new Connection();
+    public void setRoleId(int roleId) {
+        this.userId = roleId;
     }
 
     /**
-     * Build a new UserControllersTest.
+     * The method return the personId of the user
+     *
+     * @return personId, this variable is an integer value
+     */
+    public int getPersonId() {
+        return personId;
+    }
+
+    /**
+     * The method set the personId of the user
+     *
+     * @param personId will be set in the user
+     */
+    public void setPersonId(int personId) {
+        this.personId = personId;
+    }
+
+    /**
+     * The method build the Role object and instance the DataAccess class.
      */
     public User() {
         super();
         this.userId = 0;
         this.userName = "";
         this.password = "";
-        this.enable = false;
-        this.setPersonId(0);
-        this.setFirstName("");
-        this.setLastName("");
-        this.setPositionId(0);
-        db = new Connection();
+        this.roleId = 0;
+        this.personId = 0;
+        dbAccess = new DataAccess();
     }
 
-    //Methods
-
     /**
-     * Save user Information in the data base.
+     * The method insert a user in the database, catch the id from the user inserted in the "result" variable
      *
-     * @return Return boolean value (True = Susses;False = Error).
+     * @return the saved flag that help us to check if the user was inserted, this  flag return true if the
+     * user was inserted correctly and false if it wasn't inserted.
      */
     public boolean save() {
-        System.out.printf("method will implements");
-        return true;
+        boolean saved = false;
+        ResultSet result = null;
+        try {
+            StringBuilder sql = new StringBuilder();
+            sql.append("insert into User (login,password,roleId,personId) ");
+            sql.append(String.format("Values('%s','%s',0,0)", this.getUserName(), this.getPassword()));
+            result = dbAccess.save(sql.toString());
+            if (result.next()) {
+                this.setUserId(result.getInt(1));
+                saved = true;
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.out.println("SQLException: " + e.getMessage());
+        }
+        return saved;
     }
 
     /**
-     * Update the user information in the data base.
+     * The method updates a user and give back true through of updated variable if the date was modify successfully
+     * using the method update from DataAccess class.
      *
-     * @return Return a boolean value (True = Success;False = Error).
+     * @return updated true if the date was modify successfully and false if it wasn't modify
      */
     public boolean update() {
-        System.out.printf("method will implements");
-        return true;
+        boolean updated = false;
+        StringBuilder sql = new StringBuilder("update User set ");
+        sql.append(String.format("login = '%s', ", getUserName()));
+        sql.append(String.format("password = '%s', ", getPassword()));
+        sql.append(String.format("roleId = '%s', ", getRoleId()));
+        sql.append(String.format("personId = '%s' ", getPersonId()));
+        sql.append(String.format("where userId = %s", getUserId()));
+        updated = dbAccess.update(sql.toString());
+        dbAccess.closeConnection();
+        return updated;
     }
 
     /**
-     * Deleted an existing user in the data base.
+     * The method delete a user and give back true through of deleted variable if the date was delete successfully
+     * using the method deleted from DataAccess class.
      *
-     * @return Return boolean value (True = Success;False = Error).
+     * @return deleted true if the date was deleted successfully
      */
     public boolean delete() {
-        System.out.printf("method will implements");
-        return true;
-    }
-
-    /**
-     * Get a User set.
-     *
-     * @return Get list User.
-     */
-    public List<User> getListUser() {
-        List<User> list = new ArrayList<>();
-        list.add(new User());
-        return list;
-    }
-
-    /**
-     * Get an existing user in the data base.
-     *
-     * @param userId ID for search in the data base.
-     * @return Exits an UserControllersTest.
-     */
-    public static User getUser(int userId) {
-        User user = new User("Oscar Martin", "Balderrama Vaca", "oBalderrama", "1234");
-        user.setUserId(userId);
-        return user;
+        boolean deleted = false;
+        StringBuilder sql = new StringBuilder("delete from User ");
+        sql.append(String.format("where userId = %s", getUserId()));
+        deleted = dbAccess.delete(sql.toString());
+        dbAccess.closeConnection();
+        return deleted;
     }
 }

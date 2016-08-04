@@ -2,7 +2,7 @@ package View.AdminUser;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import java.awt.*;
+import java.awt.BorderLayout;
 import javax.swing.BoxLayout;
 import javax.swing.BorderFactory;
 import java.util.ResourceBundle;
@@ -55,11 +55,12 @@ public class AddUserUI extends JPanel {
 
         userEvent = new UserEvent(this);
 
-        acceptBtn.setActionCommand("3");
-        cancelBtn.setActionCommand("4");
+        acceptBtn.setActionCommand(Constants.SAVE_USER);
+        cancelBtn.setActionCommand(Constants.CANCEL_USER);
 
         acceptBtn.addActionListener(userEvent);
         cancelBtn.addActionListener(userEvent);
+
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
 
         bottomPanel.add(acceptBtn);
@@ -69,17 +70,19 @@ public class AddUserUI extends JPanel {
 
     /**
      * Method that return the left panel
+     *
      * @return the left panel
      */
-    public LeftPanelUserUI getLeftPanel(){
+    public LeftPanelUserUI getLeftPanel() {
         return this.leftPanel;
     }
 
     /**
      * Method that return the right panel
+     *
      * @return the right panel
      */
-    public RightPanelUserUI getRightPanel(){
+    public RightPanelUserUI getRightPanel() {
         return this.rightPanel;
     }
 

@@ -1,8 +1,5 @@
 package View.AdminUser;
 
-import Utils.Constants;
-import View.Events.UserEvent;
-
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -10,6 +7,9 @@ import javax.swing.JButton;
 import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import java.util.ResourceBundle;
+
+import Utils.Constants;
+import View.Events.UserEvent;
 
 /**
  * UI to list users and make search into it
@@ -53,8 +53,8 @@ public class SearchUserUI extends JPanel {
         searchButton = InitComponent.initButton(searchButton, resource.getString("common.label.searchButton"), panel);
         newUserButton = InitComponent.initButton(newUserButton, resource.getString("common.label.newUser"), panel);
 
-        searchButton.setActionCommand("1");
-        newUserButton.setActionCommand("2");
+        searchButton.setActionCommand(Constants.SEARCH_USER);
+        newUserButton.setActionCommand(Constants.CREATE_USER);
 
         addUserUI = new AddUserUI();
         userEvent = new UserEvent(addUserUI);

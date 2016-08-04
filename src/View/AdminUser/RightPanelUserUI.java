@@ -25,7 +25,7 @@ public class RightPanelUserUI extends JPanel {
     private JTextField addressTxt;
     private JTextField emailTxt;
     private JComboBox roleCbox;
-    private JComboBox possitionCbox;
+    private JComboBox positionCbox;
     private ResourceBundle resource;
 
     /**
@@ -51,7 +51,7 @@ public class RightPanelUserUI extends JPanel {
         emailTxt = InitComponent.initTextBox(emailTxt, txtSize, this);
 
         InitComponent.initLabel(possitionLabel, resource.getString("admin.label.possitionLabel"), this);
-        possitionCbox = InitComponent.initComboBox(possitionCbox, txtSize, this);
+        positionCbox = InitComponent.initComboBox(positionCbox, txtSize, this);
 
         InitComponent.initLabel(roleLabel, resource.getString("admin.label.roleLabel"), this);
         roleCbox = InitComponent.initComboBox(roleCbox, txtSize, this);
@@ -94,6 +94,6 @@ public class RightPanelUserUI extends JPanel {
      * @return the position
      */
     public String getPosition() {
-        return possitionCbox.getSelectedItem().toString();
+        return positionCbox.getSelectedItem().toString();
     }
 }
