@@ -39,12 +39,4 @@ public class RoleTest {
         role.delete();
         Assert.assertNull(RoleHandler.getRoleById(role.getRoleId()));
     }
-    @Test
-    public void VerifyGetARoleById(){
-        Role role = new Role();
-        role.setRoleName("Administrator");
-        role.setRoleName("Employee");
-        role.save();
-        //verificamos utilizando getListRole que los dos anteriores roles estan en la bd
-    }
 }

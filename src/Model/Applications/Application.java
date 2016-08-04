@@ -115,7 +115,8 @@ public class Application {
     public boolean update() {
         boolean updated = false;
         StringBuilder sql = new StringBuilder("update Application set ");
-        sql.append(String.format("applicationName = '%s' ", getApplicationName()));
+        sql.append(String.format("applicationName = '%s' ,", getApplicationName()));
+        sql.append(String.format("applicationCategoryId = '%s' ",this.getCategoryId()));
         sql.append(String.format("where applicationId = %s", getApplicationId()));
         updated = dbAccess.update(sql.toString());
         dbAccess.closeConnection();
