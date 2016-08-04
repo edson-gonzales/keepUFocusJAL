@@ -24,6 +24,7 @@ public class FocusTimeThread extends Thread {
     private Application previousApplication;
     private int seconds;
     private int userId;
+    private boolean isRun;
 
     /**
      * Gets the applications list.
@@ -45,20 +46,22 @@ public class FocusTimeThread extends Thread {
         this.previousFocusTime = null;
         this.previousApplication = null;
         this.userId = userId;
+        this.isRun = false;
     }
 
     /**
      * This method runs when the thread is thrown in the background.
      */
     public void run() {
-        boolean isRun = true;
+        this.isRun = true;
         while (isRun) {
             try {
                 this.process();
                 sleep(this.seconds);
             } catch (InterruptedException e) {
                 System.out.println(e.getMessage());
-                isRun = false;
+                this.isRun = false;
+                this.process();
             }
         }
     }
@@ -68,6 +71,7 @@ public class FocusTimeThread extends Thread {
      */
     private void process() {
         String applicationName = getApplicationName();
+        System.out.println(applicationName);
         Date date = new Date();
         Application application = this.getApplication(applicationName);
         long starTime = date.getTime();
@@ -75,7 +79,6 @@ public class FocusTimeThread extends Thread {
         if (this.previousFocusTime == null) {
             this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
             this.previousApplication = application;
-            System.out.println("previous FocusTime null");
         } else if (!this.previousApplication.getApplicationName().equals(application.getApplicationName())) {
             System.out.println(this.previousApplication.getApplicationName());
             endTime = starTime;
@@ -84,8 +87,11 @@ public class FocusTimeThread extends Thread {
             endTime = 0;
             this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
             this.previousApplication = application;
+        }else if (!this.isRun){
+            endTime = starTime;
+            this.previousFocusTime.setEndDate(new Timestamp(endTime));
+            this.previousFocusTime.update();
         }
-        System.out.println(application.getApplicationName());
         this.applicationNameList.add(applicationName);
     }
 
