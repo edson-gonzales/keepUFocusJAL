@@ -1,13 +1,7 @@
 package View.AdminUser;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Dimension;
-import java.awt.Component;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * Class to help us to add components like JLabel, JTextBox, JComboBox

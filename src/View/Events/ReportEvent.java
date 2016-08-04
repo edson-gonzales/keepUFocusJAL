@@ -1,6 +1,5 @@
 package View.Events;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
@@ -28,7 +27,6 @@ public class ReportEvent implements ActionListener {
      */
     @Override
     public void actionPerformed(ActionEvent e) {
-        //activity = new Activity();
         SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
         String startDate = dateFormatter.format(activity.getDatePickerFrom());
         String endDate = dateFormatter.format(activity.getDatePickerTo());

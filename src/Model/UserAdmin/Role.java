@@ -3,7 +3,6 @@ package Model.UserAdmin;
 import Model.Connections.DataAccess;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 /**
  * The class manages roles of the database
@@ -57,6 +56,16 @@ public class Role {
     public Role() {
         this.setRoleId(0);
         this.setRoleName("");
+        dbAccess = new DataAccess();
+    }
+
+    /**
+     * The method construct the Role object and instance the DataAccess class.
+     * @param roleName
+     */
+    public Role(String roleName) {
+        this.setRoleId(0);
+        this.setRoleName(roleName);
         dbAccess = new DataAccess();
     }
 

@@ -3,7 +3,6 @@ package Model.Applications;
 import Model.Connections.DataAccess;
 
 import java.sql.ResultSet;
-import java.util.ArrayList;
 
 /**
  * The class manages ApplicationCategory of the database
@@ -57,6 +56,16 @@ public class ApplicationCategory {
     public ApplicationCategory() {
         this.applicationCategoryId = 0;
         this.applicationCategoryName = "";
+        dbAccess = new DataAccess();
+    }
+
+    /**
+     *
+     * @param applicationCategoryName
+     */
+    public ApplicationCategory(String applicationCategoryName) {
+        this.applicationCategoryId = 0;
+        this.applicationCategoryName = applicationCategoryName;
         dbAccess = new DataAccess();
     }
 

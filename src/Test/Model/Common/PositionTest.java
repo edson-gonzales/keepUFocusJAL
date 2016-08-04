@@ -10,13 +10,14 @@ import org.junit.Test;
  */
 public class PositionTest {
     @Test
-    public  void VerifyANewPositionIsSaved (){
+    public void VerifyANewPositionIsSaved() {
         Position position = new Position();
         position.setPositionName("Lead");
         position.save();
         Assert.assertEquals(position.getPositionName(), PositionHandler.getPositionById(position.getPositionId()).getPositionName());
         position.delete();
     }
+
     @Test
     public void VerifyThatAPositionIsUpdated() {
         Position position = new Position();

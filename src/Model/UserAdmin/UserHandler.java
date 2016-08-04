@@ -45,7 +45,7 @@ public class UserHandler {
      */
     public static ArrayList<User> getListUser() {
         DataAccess dbAccess = new DataAccess();
-        ArrayList<User> users = new ArrayList<User>();
+        ArrayList<User> users = new ArrayList<>();
         ResultSet result = null;
         StringBuilder sql = new StringBuilder("Select * from User");
         try {

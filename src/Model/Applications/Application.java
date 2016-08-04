@@ -80,6 +80,18 @@ public class Application {
     }
 
     /**
+     * The method build an Application object
+     *
+     * @param applicationName name the application
+     */
+    public Application(String applicationName) {
+        this.setApplicationId(0);
+        this.setApplicationName(applicationName);
+        this.setCategoryId(1);
+        dbAccess = new DataAccess();
+    }
+
+    /**
      * The method insert a application in the database, catch the id from the application inserted in the "result"
      * variable
      *
@@ -116,7 +128,7 @@ public class Application {
         boolean updated = false;
         StringBuilder sql = new StringBuilder("update Application set ");
         sql.append(String.format("applicationName = '%s' ,", getApplicationName()));
-        sql.append(String.format("applicationCategoryId = '%s' ",this.getCategoryId()));
+        sql.append(String.format("applicationCategoryId = '%s' ", this.getCategoryId()));
         sql.append(String.format("where applicationId = %s", getApplicationId()));
         updated = dbAccess.update(sql.toString());
         dbAccess.closeConnection();

@@ -2,7 +2,6 @@ package View.Report;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Date;
 
 import Model.Applications.Application;
 import Model.Applications.ApplicationCategory;
@@ -60,7 +59,7 @@ public class ApplicationFocusTime {
                 application = new Application();
                 application.setApplicationId(result.getInt(1));
                 application.setApplicationName(result.getString(2));
-                application.setApplicationCategoryId(result.getInt(3));
+                application.setCategoryId(result.getInt(3));
                 focusTime.setFocusTimeId(result.getInt(4));
                 focusTime.setStartDate(result.getTimestamp(5));
                 focusTime.setEndDate(result.getTimestamp(6));

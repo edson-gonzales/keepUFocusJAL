@@ -10,7 +10,7 @@ import org.junit.Test;
  */
 public class ApplicationCategoryTest {
     @Test
-    public void VerifyThatANewApplicationCategoryIsAdd(){
+    public void VerifyThatANewApplicationCategoryIsAdd() {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Meeting");
         applicationCategory.save();
@@ -19,7 +19,7 @@ public class ApplicationCategoryTest {
     }
 
     @Test
-    public void VerifyThatAnApplicationIsUpdated(){
+    public void VerifyThatAnApplicationIsUpdated() {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Lunchh");
         applicationCategory.save();
@@ -29,8 +29,9 @@ public class ApplicationCategoryTest {
         Assert.assertEquals(otherApplicationCategory.getApplicationCategoryName(), ApplicationCategoryHandler.getApplicationCategoryById(applicationCategory.getApplicationCategoryId()).getApplicationCategoryName());
         applicationCategory.delete();
     }
+
     @Test
-    public void VerifyThatAnApplicationCategoryIsDeleted(){
+    public void VerifyThatAnApplicationCategoryIsDeleted() {
         ApplicationCategory applicationCategory = new ApplicationCategory();
         applicationCategory.setApplicationCategoryName("Lunchhh");
         applicationCategory.save();

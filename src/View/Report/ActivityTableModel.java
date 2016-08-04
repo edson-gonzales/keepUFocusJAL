@@ -4,7 +4,6 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
 import Utils.FocusTimeUtils;
-import View.Report.ApplicationFocusTime;
 
 /**
  * Initialize the data of the Activity table and define the columns
