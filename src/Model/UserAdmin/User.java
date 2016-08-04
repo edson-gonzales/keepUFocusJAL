@@ -1,6 +1,5 @@
 package Model.UserAdmin;
 
-import Model.Common.Person;
 import Model.Connections.DataAccess;
 
 import java.sql.ResultSet;
@@ -10,12 +9,14 @@ import java.sql.ResultSet;
  *
  * @autor: JuanaRodriguez
  */
-public class User extends Person {
+public class User {
     private int userId;
+    private String firstName;
+    private String lastName;
     private String userName;
     private String password;
     private int roleId;
-    private int personId;
+    private int positionId;
     private DataAccess dbAccess;
 
     /**
@@ -35,7 +36,41 @@ public class User extends Person {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+    /**
+     * The method return the first name of the user
+     *
+     * @return firstName, this variable is a string value
+     */
+    public String getFirstName() {
+        return firstName;
+    }
 
+    /**
+     * The method set the first name of the user
+     *
+     * @param firstName will be set in the user
+     */
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    /**
+     * The method return the last name of the user
+     *
+     * @return lastName, this variable is a string value
+     */
+    public String getLastName() {
+        return lastName;
+    }
+
+    /**
+     * The method set the last name of the user
+     *
+     * @param lastName will be set in the user
+     */
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
     /**
      * The method return the userName of the user.
      *
@@ -87,47 +122,49 @@ public class User extends Person {
      * @param roleId will be set in the user
      */
     public void setRoleId(int roleId) {
-        this.userId = roleId;
+        this.roleId = roleId;
     }
 
     /**
-     * The method return the personId of the user
+     * The method return the positionId of the user
      *
-     * @return personId, this variable is an integer value
+     * @return positionId, this variable is an integer value
      */
-    public int getPersonId() {
-        return personId;
+    public int getPositionId() {
+        return positionId;
     }
 
     /**
-     * The method set the personId of the user
+     * The method set the positionId of the user
      *
-     * @param personId will be set in the user
+     * @param positionId will be set in the user
      */
-    public void setPersonId(int personId) {
-        this.personId = personId;
+    public void setPositionId(int positionId) {
+        this.positionId = positionId;
     }
 
     /**
-     * The method build the Role object and instance the DataAccess class.
+     * The method build the User object and instance the DataAccess class.
      */
     public User() {
         super();
         this.userId = 0;
+        this.firstName = "";
+        this.lastName = "";
         this.userName = "";
         this.password = "";
         this.roleId = 0;
-        this.personId = 0;
+        this.positionId = 0;
         dbAccess = new DataAccess();
     }
 
     /**
-     * The method build the Role object and instance the DataAccess class.
+     * The method build the User object and instance the DataAccess class.
      *
-     * @param firstName
-     * @param lastName
-     * @param userName
-     * @param password
+     * @param firstName will be set in the user
+     * @param lastName will be set in the user
+     * @param userName will be set in the user
+     * @param password will be set in the user
      */
     public User(String firstName, String lastName, String userName, String password) {
         super();
@@ -137,7 +174,7 @@ public class User extends Person {
         this.userName = userName;
         this.password = password;
         this.roleId = 0;
-        this.personId = 0;
+        this.positionId = 0;
         dbAccess = new DataAccess();
     }
 
@@ -152,8 +189,8 @@ public class User extends Person {
         ResultSet result = null;
         try {
             StringBuilder sql = new StringBuilder();
-            sql.append("insert into User (login,password,roleId,personId) ");
-            sql.append(String.format("Values('%s','%s',0,0)", this.getUserName(), this.getPassword()));
+            sql.append("insert into User (firstName,lastName,login,password,roleId,positionId) ");
+            sql.append(String.format("Values('%s','%s','%s','%s',%s,%s)", this.getFirstName(), this.getLastName(), this.getUserName(), this.getPassword(), this.getRoleId(), this.getPositionId()));
             result = dbAccess.save(sql.toString());
             if (result.next()) {
                 this.setUserId(result.getInt(1));
@@ -176,10 +213,12 @@ public class User extends Person {
     public boolean update() {
         boolean updated = false;
         StringBuilder sql = new StringBuilder("update User set ");
+        sql.append(String.format("firstName = '%s', ", getFirstName()));
+        sql.append(String.format("lastName = '%s', ", getLastName()));
         sql.append(String.format("login = '%s', ", getUserName()));
         sql.append(String.format("password = '%s', ", getPassword()));
-        sql.append(String.format("roleId = '%s', ", getRoleId()));
-        sql.append(String.format("personId = '%s' ", getPersonId()));
+        sql.append(String.format("roleId = %s, ", getRoleId()));
+        sql.append(String.format("positionId = %s ", getPositionId()));
         sql.append(String.format("where userId = %s", getUserId()));
         updated = dbAccess.update(sql.toString());
         dbAccess.closeConnection();
