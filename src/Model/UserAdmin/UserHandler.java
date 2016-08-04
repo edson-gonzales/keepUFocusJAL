@@ -28,7 +28,12 @@ public class UserHandler {
             if (result.next()) {
                 user = new User();
                 user.setUserId(result.getInt(1));
-                user.setUserName(result.getString(2));
+                user.setFirstName(result.getString(2));
+                user.setLastName(result.getString(3));
+                user.setUserName(result.getString(4));
+                user.setPassword(result.getString(5));
+                user.setRoleId(result.getInt(6));
+                user.setPositionId(result.getInt(7));
             }
             result.close();
             dbAccess.closeConnection();
@@ -39,7 +44,7 @@ public class UserHandler {
     }
 
     /**
-     * The method return the user objects and set in an ArrayList     *
+     * The method return the user objects and set in an ArrayList
      *
      * @return users return a set users
      */
@@ -53,7 +58,12 @@ public class UserHandler {
             while (result.next()) {
                 User user = new User();
                 user.setUserId(result.getInt(1));
-                user.setUserName(result.getString(2));
+                user.setFirstName(result.getString(2));
+                user.setLastName(result.getString(3));
+                user.setUserName(result.getString(4));
+                user.setPassword(result.getString(5));
+                user.setRoleId(result.getInt(6));
+                user.setPositionId(result.getInt(7));
                 users.add(user);
             }
             result.close();
