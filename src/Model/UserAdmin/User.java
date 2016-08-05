@@ -239,4 +239,8 @@ public class User {
         dbAccess.closeConnection();
         return deleted;
     }
+    @Override
+    public String toString(){
+        return this.firstName;
+    }
 }

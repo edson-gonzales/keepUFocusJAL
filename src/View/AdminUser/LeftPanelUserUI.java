@@ -1,11 +1,7 @@
 package View.AdminUser;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JCheckBox;
+import javax.swing.*;
 import java.awt.Dimension;
-import javax.swing.SpringLayout;
 
 import Utilities.SpringUtilities;
 
@@ -24,12 +20,10 @@ public class LeftPanelUserUI extends JPanel {
     private JLabel lastNameLabel;
     private JLabel userLabel;
     private JLabel passwordLabel;
-    private JLabel activeLabel;
     private JTextField nameTxt;
     private JTextField lastNameTxt;
     private JTextField userTxt;
-    private JTextField passwordTxt;
-    private JCheckBox activeCbox;
+    private JPasswordField passwordTxt;
     private ResourceBundle resource;
 
     /**
@@ -58,14 +52,10 @@ public class LeftPanelUserUI extends JPanel {
         userTxt = InitComponent.initTextBox(userTxt, txtSize, this);
 
         InitComponent.initLabel(passwordLabel, resource.getString("admin.label.passwordLabel"), this);
-        passwordTxt = InitComponent.initTextBox(passwordTxt, txtSize, this);
-        InitComponent.initLabel(activeLabel, resource.getString("admin.label.activeLabel"), this);
-
-        activeCbox = new JCheckBox();
-        this.add(activeCbox);
+        passwordTxt = InitComponent.initJPasswordField(passwordTxt, txtSize, this);
 
         InitComponent.setSizeComponent(this, new Dimension(310, 50));
-        SpringUtilities.makeCompactGrid(this, 5, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
+        SpringUtilities.makeCompactGrid(this, 4, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
 
     }
 
@@ -104,14 +94,18 @@ public class LeftPanelUserUI extends JPanel {
     public String getPassword() {
         return passwordTxt.getText();
     }
-
-    /**
-     * Returns true if the checkbox is selected otherwise false
-     *
-     * @return the selected status
-     */
-    public boolean getStatus() {
-        return activeCbox.isSelected();
+    public void setName(String userFirstName){
+       this.nameTxt.setText(userFirstName);
     }
+    public void setLastName(String lastName){
+        this.lastNameTxt.setText(lastName);
+    }
+    public void setUserName(String userName){
+        this.userTxt.setText(userName);
+    }
+    public void setPassword(String password){
+        this.passwordTxt.setText(password);
+    }
+
 
 }

@@ -125,4 +125,8 @@ public class Role {
         dbAccess.closeConnection();
         return deleted;
     }
+    @Override
+    public String toString(){
+        return roleName;
+    }
 }

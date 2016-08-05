@@ -1,7 +1,12 @@
 package View.AdminUser;
 
+import Controller.UserAdmin.UserControllers;
+import Model.UserAdmin.User;
+
 import javax.swing.ImageIcon;
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Initialize the data of the table and define the Columns
@@ -11,21 +16,34 @@ import javax.swing.table.AbstractTableModel;
 class UserTableModel extends AbstractTableModel {
     private final String[] columnNames = {"First Name",
             "Last Name",
-            "Age",
-            "Address",
+            "User Name",
             "Edit",
             "Delete"};
+    private Object[][] data;
+    private ImageIcon edit;
+    private ImageIcon delete;
 
-    ImageIcon edit = new ImageIcon(getClass().getResource("../../Resources/images/edit.jpg"));
-    ImageIcon delete = new ImageIcon(getClass().getResource("../../Resources/images/delete.png"));
+    public UserTableModel() {
+        edit = new ImageIcon(getClass().getResource("../../Resources/images/edit.jpg"));
+        delete = new ImageIcon(getClass().getResource("../../Resources/images/delete.png"));
+        setTableUser();
+    }
 
-    private final Object[][] data = {
-            {"Kathy", "Smith", 17, "Address 1", edit, delete},
-            {"John", "Doe", 21, "Rowing", edit, delete},
-            {"Sue", "Black", 43, "Knitting", edit, delete},
-            {"Jane", "White", 24, "Speed reading", edit, delete},
-            {"Joe", "Brown", 42, "Pool", edit, delete}
-    };
+    public void setTableUser() {
+        List<User> userList = new ArrayList<User>();
+        UserControllers controller = new UserControllers();
+        userList = controller.getListUser();
+        data = new Object[userList.size()][5];
+        for (int i = 0; i < userList.size(); i++) {
+            data[i][0] = userList.get(i);
+            data[i][1] = userList.get(i).getLastName();
+            data[i][2] = userList.get(i).getUserName();
+            data[i][3] = edit;
+            data[i][4] = delete;
+
+
+        }
+    }
 
     /**
      * Returns the number of columns in the model

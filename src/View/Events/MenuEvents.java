@@ -24,7 +24,6 @@ public class MenuEvents implements ActionListener {
 
     public MenuEvents(JFrame mainWindow) {
         this.mainWindow = mainWindow;
-
     }
 
     /**
@@ -62,9 +61,7 @@ public class MenuEvents implements ActionListener {
                 Activity activity = new Activity(mainWindow, currentDate, currentDate);
                 refreshMainFrame(activity);
                 break;
-
         }
-
     }
 
     /**

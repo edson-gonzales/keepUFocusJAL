@@ -2,6 +2,7 @@ package View.AdminUser;
 
 import Utils.Constants;
 import View.Events.UserEvent;
+import View.Main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +14,7 @@ import java.util.ResourceBundle;
  * @author Lourdes Villca
  */
 
-public class AddUserUI extends JPanel {
+public class AddUserUI extends JDialog {
     private JButton acceptBtn;
     private JButton cancelBtn;
     private UserEvent userEvent;
@@ -26,6 +27,7 @@ public class AddUserUI extends JPanel {
      * Init the components and define a layout for panels
      */
     public AddUserUI() {
+        super((JFrame) Main.getMain());
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
 
         leftPanel = new LeftPanelUserUI();
@@ -36,7 +38,8 @@ public class AddUserUI extends JPanel {
         this.add(leftPanel, BorderLayout.LINE_START);
         this.add(rightPanel, BorderLayout.LINE_END);
         this.add(bottomPanel, BorderLayout.PAGE_END);
-        this.setBorder(BorderFactory.createTitledBorder("Add New User"));
+        this.setSize(700, 250);
+        setLocationRelativeTo((JFrame) Main.getMain());
     }
 
     /**
@@ -47,8 +50,8 @@ public class AddUserUI extends JPanel {
 
     public JPanel buildBottomPanel() {
         JPanel bottomPanel = new JPanel();
-        acceptBtn = InitComponent.initButton(acceptBtn, resource.getString("common.label.acceptButton"), this);
-        cancelBtn = InitComponent.initButton(cancelBtn, resource.getString("common.label.cancelButton"), this);
+        acceptBtn = InitComponent.initButton(acceptBtn, resource.getString("common.label.acceptButton"), bottomPanel);
+        cancelBtn = InitComponent.initButton(cancelBtn, resource.getString("common.label.cancelButton"), bottomPanel);
 
         userEvent = new UserEvent(this);
 
