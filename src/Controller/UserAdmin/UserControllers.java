@@ -56,6 +56,14 @@ public class UserControllers {
     }
 
     /**
+     * @param userId
+     * @return
+     */
+    public boolean userExist(int userId) {
+        return UserHandler.exist(userId);
+    }
+
+    /**
      * Save an role object.
      *
      * @param role Save role in the data base.
@@ -95,6 +103,16 @@ public class UserControllers {
     }
 
     /**
+     * Obtain Role object by id
+     *
+     * @param roleId id role
+     * @return get a role
+     */
+    public Role getRoleById(int roleId) {
+        return RoleHandler.getRoleById(roleId);
+    }
+
+    /**
      * Save an position object.
      *
      * @param position Save position in the data base.
@@ -131,5 +149,15 @@ public class UserControllers {
      */
     public List<Position> getListPosition() {
         return PositionHandler.getListPosition();
+    }
+
+    /**
+     * Obtain Role object by id
+     *
+     * @param positionId id position
+     * @return get a position
+     */
+    public Position getPositionById(int positionId) {
+        return PositionHandler.getPositionById(positionId);
     }
 }
