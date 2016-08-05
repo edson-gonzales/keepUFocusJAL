@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import java.sql.ResultSet;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -74,6 +75,14 @@ public class UserControllersTest {
     }
 
     @Test
+    public void verifyIfUserExistWithUserControllers() {
+        UserControllers userControllers = new UserControllers();
+        User user = new User("Aldo", "Balderrama", "mabalderramav", "1234");
+        userControllers.saveUser(user);
+        assertTrue(userControllers.userExist(user.getUserId()));
+    }
+
+    @Test
     public void saveOneRoleWithUserControllers() {
         Role role = new Role("User");
         UserControllers userControllers = new UserControllers();
@@ -120,6 +129,15 @@ public class UserControllersTest {
         }
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.getListRole().size() == count);
+    }
+
+    @Test
+    public void verifyGetRoleByIdWithUserControllers() {
+        Role role = new Role("User");
+        UserControllers userControllers = new UserControllers();
+        role.save();
+        assertNotNull(userControllers.getRoleById(role.getRoleId()));
+        userControllers.deleteRole(role);
     }
 
     @Test
@@ -170,5 +188,15 @@ public class UserControllersTest {
         }
         UserControllers userControllers = new UserControllers();
         assertTrue(userControllers.getListPosition().size() == count);
+    }
+
+    @Test
+    public void verifyGetPositionByIdWithUserControllers() {
+        UserControllers userControllers = new UserControllers();
+        Position position = new Position();
+        position.setPositionName("Development");
+        position.save();
+        assertNotNull(userControllers.getPositionById(position.getPositionId()));
+        position.delete();
     }
 }

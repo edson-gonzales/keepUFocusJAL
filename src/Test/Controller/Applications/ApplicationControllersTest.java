@@ -5,7 +5,11 @@ import Model.Applications.Application;
 import Model.Applications.ApplicationCategory;
 import Model.Applications.ApplicationCategoryHandler;
 import Model.Applications.ApplicationHandler;
+import Model.Connections.DataAccess;
+
 import org.junit.Test;
+
+import java.sql.ResultSet;
 
 import static org.junit.Assert.assertTrue;
 
@@ -67,5 +71,26 @@ public class ApplicationControllersTest {
         applicationControllers.saveApplicationCategory(otherApplicationCategory);
         ApplicationCategory applicationCategory = ApplicationCategoryHandler.getApplicationCategoryById(otherApplicationCategory.getApplicationCategoryId());
         assertTrue(applicationControllers.deleteApplicationCategory(applicationCategory));
+    }
+
+    @Test
+    public void verifyGetListApplicationWithApplicationCategoryControllers() {
+        DataAccess dataAccess = new DataAccess();
+        int count = 0;
+        StringBuilder sql = new StringBuilder();
+        sql.append("SELECT Count(*) as Count ");
+        sql.append("FROM Application");
+        ResultSet resultSet = dataAccess.select(sql.toString());
+        try {
+            if (resultSet.next()) {
+                count = resultSet.getInt(1);
+            }
+            resultSet.close();
+            dataAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
+        ApplicationControllers applicationControllers = new ApplicationControllers();
+        assertTrue(applicationControllers.getListApllication().size() == count);
     }
 }

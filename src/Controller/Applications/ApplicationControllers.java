@@ -2,6 +2,9 @@ package Controller.Applications;
 
 import Model.Applications.Application;
 import Model.Applications.ApplicationCategory;
+import Model.Applications.ApplicationHandler;
+
+import java.util.List;
 
 /**
  * Created by AldoBalderrama on 7/25/2016.
@@ -37,6 +40,15 @@ public class ApplicationControllers {
      */
     public boolean deleteApplication(Application application) {
         return application.delete();
+    }
+
+    /**
+     * Get a Application set object.
+     *
+     * @return Get list Positions.
+     */
+    public List<Application> getListApllication() {
+        return ApplicationHandler.getListApplication();
     }
 
     /**

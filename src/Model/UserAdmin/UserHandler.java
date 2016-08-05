@@ -73,4 +73,18 @@ public class UserHandler {
         }
         return users;
     }
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    public static boolean exist(int userId) {
+        User user = getUserById(userId);
+        if (user == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
