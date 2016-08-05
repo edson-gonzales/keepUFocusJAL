@@ -130,4 +130,8 @@ public class Position {
         dbAccess.closeConnection();
         return deleted;
     }
+    @Override
+    public String toString(){
+        return positionName;
+    }
 }

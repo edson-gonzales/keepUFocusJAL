@@ -18,10 +18,11 @@ public abstract class Constants {
     public static final String SAVE_USER = "save user";
     public static final String CANCEL_USER = "cancel";
 
-    public static final int UPDATE_USER = 4; // column number where is the update icon
-    public static final int DELETE_USER = 5; // column number where is the delete icon
+    public static final int UPDATE_USER = 3; // column number where is the update icon
+    public static final int DELETE_USER = 4; // column number where is the delete icon
 
     public static final String ACTIVITY_REPORT = "activity report";
-
+    public static final String LOGIN = "login";
+    public static String CANCEL = "cancel";
 
 }

@@ -1,18 +1,19 @@
 package View.Events;
 
+import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 import View.AdminUser.AddUserUI;
 import Model.UserAdmin.User;
+import View.AdminUser.SearchUserUI;
 import View.AdminUser.TableUser;
 import Controller.UserAdmin.UserControllers;
 import Utils.Constants;
-
+import View.Main;
 
 /**
  * Class to manage user events
@@ -22,11 +23,10 @@ import Utils.Constants;
 public class UserEvent extends MouseAdapter implements ActionListener {
     private AddUserUI addUserUI;
     private TableUser tableUser;
-    private JDialog userForm;
+
     /**
      * Create a User event object
      *
-     * @param addUserUI view form where the action happens
      */
     public UserEvent(AddUserUI addUserUI) {
         this.addUserUI = addUserUI;
@@ -56,8 +56,8 @@ public class UserEvent extends MouseAdapter implements ActionListener {
             case Constants.USER_LIST://search a user
                 break;
             case Constants.CREATE_USER://open a form to create a new user
-                userForm = updateDialog();
-                System.out.println(userForm);
+                addUserUI = new AddUserUI();
+                addUserUI.setVisible(true);
                 break;
 
             case Constants.SAVE_USER: // accept button to save a user
@@ -68,15 +68,17 @@ public class UserEvent extends MouseAdapter implements ActionListener {
                 user.setLastName(addUserUI.getLeftPanel().getLastName());
                 user.setUserName(addUserUI.getLeftPanel().getUserName());
                 user.setPassword(addUserUI.getLeftPanel().getPassword());
-                //user.setRoleId(addUserUI.getRightPanel().getRole());
-                //user.setPositionId(addUserUI.getRightPanel().getPosition());
+                user.setRoleId(addUserUI.getRightPanel().getRole().getRoleId());
+                user.setPositionId(addUserUI.getRightPanel().getPosition().getPositionId());
 
                 UserControllers controllerUsers = new UserControllers();
                 controllerUsers.saveUser(user);
+                addUserUI.dispose();
+
                 break;
 
             case Constants.CANCEL_USER: // Cancel save user
-                this.userForm.dispose();
+                addUserUI.dispose();
                 break;
         }
 
@@ -94,28 +96,23 @@ public class UserEvent extends MouseAdapter implements ActionListener {
 
         switch (column) {
             case Constants.UPDATE_USER: //Update User
-                updateDialog();
+                User user = (User)tableUser.table.getModel().getValueAt(row, 0);
+                addUserUI = new AddUserUI();
+                addUserUI.getLeftPanel().setName(user.getFirstName());
+                addUserUI.getLeftPanel().setLastName(user.getLastName());
+                addUserUI.getLeftPanel().setUserName(user.getUserName());
+                addUserUI.getLeftPanel().setPassword(user.getPassword());
+                //addUserUI.getRightPanel().setRoleCbox(user.getRoleId());
+                //addUserUI.getRightPanel().setPositionCbox(user.getPositionId());
+
+
+                addUserUI.setVisible(true);
                 break;
             case Constants.DELETE_USER: //Delete User
                 deleteDialog(row);
                 break;
         }
 
-    }
-
-    /**
-     * Dialog to display the User form
-     */
-    public JDialog updateDialog() {
-        JDialog userForm = new JDialog();
-        userForm.setSize(700, 400);
-
-        AddUserUI user = new AddUserUI();
-
-        userForm.add(user);
-        userForm.setVisible(true);
-
-        return userForm;
     }
 
     /**
@@ -126,7 +123,23 @@ public class UserEvent extends MouseAdapter implements ActionListener {
     public void deleteDialog(int row) {
         int alertMessage = JOptionPane.showConfirmDialog(tableUser, "Do you want to delete this user?");
         if (alertMessage == JOptionPane.YES_OPTION) {
+            User user = (User)tableUser.table.getModel().getValueAt(row, 0);
+            user.delete();
+            Main.getMain().getContentPane().removeAll();
+            SearchUserUI searchUser = new SearchUserUI();
+            refreshMainFrame(searchUser);
             System.out.println("delete row: " + row);
         }
+    }
+    /**
+     * Method to refresh the content of the main frame
+     *
+     * @param panel to be added into the main frame
+     */
+    public void refreshMainFrame(JPanel panel) {
+
+        Main.getMain().getContentPane().add(panel, BorderLayout.CENTER);
+        Main.getMain().setSize(Main.getMain().getWidth() + 1, Main.getMain().getHeight() + 1);
+        Main.getMain().setSize(Main.getMain().getWidth() - 1, Main.getMain().getHeight() - 1);
     }
 }

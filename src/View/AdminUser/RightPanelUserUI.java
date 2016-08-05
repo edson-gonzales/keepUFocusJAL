@@ -1,13 +1,14 @@
 package View.AdminUser;
 
-import javax.swing.JPanel;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JComboBox;
-import javax.swing.SpringLayout;
+import javax.swing.*;
 import java.awt.Dimension;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import Controller.UserAdmin.UserControllers;
+import Model.Common.Position;
+import Model.UserAdmin.Role;
 import Utilities.SpringUtilities;
 import Utils.Constants;
 
@@ -18,12 +19,8 @@ import Utils.Constants;
  */
 
 public class RightPanelUserUI extends JPanel {
-    private JLabel addressLabel;
-    private JLabel emailLabel;
     private JLabel roleLabel;
     private JLabel possitionLabel;
-    private JTextField addressTxt;
-    private JTextField emailTxt;
     private JComboBox roleCbox;
     private JComboBox positionCbox;
     private ResourceBundle resource;
@@ -31,6 +28,7 @@ public class RightPanelUserUI extends JPanel {
     /**
      * Init the components and define a layout the panel
      */
+
     public RightPanelUserUI() {
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
         this.setLayout(new SpringLayout());
@@ -44,39 +42,29 @@ public class RightPanelUserUI extends JPanel {
      */
     private void buildRightPanel() {
         Dimension txtSize = new Dimension(150, 25);
-        InitComponent.initLabel(addressLabel, resource.getString("admin.label.addressLabel"), this);
-        addressTxt = InitComponent.initTextBox(addressTxt, txtSize, this);
-
-        InitComponent.initLabel(emailLabel, resource.getString("admin.label.emailLabel"), this);
-        emailTxt = InitComponent.initTextBox(emailTxt, txtSize, this);
 
         InitComponent.initLabel(possitionLabel, resource.getString("admin.label.possitionLabel"), this);
+        UserControllers controller = new UserControllers();
+        List<Position> positionList = new ArrayList<Position>();
+
+        positionList = controller.getListPosition();
         positionCbox = InitComponent.initComboBox(positionCbox, txtSize, this);
 
+        for(Position position: positionList){
+            positionCbox.addItem(position);
+        }
         InitComponent.initLabel(roleLabel, resource.getString("admin.label.roleLabel"), this);
         roleCbox = InitComponent.initComboBox(roleCbox, txtSize, this);
 
+        List<Role> roleList = new ArrayList<Role>();
+        roleList = controller.getListRole();
+        for(Role role: roleList){
+            roleCbox.addItem(role);
+        }
+
         InitComponent.setSizeComponent(this, new Dimension(310, 50));
-        SpringUtilities.makeCompactGrid(this, 4, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
+        SpringUtilities.makeCompactGrid(this, 2, 2, 6, 6, 6, 6); /* rows, cols, initX, initY, xPad, yPad*/
 
-    }
-
-    /**
-     * Returns the address of the user
-     *
-     * @return the address
-     */
-    public String getAddress() {
-        return addressTxt.getText();
-    }
-
-    /**
-     * Returns the email of the user
-     *
-     * @return the E-mail
-     */
-    public String getEmail() {
-        return emailTxt.getText();
     }
 
     /**
@@ -84,8 +72,8 @@ public class RightPanelUserUI extends JPanel {
      *
      * @return the Role
      */
-    public String getRole() {
-        return roleCbox.getSelectedItem().toString();
+    public Role getRole() {
+        return (Role)roleCbox.getSelectedItem();
     }
 
     /**
@@ -93,7 +81,17 @@ public class RightPanelUserUI extends JPanel {
      *
      * @return the position
      */
-    public String getPosition() {
-        return positionCbox.getSelectedItem().toString();
+    public Position getPosition() {
+        return (Position)positionCbox.getSelectedItem();
     }
+
+    public void setRoleCbox(int role) {
+        this.roleCbox.setSelectedItem(role);
+    }
+
+    public void setPositionCbox(int position) {
+        this.positionCbox.setSelectedItem(position);
+    }
+
+
 }

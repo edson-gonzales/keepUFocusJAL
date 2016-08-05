@@ -90,4 +90,18 @@ public class InitComponent {
         panel.add(checkBox);
         return checkBox;
     }
+    /**
+     * Method to initialize JPasswordField component
+     *
+     * @param passwordField   component to be created
+     * @param passwordFieldSize name of the JPasswordField
+     * @param panel      panel where the component is added
+     * @return the created JPasswordField
+     */
+    public static JPasswordField initJPasswordField(JPasswordField passwordField, Dimension passwordFieldSize, JPanel panel) {
+        passwordField = new JPasswordField();
+        setSizeComponent(passwordField, passwordFieldSize);
+        panel.add(passwordField);
+        return passwordField;
+    }
 }

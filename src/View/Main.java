@@ -12,11 +12,11 @@ import java.awt.*;
  */
 public class Main extends JFrame {
     private MenuBar mainMenuBar;
-
+    private static  Main main;
     /**
      * Initialize the Window, and the menu bar
      */
-    public Main() {
+    private Main() {
         super("KEEP U FOCUS");
         Container pane = getContentPane();
 
@@ -27,12 +27,20 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
+    public static Main getMain(){
+        if(main == null){
+            main = new Main();
+        }
+
+        return main;
+    }
+
     /**
      * Create the principal class
      *
      * @param arg arguments
      */
     public static void main(String arg[]) {
-        Main principal = new Main();
+        Main principal = Main.getMain();
     }
 }
