@@ -25,4 +25,7 @@ public abstract class Constants {
     public static final String LOGIN = "login";
     public static String CANCEL = "cancel";
 
+    public static final int UPDATE_APPLICATION = 3; // column number where is the update icon
+    public static final String UPDATE_APP = "update";
+    public static final String CANCEL_APP = "cancel";
 }

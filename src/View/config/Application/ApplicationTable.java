@@ -1,5 +1,7 @@
 package View.config.Application;
 
+import View.Events.ApplicationEvent;
+
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
@@ -25,6 +27,7 @@ public class ApplicationTable extends JPanel {
         applicationTable.setPreferredScrollableViewportSize(new Dimension(800, 70));
         applicationTable.setFillsViewportHeight(true);
 
+        applicationTable.addMouseListener(new ApplicationEvent(this));
         JScrollPane scrollPane = new JScrollPane(applicationTable);
         add(scrollPane);
     }

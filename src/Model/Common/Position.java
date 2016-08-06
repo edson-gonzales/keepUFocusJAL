@@ -64,6 +64,7 @@ public class Position {
 
     /**
      * The method build a Position object
+     *
      * @param positionName
      */
     public Position(String positionName) {
@@ -130,8 +131,19 @@ public class Position {
         dbAccess.closeConnection();
         return deleted;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return positionName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        Position otherPosition = (Position) other;
+        if (otherPosition != null && this.getPositionId() == otherPosition.getPositionId()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

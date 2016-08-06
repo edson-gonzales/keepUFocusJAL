@@ -61,6 +61,7 @@ public class Role {
 
     /**
      * The method construct the Role object and instance the DataAccess class.
+     *
      * @param roleName
      */
     public Role(String roleName) {
@@ -125,8 +126,20 @@ public class Role {
         dbAccess.closeConnection();
         return deleted;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return roleName;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        Role rOther = (Role) other;
+
+        if (other != null && this.roleId == rOther.getRoleId()) {
+            return true;
+        }
+
+        return false;
     }
 }

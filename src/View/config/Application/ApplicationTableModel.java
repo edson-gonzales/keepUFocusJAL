@@ -1,6 +1,13 @@
 package View.config.Application;
 
+import Controller.Applications.ApplicationControllers;
+import Controller.UserAdmin.UserControllers;
+import Model.Applications.Application;
+
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Initialize the data of the Application table and define the Columns
@@ -10,17 +17,33 @@ import javax.swing.table.AbstractTableModel;
 class ApplicationTableModel extends AbstractTableModel {
     private final String[] columnNames = {"Application",
             "Productive",
-            "Non Productive"
+            "Non Productive",
+            "edit"
     };
+    private Object[][] data;
+    private ImageIcon edit;
 
-    private final Object[][] data = {
-            {"app1", false, false},
-            {"app2", false, true},
-            {"app3", false, true},
-            {"app4", true, false},
-            {"app5", false, true}
-    };
+    public ApplicationTableModel() {
+        edit = new ImageIcon(getClass().getResource("../../../Resources/images/edit.jpg"));
+        setApplicationData();
+    }
 
+    /**
+     * Initialize the Application List with data from the database
+     */
+    public void setApplicationData(){
+        List<Application> appList = new ArrayList<Application>();
+        ApplicationControllers controller = new ApplicationControllers();
+        appList = controller.getListApplication();
+        data = new Object[appList.size()][5];
+
+        for (int i = 0; i < appList.size(); i++) {
+            data[i][0] = appList.get(i);
+            data[i][1] = appList.get(i).getCategoryId() == 2;
+            data[i][2] = appList.get(i).getCategoryId() == 3;
+            data[i][3] = edit;
+        }
+    }
     /**
      * Returns the number of columns in the model
      *
@@ -84,7 +107,7 @@ class ApplicationTableModel extends AbstractTableModel {
      */
     @Override
     public boolean isCellEditable(int row, int col) {
-        return true;
+        return false;
     }
 
     /**
