@@ -47,8 +47,16 @@ public class ApplicationControllers {
      *
      * @return Get list Positions.
      */
-    public List<Application> getListApllication() {
+    public List<Application> getListApplication() {
         return ApplicationHandler.getListApplication();
+    }
+    /**
+     * Get an Application given an Id.
+     *
+     * @return the application.
+     */
+    public Application getApplicationById(int appId) {
+        return ApplicationHandler.getApplicationById(appId);
     }
 
     /**

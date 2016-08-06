@@ -1,5 +1,6 @@
 package View.AdminUser;
 
+import Model.UserAdmin.User;
 import Utils.Constants;
 import View.Events.UserEvent;
 import View.Main;
@@ -22,14 +23,19 @@ public class AddUserUI extends JDialog {
     private RightPanelUserUI rightPanel;
     private ResourceBundle resource;
     private JPanel bottomPanel;
+    private boolean isEdit;
+    private User userEdited;
 
     /**
      * Init the components and define a layout for panels
+     *
+     * @param isEdit A boolean to define if the User is to be edited or not
      */
-    public AddUserUI() {
+    public AddUserUI(boolean isEdit) {
         super((JFrame) Main.getMain());
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
 
+        this.isEdit = isEdit;
         leftPanel = new LeftPanelUserUI();
         rightPanel = new RightPanelUserUI();
 
@@ -39,6 +45,7 @@ public class AddUserUI extends JDialog {
         this.add(rightPanel, BorderLayout.LINE_END);
         this.add(bottomPanel, BorderLayout.PAGE_END);
         this.setSize(700, 250);
+
         setLocationRelativeTo((JFrame) Main.getMain());
     }
 
@@ -59,6 +66,7 @@ public class AddUserUI extends JDialog {
         cancelBtn.setActionCommand(Constants.CANCEL_USER);
 
         acceptBtn.addActionListener(userEvent);
+
         cancelBtn.addActionListener(userEvent);
 
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.X_AXIS));
@@ -86,4 +94,27 @@ public class AddUserUI extends JDialog {
         return this.rightPanel;
     }
 
+    /**
+     * This method verify if the displayed Dialog is to update or delete the User
+     *
+     * @return if the dialog is to update this return true
+     */
+    public boolean isEdit(){ return this.isEdit; }
+
+    /**
+     * This Method set the User to be edited
+     * @param user to be edited
+     */
+    public void setUserEdited(User user){
+        this.userEdited = user;
+    }
+
+    /**
+     * This method return the selected user to be edited
+     *
+     * @return the user edited
+     */
+    public User getUserEdited(){
+        return this.userEdited;
+    }
 }

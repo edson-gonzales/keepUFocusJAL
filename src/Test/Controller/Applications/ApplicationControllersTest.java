@@ -91,6 +91,6 @@ public class ApplicationControllersTest {
             System.err.println("SQLException: " + e.getMessage());
         }
         ApplicationControllers applicationControllers = new ApplicationControllers();
-        assertTrue(applicationControllers.getListApllication().size() == count);
+        assertTrue(applicationControllers.getListApplication().size() == count);
     }
 }

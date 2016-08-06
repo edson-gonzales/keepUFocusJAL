@@ -77,7 +77,7 @@ public class RightPanelUserUI extends JPanel {
     }
 
     /**
-     * Returns the selected possition of the user
+     * Returns the selected position of the user
      *
      * @return the position
      */
@@ -85,11 +85,11 @@ public class RightPanelUserUI extends JPanel {
         return (Position)positionCbox.getSelectedItem();
     }
 
-    public void setRoleCbox(int role) {
+    public void setRoleCbox(Role role) {
         this.roleCbox.setSelectedItem(role);
     }
 
-    public void setPositionCbox(int position) {
+    public void setPositionCbox(Position position) {
         this.positionCbox.setSelectedItem(position);
     }
 

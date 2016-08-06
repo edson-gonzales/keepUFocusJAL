@@ -23,12 +23,18 @@ class UserTableModel extends AbstractTableModel {
     private ImageIcon edit;
     private ImageIcon delete;
 
+    /**
+     * This method initialize the values for the datalist
+     */
     public UserTableModel() {
         edit = new ImageIcon(getClass().getResource("../../Resources/images/edit.jpg"));
         delete = new ImageIcon(getClass().getResource("../../Resources/images/delete.png"));
         setTableUser();
     }
 
+    /**
+     * This method fill the Application List with data from the database
+     */
     public void setTableUser() {
         List<User> userList = new ArrayList<User>();
         UserControllers controller = new UserControllers();
@@ -40,7 +46,6 @@ class UserTableModel extends AbstractTableModel {
             data[i][2] = userList.get(i).getUserName();
             data[i][3] = edit;
             data[i][4] = delete;
-
 
         }
     }

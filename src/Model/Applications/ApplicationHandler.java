@@ -98,7 +98,7 @@ public class ApplicationHandler {
                 Application application = new Application();
                 application.setApplicationId(result.getInt(1));
                 application.setApplicationName(result.getString(2));
-                application.setCategoryId(result.getInt(1));
+                application.setCategoryId(result.getInt(3));
                 applications.add(application);
             }
             result.close();

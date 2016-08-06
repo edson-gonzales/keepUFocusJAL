@@ -55,7 +55,7 @@ public class SearchUserUI extends JPanel {
 
         searchButton.setActionCommand(Constants.SEARCH_USER);
         newUserButton.setActionCommand(Constants.CREATE_USER);
-        addUserUI = new AddUserUI();
+        addUserUI = new AddUserUI(false);
         userEvent = new UserEvent(addUserUI);
 
         searchButton.addActionListener(userEvent);
