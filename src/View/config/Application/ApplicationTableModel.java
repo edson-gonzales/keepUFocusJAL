@@ -3,6 +3,7 @@ package View.config.Application;
 import Controller.Applications.ApplicationControllers;
 import Controller.UserAdmin.UserControllers;
 import Model.Applications.Application;
+import Utils.Constants;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -15,11 +16,7 @@ import java.util.List;
  * @author Lourdes Villca
  */
 class ApplicationTableModel extends AbstractTableModel {
-    private final String[] columnNames = {"Application",
-            "Productive",
-            "Non Productive",
-            "edit"
-    };
+    private final String[] columnNames = {"Application","Productive","Non Productive","edit"};
     private Object[][] data;
     private ImageIcon edit;
 
@@ -39,8 +36,8 @@ class ApplicationTableModel extends AbstractTableModel {
 
         for (int i = 0; i < appList.size(); i++) {
             data[i][0] = appList.get(i);
-            data[i][1] = appList.get(i).getCategoryId() == 2;
-            data[i][2] = appList.get(i).getCategoryId() == 3;
+            data[i][1] = appList.get(i).getCategoryId() == Constants.PRODUCTIVE_APP;
+            data[i][2] = appList.get(i).getCategoryId() == Constants.NONPRODUCTIVE_APP;
             data[i][3] = edit;
         }
     }
