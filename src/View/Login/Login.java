@@ -1,65 +1,126 @@
 package View.Login;
 
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.Container;
+import javax.swing.ImageIcon;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Color;
+import java.util.ResourceBundle;
 import Utils.Constants;
 import View.AdminUser.InitComponent;
 import View.Events.LoginEvent;
 
-import javax.swing.*;
-import java.awt.*;
-import java.util.ResourceBundle;
-
 /**
+ * Login page where the user put their credentials to access to the system
+ *
  * @author Lourdes Villca
  */
 public class Login extends JFrame {
     private JLabel userLabel;
     private JLabel passwordLabel;
+    private JLabel errorMessage;
     private JTextField userTxt;
-    private JTextField passwordTxt;
+    private JPasswordField passwordTxt;
     private JButton loginButton;
     private JButton cancelButton;
     private ResourceBundle resource;
 
+    /**
+     * Initialize the login page
+     */
     public Login(){
-        super("KEEP U FOCUS");
+        super(" KEEP Up FOCUS");
+        ImageIcon icon = new ImageIcon(getClass().getResource("../../Resources/images/iconKUF.png"));
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
+        setIconImage(icon.getImage());
         Container pane = getContentPane();
         pane.add(buildComponents());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setSize(300, 150);
+
+        setSize(300, 170);
         setVisible(true);
     }
+
+    /**
+     * Method that build the components that is displayed in the loggin page
+     *
+     * @return the panel with the components
+     */
     public JPanel buildComponents(){
         JPanel loginPanel = new JPanel();
         loginPanel.setLayout(null);
+        errorMessage = new JLabel("The User name or password are not correct");
+        errorMessage.setForeground(Color.red);
+        errorMessage.setVisible(false);
+
         userLabel = new JLabel(resource.getString("login.label.user"));
-        userTxt = InitComponent.initTextBox(userTxt,new Dimension(50,25),loginPanel);
+        userTxt = InitComponent.initTextBox(userTxt, new Dimension(50, 25), loginPanel);
         passwordLabel = new JLabel(resource.getString("login.label.password"));
 
-        passwordTxt = InitComponent.initTextBox(passwordTxt, new Dimension(50, 25), loginPanel);
+        passwordTxt = new JPasswordField();
         loginButton = InitComponent.initButton(loginButton, resource.getString("login.button.login"), loginPanel);
         cancelButton = InitComponent.initButton(cancelButton, resource.getString("login.button.cancel"), loginPanel);
-        LoginEvent loginEvent = new LoginEvent(this);
+
+        setPositionOfComponents();
 
         loginButton.setActionCommand(Constants.LOGIN);
-        loginButton.addActionListener(loginEvent);
-
+        loginButton.addActionListener(new LoginEvent(this));
+        loginPanel.add(errorMessage);
         loginPanel.add(userLabel);
-        userLabel.setBounds(10, 10, 80, 25);
-        userTxt.setBounds(100, 10, 160, 25);
         loginPanel.add(passwordLabel);
-        passwordLabel.setBounds(10, 40, 80, 25);
-        passwordTxt.setBounds(100, 40, 160, 25);
-        loginButton.setBounds(50, 80, 80, 25);
-        cancelButton.setBounds(140, 80, 80, 25);
-
+        loginPanel.add(passwordTxt);
         cancelButton.setActionCommand(Constants.CANCEL);
 
-        cancelButton.addActionListener(loginEvent);
+        cancelButton.addActionListener(new LoginEvent(this));
         return loginPanel;
     }
+
+    /**
+     * Method that set the positions of the components
+     */
+    public void setPositionOfComponents(){
+        errorMessage.setBounds(10,0,250,25);
+        userLabel.setBounds(10, 25, 80, 25);
+        userTxt.setBounds(100, 25, 160, 25);
+        passwordLabel.setBounds(10, 55, 80, 25);
+        passwordTxt.setBounds(100, 55, 160, 25);
+        loginButton.setBounds(50, 95, 80, 25);
+        cancelButton.setBounds(140, 95, 80, 25);
+    }
+
+    /**
+     * Method that get the Text into the Login field
+     *
+     * @return the typed user name
+     */
+    public String getUserTxt() {
+        return userTxt.getText();
+    }
+
+    /**
+     * Method that get the password
+     *
+     * @return the typed password
+     */
+    public String getPasswordTxt() {
+        return passwordTxt.getText();
+    }
+
+    /**
+     * Method that display the error message when the credentials of the user are wrong
+     */
+    public void showMessage(){
+        this.errorMessage.setVisible(true);
+    }
+
     public static void main(String arg[]) {
         Login login = new Login();
+
     }
 }

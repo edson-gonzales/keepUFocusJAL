@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import Utils.Constants;
 import View.Events.MenuEvents;
+import View.Login.Session;
 
 /**
  * Class to build the main menu
@@ -34,10 +35,13 @@ public class MenuBar extends JMenuBar {
     public MenuBar(final JFrame mainWindow) {
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
         menuEvents = new MenuEvents(mainWindow);
-        buildMenuAdmin();
-        buildMenuConfiguration();
-        buildMenuReport();
 
+        if (Session.isAdmin()){
+            buildMenuAdmin();
+            buildMenuConfiguration();
+        } else {
+            buildMenuReport();
+        }
     }
 
     /**
