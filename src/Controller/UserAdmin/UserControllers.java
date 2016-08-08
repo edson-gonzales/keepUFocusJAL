@@ -64,6 +64,31 @@ public class UserControllers {
     }
 
     /**
+     * Verify if the inserted login and password existe in the database
+     * @param userName user name
+     * @param password password
+     * @return the user
+     */
+    public User userExist(String userName,String password) {
+        return UserHandler.userExist(userName, password);
+    }
+
+    /**
+     *
+     * @param roleId
+     * @return
+     */
+    public boolean isAdmin(int roleId){
+        Role role = RoleHandler.getRoleById(roleId);
+        if(role.getRoleName().equals("Admin")){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    /**
      * Save an role object.
      *
      * @param role Save role in the data base.
