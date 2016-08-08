@@ -12,12 +12,12 @@ public class UserTest {
     @Test
     public void VerifyIfANewUserIsAdd() {
         User user = new User();
-        user.setFirstName("Ana");
-        user.setLastName("Salinas");
-        user.setUserName("username");
-        user.setPassword("password");
-        user.setRoleId(2);
-        user.setPositionId(2);
+        user.setFirstName("Aldo");
+        user.setLastName("Balderrama");
+        user.setUserName("admin");
+        user.setPassword("admin");
+        user.setRoleId(1);
+        user.setPositionId(1);
         user.save();
         Assert.assertEquals(user.getUserName(), UserHandler.getUserById(user.getUserId()).getUserName());
         user.delete();
@@ -26,15 +26,15 @@ public class UserTest {
     @Test
     public void VerifyThatAnUserIsUpdated() {
         User user = new User();
-        user.setFirstName("Ana");
-        user.setLastName("Salinas");
-        user.setUserName("usernam");
-        user.setPassword("password");
+        user.setFirstName("Lourdes");
+        user.setLastName("Villca");
+        user.setUserName("user");
+        user.setPassword("user");
         user.setRoleId(2);
         user.setPositionId(2);
         user.save();
         User otherUser = UserHandler.getUserById(user.getUserId());
-        otherUser.setFirstName("username");
+        otherUser.setFirstName("Lourdes");
         otherUser.update();
         Assert.assertEquals(otherUser.getUserName(), UserHandler.getUserById(user.getUserId()).getUserName());
         user.delete();
@@ -43,9 +43,11 @@ public class UserTest {
     @Test
     public void VerifyThatAnUserIsDeleted() {
         User user = new User();
-        user.setUserName("username");
-        user.setPassword("password");
-        user.setRoleId(1);
+        user.setFirstName("Juana");
+        user.setLastName("Rodriguez");
+        user.setUserName("user");
+        user.setPassword("user");
+        user.setRoleId(2);
         user.setPositionId(1);
         user.save();
         user.delete();
