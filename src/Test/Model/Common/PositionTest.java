@@ -12,7 +12,7 @@ public class PositionTest {
     @Test
     public void VerifyANewPositionIsSaved() {
         Position position = new Position();
-        position.setPositionName("Lead");
+        position.setPositionName("QA");
         position.save();
         Assert.assertEquals(position.getPositionName(), PositionHandler.getPositionById(position.getPositionId()).getPositionName());
         position.delete();
@@ -21,10 +21,10 @@ public class PositionTest {
     @Test
     public void VerifyThatAPositionIsUpdated() {
         Position position = new Position();
-        position.setPositionName("Leade");
+        position.setPositionName("Developer");
         position.save();
         Position otherPosition = PositionHandler.getPositionById(position.getPositionId());
-        otherPosition.setPositionName("Lead");
+        otherPosition.setPositionName("Developer");
         otherPosition.update();
         Assert.assertEquals(otherPosition.getPositionName(), PositionHandler.getPositionById(position.getPositionId()).getPositionName());
         position.delete();
@@ -33,7 +33,7 @@ public class PositionTest {
     @Test
     public void VerifyThatAPositionIsDeleted() {
         Position position = new Position();
-        position.setPositionName("Lead");
+        position.setPositionName("Developer");
         position.save();
         position.delete();
         Assert.assertNull(PositionHandler.getPositionById(position.getPositionId()));
