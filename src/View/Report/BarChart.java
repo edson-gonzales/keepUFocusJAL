@@ -1,5 +1,6 @@
 package View.Report;
 
+import View.Login.Session;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -25,7 +26,7 @@ public class BarChart extends JPanel {
      */
     public BarChart(String startDate, String endDate) {
 
-        JFreeChart barChart = ChartFactory.createBarChart("All Activities", "Application", "Time", createDataset(startDate,endDate), PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart barChart = ChartFactory.createBarChart("All Activities", "Application", "Time Min", createDataset(startDate,endDate), PlotOrientation.VERTICAL, true, false, true);
         ChartPanel chartPanel = new ChartPanel(barChart);
         chartPanel.setPreferredSize(new java.awt.Dimension(560, 367));
         this.add(chartPanel);
@@ -39,9 +40,11 @@ public class BarChart extends JPanel {
     private CategoryDataset createDataset(String startDate, String endDate) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         applicationFocusTime = new ApplicationFocusTime();
-        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate);
+        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate, Session.getUser().getUserId());
         for (ApplicationFocusTime app : appFocusTimeList){
-            dataset.addValue(app.getTotalTime()/3600,app.getApplicationCategory().getApplicationCategoryName(),app.getApplication().getApplicationName());
+           //dataset.addValue(app.getTotalTime()/60, app.getApplicationCategory().getApplicationCategoryName(),app.getApplication().getApplicationName());
+            System.out.println(app.getTotalTime()/60);
+            dataset.addValue(app.getTotalTime()/60, app.getApplicationCategory().getApplicationCategoryName(),app.getApplicationCategory().getApplicationCategoryName());
         }
         return dataset;
     }
