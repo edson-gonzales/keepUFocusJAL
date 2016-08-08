@@ -87,4 +87,36 @@ public class UserHandler {
             return true;
         }
     }
+    /**
+     * This method verify if an user exist given the user name and password
+     * @param userName user name
+     * @param password password of the user
+     * @return the user
+     */
+    public static User userExist(String userName,String password) {
+        User user = null;
+        ResultSet result = null;
+        DataAccess dbAccess = new DataAccess();
+        try {
+            StringBuilder sql = new StringBuilder("Select * from User ");
+            sql.append(String.format("where login = '%s' and ", userName));
+            sql.append(String.format("password = '%s'", password));
+            result = dbAccess.getDataById(sql.toString());
+            if (result.next()) {
+                user = new User();
+                user.setUserId(result.getInt(1));
+                user.setFirstName(result.getString(2));
+                user.setLastName(result.getString(3));
+                user.setUserName(result.getString(4));
+                user.setPassword(result.getString(5));
+                user.setRoleId(result.getInt(6));
+                user.setPositionId(result.getInt(7));
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
+        return user;
+    }
 }

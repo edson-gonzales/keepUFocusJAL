@@ -2,24 +2,27 @@ package View;
 
 import View.AdminUser.MenuBar;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Container;
+import javax.swing.ImageIcon;
 
 /**
- * View.Main class to create the window
+ * Main class to create the window
  *
  * @author Lourdes Villca
  */
 public class Main extends JFrame {
     private MenuBar mainMenuBar;
-    private static  Main main;
+    private static Main main;
+
     /**
      * Initialize the Window, and the menu bar
      */
     private Main() {
-        super("KEEP U FOCUS");
+        super(" KEEP Up FOCUS");
         Container pane = getContentPane();
-
+        ImageIcon icon = new ImageIcon(getClass().getResource("../Resources/images/iconKUF.png"));
+        setIconImage(icon.getImage());
         mainMenuBar = new MenuBar(this);
         this.setJMenuBar(mainMenuBar);
 
@@ -27,20 +30,12 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
-    public static Main getMain(){
-        if(main == null){
+    public static Main getMain() {
+        if (main == null) {
             main = new Main();
         }
 
         return main;
     }
 
-    /**
-     * Create the principal class
-     *
-     * @param arg arguments
-     */
-    public static void main(String arg[]) {
-        Main principal = Main.getMain();
-    }
 }

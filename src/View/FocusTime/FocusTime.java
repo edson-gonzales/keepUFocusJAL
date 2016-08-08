@@ -1,128 +1,146 @@
 package View.FocusTime;
 
+import java.awt.PopupMenu;
+import java.awt.MenuItem;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
+import java.awt.AWTException;
+import View.Events.FocusTimeEvent;
 import Controller.FocusTime.FocusTimeThread;
+import Utils.Constants;
 import Utils.Utility;
-import View.Main;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import View.Login.Session;
 /**
+ * This class build the Popup menu
+ *
  * Created by AldoBalderrama on 8/3/2016.
  */
-public class FocusTime {
-    static FocusTimeThread focusTimeThread;
+public class FocusTime extends PopupMenu {
+    public static FocusTimeThread focusTimeThread;
+    private SystemTray tray;
+    private MenuItem aboutItem;
+    private MenuItem configuration;
+    private MenuItem officeTimer;
+    private MenuItem report;
+    private MenuItem startFocusTimeItem;
+    private MenuItem stopFocusTimeItem;
+    private MenuItem exitItem;
 
+    /**
+     * Method that initialize the components
+     */
     public FocusTime() {
-        focusTimeThread = new FocusTimeThread(1,25);
+        focusTimeThread = new FocusTimeThread(1, 25);
+        tray = SystemTray.getSystemTray();
+        createAndShowGUI();
+        buildTrayIcon();
+        buildItemAbout();
+        buildItemConfiguration();
+        buildItemOfficeTimer();
+        buildItemReport();
+        buildItemsManageTracker();
+        buildExitItem();
+
     }
 
-    public static void main(String[] args) {
-        /* Use an appropriate Look and Feel */
-        try {
-            UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-            //UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-        } catch (UnsupportedLookAndFeelException ex) {
-            ex.printStackTrace();
-        } catch (IllegalAccessException ex) {
-            ex.printStackTrace();
-        } catch (InstantiationException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
-        }
-        /* Turn off metal's use of bold fonts */
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
-        //Schedule a job for the event-dispatching thread:
-        //adding TrayIcon.
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                createAndShowGUI();
-            }
-        });
-    }
-
-    private static void createAndShowGUI() {
-        //Check the SystemTray support
+    /**
+     * Method that create and Show the GUI
+     */
+    public static void createAndShowGUI() {
         if (!SystemTray.isSupported()) {
             System.out.println("SystemTray is not supported");
             return;
         }
-        final PopupMenu popup = new PopupMenu();
-        final TrayIcon trayIcon =
-                new TrayIcon(Utility.createImage("../../Resources/images/bulb.gif", "tray icon"));
-        final SystemTray tray = SystemTray.getSystemTray();
+    }
 
+    /**
+     * Method that build the Tray icon that is displayed in the Task bar
+     */
+    public void buildTrayIcon() {
+        TrayIcon trayIcon = new TrayIcon(Utility.createImage("../../Resources/images/iconKUF.png", "tray icon"));
         trayIcon.setImageAutoSize(true);
         trayIcon.setToolTip("Focus Time");
-        // Create a popup menu components
-        MenuItem aboutItem = new MenuItem("About");
-        MenuItem optionItem = new MenuItem("Option");
-        MenuItem startFocusTimeItem = new MenuItem("Start");
-        MenuItem stopFocusTimeItem = new MenuItem("Stop");
-        MenuItem exitItem = new MenuItem("Exit");
-
-        //Add components to popup menu
-        popup.add(aboutItem);
-        popup.add(optionItem);
-        popup.addSeparator();
-        popup.add(startFocusTimeItem);
-        popup.add(stopFocusTimeItem);
-        popup.addSeparator();
-        popup.add(exitItem);
-        trayIcon.setPopupMenu(popup);
+        trayIcon.setPopupMenu(this);
         try {
             tray.add(trayIcon);
         } catch (AWTException e) {
             System.out.println("TrayIcon could not be added.");
             return;
         }
-        trayIcon.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "FocusTimes by PROG-102 TEAM FocusTime");
-            }
-        });
-        aboutItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,
-                        "FocusTimes by PROG-102 TEAM FocusTime");
-            }
-        });
-        optionItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                Main.main(new String[]{});
-            }
-        });
-        startFocusTimeItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (focusTimeThread == null) {
-                    focusTimeThread = new FocusTimeThread(1,25);
-                }
-                focusTimeThread.start();
-                System.out.println("Start thread");
-            }
-        });
-        stopFocusTimeItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                focusTimeThread.interrupt();
-                focusTimeThread = null;
-                System.out.println("Stop thread");
-            }
-        });
-        exitItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (focusTimeThread != null) {
-                    focusTimeThread.interrupt();
-                }
-                tray.remove(trayIcon);
-                System.exit(0);
-            }
-        });
+        trayIcon.setActionCommand(Constants.TRAY_ICON);
+        trayIcon.addActionListener(new FocusTimeEvent(this));
+
     }
+
+    /**
+     * Method That build the Item About
+     */
+    public void buildItemAbout() {
+        aboutItem = new MenuItem("About KeepUFocus");
+        this.add(aboutItem);
+        aboutItem.setActionCommand(Constants.ABOUT);
+        aboutItem.addActionListener(new FocusTimeEvent(this));
+        this.addSeparator();
+    }
+
+    /**
+     * Method that build the Item Configuration that only is enable for user administrator
+     */
+    public void buildItemConfiguration() {
+        if(Session.isAdmin()){
+            configuration = new MenuItem("Configuration");
+            configuration.setActionCommand(Constants.ADMINISTRATION);
+            configuration.addActionListener(new FocusTimeEvent(this));
+            this.add(configuration);
+        }
+
+    }
+
+    /**
+     * Method that build the Item Office timer, where the user can register their activities
+     */
+    public void buildItemOfficeTimer(){
+        officeTimer = new MenuItem("Office Timer");
+        officeTimer.setActionCommand(Constants.OFFICE_TIMER);
+        officeTimer.addActionListener(new FocusTimeEvent(this));
+        this.add(officeTimer);
+    }
+
+    /**
+     * Method that build the Item Report where the user can track their used application
+     */
+    public void buildItemReport(){
+        report = new MenuItem("Report");
+        report.setActionCommand(Constants.ACTIVITY_REPORT);
+        report.addActionListener(new FocusTimeEvent(this));
+        this.add(report);
+
+    }
+
+    /**
+     * Method that build the Item to start and stop the Application Tracking
+     */
+    public void buildItemsManageTracker() {
+        startFocusTimeItem = new MenuItem("Start");
+        stopFocusTimeItem = new MenuItem("Stop");
+        startFocusTimeItem.setActionCommand(Constants.START_TRACK);
+        stopFocusTimeItem.setActionCommand(Constants.STOP_TRACK);
+        startFocusTimeItem.addActionListener(new FocusTimeEvent(this));
+        stopFocusTimeItem.addActionListener(new FocusTimeEvent(this));
+        this.add(startFocusTimeItem);
+        this.add(stopFocusTimeItem);
+    }
+
+    /**
+     * Method that Build the exit from the system
+     */
+    public void buildExitItem() {
+        this.addSeparator();
+        exitItem = new MenuItem("Exit");
+        exitItem.setActionCommand(Constants.EXIT);
+        exitItem.addActionListener(new FocusTimeEvent(this));
+        this.add(exitItem);
+    }
+
+
 }
