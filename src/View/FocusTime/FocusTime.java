@@ -30,7 +30,7 @@ public class FocusTime extends PopupMenu {
      * Method that initialize the components
      */
     public FocusTime() {
-        focusTimeThread = new FocusTimeThread(1, 25);
+        focusTimeThread = new FocusTimeThread(1, Session.getUser().getUserId());
         tray = SystemTray.getSystemTray();
         createAndShowGUI();
         buildTrayIcon();
@@ -100,20 +100,25 @@ public class FocusTime extends PopupMenu {
      * Method that build the Item Office timer, where the user can register their activities
      */
     public void buildItemOfficeTimer(){
-        officeTimer = new MenuItem("Office Timer");
-        officeTimer.setActionCommand(Constants.OFFICE_TIMER);
-        officeTimer.addActionListener(new FocusTimeEvent(this));
-        this.add(officeTimer);
+        if(!Session.isAdmin()){
+            officeTimer = new MenuItem("Office Timer");
+            officeTimer.setActionCommand(Constants.OFFICE_TIMER);
+            officeTimer.addActionListener(new FocusTimeEvent(this));
+            this.add(officeTimer);
+        }
+
     }
 
     /**
      * Method that build the Item Report where the user can track their used application
      */
     public void buildItemReport(){
-        report = new MenuItem("Report");
-        report.setActionCommand(Constants.ACTIVITY_REPORT);
-        report.addActionListener(new FocusTimeEvent(this));
-        this.add(report);
+        if(!Session.isAdmin()){
+            report = new MenuItem("Report");
+            report.setActionCommand(Constants.ACTIVITY_REPORT);
+            report.addActionListener(new FocusTimeEvent(this));
+            this.add(report);
+        }
 
     }
 

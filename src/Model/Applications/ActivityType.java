@@ -118,5 +118,8 @@ public class ActivityType {
         return deleted;
     }
 
-
+    @Override
+    public String toString(){
+        return this.getActivityTypeName();
+    }
 }

@@ -4,6 +4,7 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 
 import Utils.FocusTimeUtils;
+import View.Login.Session;
 
 /**
  * Initialize the data of the Activity table and define the columns
@@ -33,7 +34,7 @@ class ActivityTableModel extends AbstractTableModel {
      */
     public void fillData(String startDate, String endDate) {
         applicationFocusTime = new ApplicationFocusTime();
-        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate);
+        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate, Session.getUser().getUserId());
         data = new Object[appFocusTimeList.size()][3];
         for (int i = 0; i < appFocusTimeList.size();i++) {
             data[i][0] = appFocusTimeList.get(i).getPercentaje();

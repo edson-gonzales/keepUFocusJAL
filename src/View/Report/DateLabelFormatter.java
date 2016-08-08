@@ -1,12 +1,14 @@
 package View.Report;
 
-import javax.swing.*;
+import javax.swing.JFormattedTextField;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 /**
  * Give Format for the date
+ *
+ * @author Lourdes Villca
  */
 public class DateLabelFormatter extends JFormattedTextField.AbstractFormatter {
 
