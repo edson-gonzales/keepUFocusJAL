@@ -45,6 +45,7 @@ public abstract class Constants {
     public static final String CALCULATE_HOUR = "calculate hour";
     public static final String SAVE_CONFIG = "save configuration";
 
-
+    public static final String SAVE_OFFICETIME = "save";
+    public static final String CANCEL_OFFICETIME = "cancel";
 
 }

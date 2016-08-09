@@ -8,6 +8,7 @@ import Controller.FocusTime.FocusTimeThread;
 import Utils.Constants;
 import View.FocusTime.FocusTime;
 import View.Main;
+import View.OfficeTime.OfficeTime;
 
 /**
  * Manage Events from the popup Focus Time
@@ -37,12 +38,15 @@ public class FocusTimeEvent implements ActionListener {
                 JOptionPane.showMessageDialog(null, "FocusTimes by PROG-102 TEAM FocusTime");
                 break;
             case Constants.ADMINISTRATION:
+                Main.reset();
                 Main main = Main.getMain();
                 break;
             case Constants.ACTIVITY_REPORT:
+                Main.reset();
                 Main.getMain();
                 break;
             case Constants.OFFICE_TIMER:
+                OfficeTime officeTime = new OfficeTime();
                 break;
             case Constants.START_TRACK:
                 if (FocusTime.focusTimeThread == null) {

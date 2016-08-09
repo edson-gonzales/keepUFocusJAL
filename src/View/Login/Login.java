@@ -1,19 +1,15 @@
 package View.Login;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.Container;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
 import java.awt.Dimension;
 import java.awt.Color;
 import java.util.ResourceBundle;
 import Utils.Constants;
+import Utils.FocusTimeUtils;
 import View.AdminUser.InitComponent;
 import View.Events.LoginEvent;
+import com.l2fprod.gui.plaf.skin.SkinLookAndFeel;
 
 /**
  * Login page where the user put their credentials to access to the system
@@ -41,9 +37,9 @@ public class Login extends JFrame {
         Container pane = getContentPane();
         pane.add(buildComponents());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
         setSize(300, 170);
+        FocusTimeUtils.centerWindow(this);
+
         setVisible(true);
     }
 
@@ -120,7 +116,12 @@ public class Login extends JFrame {
     }
 
     public static void main(String arg[]) {
-        Login login = new Login();
+        try
+        {
+            System.setProperty("user.home","src/Resources/skins");
+            UIManager.setLookAndFeel(new SkinLookAndFeel());
+        } catch(Exception e){}
 
+        Login login = new Login();
     }
 }

@@ -10,9 +10,7 @@ import javax.swing.BoxLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import Utils.Constants;
 import Utils.FocusTimeUtils;
@@ -55,6 +53,7 @@ public class ConfigureFocusTime extends JPanel {
     private JPanel hoursPanel;
     private ArrayList<HourUtil> hourUtils;
     private ResourceBundle resource;
+    private HashMap<String, JCheckBox> daysWeek;
 
     /**
      * Init the components and define the Layout for panels
@@ -82,7 +81,15 @@ public class ConfigureFocusTime extends JPanel {
         thursdayCheckBox = InitComponent.initCheckBox(thursdayCheckBox, resource.getString("config.label.thursday"), daysPanel);
         fridayCheckBox = InitComponent.initCheckBox(fridayCheckBox, resource.getString("config.label.friday"), daysPanel);
         saturdayCheckBox = InitComponent.initCheckBox(saturdayCheckBox, resource.getString("config.label.saturday"), daysPanel);
-        weekDays = new JCheckBox[]{sundayCheckBox,mondayCheckBox,tuesdayCheckBox,wednesdayCheckBox,thursdayCheckBox,fridayCheckBox,saturdayCheckBox};
+        daysWeek = new HashMap<>();
+        daysWeek.put("Sun", sundayCheckBox);
+        daysWeek.put("Mon", mondayCheckBox);
+        daysWeek.put("Tues", tuesdayCheckBox);
+        daysWeek.put("Wed", wednesdayCheckBox);
+        daysWeek.put("Thu", thursdayCheckBox);
+        daysWeek.put("Fri", fridayCheckBox);
+        daysWeek.put("Sat", saturdayCheckBox);
+
         daysPanel.setBorder(BorderFactory.createTitledBorder(resource.getString("config.label.daysTitle")));
         setDimension(daysPanel);
 
@@ -105,7 +112,7 @@ public class ConfigureFocusTime extends JPanel {
         totalHour = new JLabel("");
         hourUtils = FocusTimeUtils.hoursList();
 
-        for(int i = 0; i< hourUtils.size();i++){
+        for (int i = 0; i < hourUtils.size(); i++) {
             startHoursBox.addItem(hourUtils.get(i));
             endHoursBox.addItem(hourUtils.get(i));
         }
@@ -116,56 +123,111 @@ public class ConfigureFocusTime extends JPanel {
         setDimension(panel);
         return panel;
     }
-    public void buildSaveButton(){
+
+    /**
+     * Method that build the save button
+     */
+    public void buildSaveButton() {
         saveButton = InitComponent.initButton(saveButton, resource.getString("config.button.save"), this);
         saveButton.setActionCommand(Constants.SAVE_CONFIG);
         saveButton.addActionListener(new ConfigureFocusTimeEvent(this));
     }
 
-    public void buildTotalHours(){
+    /**
+     * Method that build the total Hours according the start and end date
+     */
+    public void buildTotalHours() {
         int start = ((HourUtil) startHoursBox.getSelectedItem()).getTimeMinutes();
         int end = ((HourUtil) endHoursBox.getSelectedItem()).getTimeMinutes();
         totalHour.setText(FocusTimeUtils.calculateTotalHour(start, end));
 
     }
-    public void setDimension(JPanel panel){
+
+    /**
+     * Method that set the Dimension of the panels
+     *
+     * @param panel to be setting with a dimension
+     */
+    public void setDimension(JPanel panel) {
         panel.setPreferredSize(new Dimension(350, 150));
         panel.setMaximumSize(new Dimension(350, 150));
         panel.setMinimumSize(new Dimension(350, 150));
     }
-    public String selectedCheckBoxes(){
+
+    /**
+     * Method that get the days with the selected days
+     *
+     * @return the String Days separated with "-"
+     */
+    public String selectedCheckBoxes() {
         String res = "";
 
-        for(int i=0; i<weekDays.length; i++){
-            if(weekDays[i].isSelected()){
-                res += weekDays[i].getText() + "-";
+        for (JCheckBox check : daysWeek.values()) {
+            if (check.isSelected()) {
+                res += check.getText() + "-";
             }
         }
 
-        return res.substring(0,res.length()-1);
+        return res.substring(0, res.length() - 1);
     }
+
+    /**
+     * Method that get the selected end hour
+     *
+     * @return
+     */
     public HourUtil getEndHoursBox() {
-        return (HourUtil)endHoursBox.getSelectedItem();
+        return (HourUtil) endHoursBox.getSelectedItem();
     }
 
+    /**
+     * Method that get the selected start hour
+     *
+     * @return
+     */
     public HourUtil getStartHoursBox() {
-        return (HourUtil)startHoursBox.getSelectedItem();
+        return (HourUtil) startHoursBox.getSelectedItem();
     }
 
-    public void setEndHoursBox(JComboBox endHoursBox) {
-        this.endHoursBox = endHoursBox;
+    /**
+     * Method that set the end hour with the selected data
+     *
+     * @param endHoursBox end hour to be selected
+     */
+    public void setEndHoursBox(HourUtil endHoursBox) {
+        this.endHoursBox.setSelectedItem(endHoursBox);
     }
 
-    public void setStartHoursBox(JComboBox startHoursBox) {
-        this.startHoursBox = startHoursBox;
+    /**
+     * Method that set the start hour with the selected data
+     *
+     * @param startHoursBox start hour to be selected
+     */
+    public void setStartHoursBox(HourUtil startHoursBox) {
+        this.startHoursBox.setSelectedItem(startHoursBox);
     }
 
-    public void setWeekDays(JCheckBox[] weekDays) {
-        this.weekDays = weekDays;
+    /**
+     * Method that split a String in base a parameter in this case "-"
+     *
+     * @param weekDaysString the string to be split
+     */
+    public void setWeekDays(String weekDaysString) {
+        StringTokenizer tokenizer = new StringTokenizer(weekDaysString, "-");
+
+        while (tokenizer.hasMoreTokens()) {
+            String token = tokenizer.nextToken();
+            JCheckBox check = daysWeek.get(token);
+            check.setSelected(true);
+        }
     }
 
+    /**
+     * This method returns the List of Hours
+     *
+     * @return the Array List of Hours
+     */
     public ArrayList<HourUtil> getHourUtils() {
         return hourUtils;
     }
-
 }
