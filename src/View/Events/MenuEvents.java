@@ -46,8 +46,8 @@ public class MenuEvents implements ActionListener {
 
             case Constants.FOCUS_TIME_CONFIG: // Focus time configuration
                 mainWindow.getContentPane().removeAll();
-                ConfigureFocusTime configFocusTime = new ConfigureFocusTime();
-                refreshMainFrame(configFocusTime);
+                ConfigureFocusTime configureFocusTime = fillFocusTimeConfig();
+                refreshMainFrame(configureFocusTime);
                 break;
 
             case Constants.APP_CONFIG: // Application config
@@ -60,7 +60,6 @@ public class MenuEvents implements ActionListener {
                 mainWindow.getContentPane().removeAll();
                 SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
                 String currentDate = dateFormatter.format(new Date());
-                System.out.println(currentDate);
                 Activity activity = new Activity(mainWindow, currentDate, currentDate);
                 refreshMainFrame(activity);
                 break;
@@ -73,23 +72,27 @@ public class MenuEvents implements ActionListener {
      * @param panel to be added into the main frame
      */
     public void refreshMainFrame(JPanel panel) {
-
         mainWindow.getContentPane().add(panel, BorderLayout.CENTER);
         mainWindow.setSize(mainWindow.getWidth() + 1, mainWindow.getHeight() + 1);
         mainWindow.setSize(mainWindow.getWidth() - 1, mainWindow.getHeight() - 1);
     }
-    public void fillFocusTimeConfig(){
+
+    /**
+     * Method to fill the tracking configuration form, the fields are setting with the saved information
+     *
+     * @return the tracking configuration
+     */
+    public ConfigureFocusTime fillFocusTimeConfig(){
         TrackingConfigController controller = new TrackingConfigController();
         TrackingConfiguration trackConfig = controller.getTrackingConfiguration();
         ConfigureFocusTime configFocusTime = new ConfigureFocusTime();
 
-        if(trackConfig!=null){
-//            configFocusTime.setStartHoursBox(configFocusTime.getHourUtils()..getTimeMinutes(trackConfig.getStartHour()));
-//            configFocusTime.setEndHoursBox(trackConfig.getEndHour());
-//            configFocusTime.setWeekDays(trackConfig);
-
-        }else{
-            configFocusTime = new ConfigureFocusTime();
+        if (trackConfig != null){
+            configFocusTime.setStartHoursBox(new HourUtil(trackConfig.getStartHour(), trackConfig.getStartHour()/60 + ":00"));
+            configFocusTime.setEndHoursBox(new HourUtil(trackConfig.getEndHour(), trackConfig.getEndHour()/60 + ":00"));
+            configFocusTime.setWeekDays(trackConfig.getDays());
         }
+
+        return configFocusTime;
     }
 }

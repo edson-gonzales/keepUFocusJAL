@@ -48,9 +48,9 @@ public class ApplicationFocusTime {
         sql.append(String.format("Date(ft.startDate) between '%s' and ", startDate));
         sql.append(String.format("'%s' and ", endDate));
         sql.append(String.format("Date(ft.endDate) between '%s' and ", startDate));
-        sql.append(String.format("'%s' and userId = %s ", endDate,userId));
+        sql.append(String.format("'%s' and userId = %s ", endDate, userId));
         sql.append("group by ft.applicationId) as res group by res.applicationId");
-        System.out.println(sql);
+
         try {
             result = dbAccess.select(sql.toString());
             while (result.next()) {
@@ -69,6 +69,57 @@ public class ApplicationFocusTime {
                 applicationCategory.setApplicationCategoryName(result.getString(9));
                 applicationFocusTime.setTotalTime(result.getInt(10));
                 applicationFocusTime.setPercentaje(result.getDouble(11));
+                applicationFocusTime.setApplication(application);
+                applicationFocusTime.setFocusTime(focusTime);
+                applicationFocusTime.setApplicationCategory(applicationCategory);
+                appFocusTime.add(applicationFocusTime);
+            }
+            result.close();
+            dbAccess.closeConnection();
+        } catch (Exception e) {
+            System.err.println("SQLException: " + e.getMessage());
+        }
+        return appFocusTime;
+    }
+
+    /**
+     * This method get the application category, grouping by category type
+     *
+     * @param startDate start date
+     * @param endDate   end date
+     * @param userId    user id
+     * @return the ArrayList of ApplicationFocusTime
+     */
+    public ArrayList<ApplicationFocusTime> getTrackedApplicationByCategory(String startDate, String endDate, int userId) {
+        System.out.println(userId);
+        ArrayList<ApplicationFocusTime> appFocusTime = new ArrayList<>();
+        ApplicationFocusTime applicationFocusTime = null;
+        ResultSet result = null;
+        StringBuilder sql = new StringBuilder("select ap.*, ft.*, ac.applicationCategoryName, sum(Cast (((JulianDay(Datetime(ft.endDate)) - JulianDay(Datetime(ft.startDate))) * 24*60*60) as integer)) as total ");
+        sql.append("from Application as ap, FocusTime as ft, ApplicationCategory as ac ");
+        sql.append("where ap.applicationId = ft.applicationId and ap.applicationCategoryId = ac.applicationCategoryId and ");
+        sql.append(String.format("Date(ft.startDate) between '%s' and '%s' ", startDate, endDate));
+        sql.append(String.format("and Date(ft.endDate) between '%s' and '%s' ", startDate, endDate));
+        sql.append(String.format("and userId = %s group by ac.applicationCategoryName", userId));
+
+
+        try {
+            result = dbAccess.select(sql.toString());
+            while (result.next()) {
+                applicationFocusTime = new ApplicationFocusTime();
+                applicationCategory = new ApplicationCategory();
+                focusTime = new FocusTime();
+                application = new Application();
+                application.setApplicationId(result.getInt(1));
+                application.setApplicationName(result.getString(2));
+                application.setCategoryId(result.getInt(3));
+                focusTime.setFocusTimeId(result.getInt(4));
+                focusTime.setStartDate(result.getTimestamp(5));
+                focusTime.setEndDate(result.getTimestamp(6));
+                focusTime.setApplicationId(result.getInt(7));
+                focusTime.setUserId(result.getInt(8));
+                applicationCategory.setApplicationCategoryName(result.getString(9));
+                applicationFocusTime.setTotalTime(result.getInt(10));
                 applicationFocusTime.setApplication(application);
                 applicationFocusTime.setFocusTime(focusTime);
                 applicationFocusTime.setApplicationCategory(applicationCategory);

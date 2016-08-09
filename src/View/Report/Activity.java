@@ -41,13 +41,12 @@ public class Activity extends JPanel {
      */
     public Activity(JFrame mainWindow, String startDate, String endDate) {
         resource = resource.getBundle(Constants.APLICATION_RESOURCES);
-        periodTime = new JLabel("Test activity");
+
         tableActivity = new TableActivity(startDate, endDate);
         chart = new BarChart(startDate, endDate);
 
         this.mainWindow = mainWindow;
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(periodTime);
         this.add(addDatePickerPanel());
         this.add(chart);
         this.add(tableActivity);
@@ -60,8 +59,8 @@ public class Activity extends JPanel {
      */
     public JPanel addDatePickerPanel() {
         JPanel panel = new JPanel();
-        InitComponent.initLabel(fromDate, resource.getString("report.label.to"), panel);
-        InitComponent.initLabel(toDate, resource.getString("report.label.from"), panel);
+
+        InitComponent.initLabel(fromDate, resource.getString("report.label.from"), panel);
         generate = InitComponent.initButton(generate, resource.getString("report.label.generateButton"), panel);
 
         datePickerFrom = buildDatePicker();
@@ -72,6 +71,7 @@ public class Activity extends JPanel {
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
         panel.add(datePickerFrom);
+        InitComponent.initLabel(toDate, resource.getString("report.label.to"), panel);
         panel.add(datePickerTo);
         panel.add(generate);
 
