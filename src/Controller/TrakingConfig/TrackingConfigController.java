@@ -16,6 +16,7 @@ public class TrackingConfigController {
     public boolean updateApplication(TrackingConfiguration trackingConfig) {
         return trackingConfig.update();
     }
+
     /**
      * Get tracking configuration given an id.
      *

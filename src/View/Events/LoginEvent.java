@@ -11,7 +11,9 @@ import View.Login.Login;
 import View.Login.Session;
 
 /**
- * Created by Administrator on 8/4/2016.
+ * Class to manage Login Event
+ *
+ * @author Lourdes Villca
  */
 public class LoginEvent implements ActionListener {
     private JFrame loginWindow;
@@ -33,14 +35,13 @@ public class LoginEvent implements ActionListener {
             case Constants.LOGIN:
                 UserControllers controller = new UserControllers();
                 if (controller.userExist(((Login) loginWindow).getUserTxt(), ((Login) loginWindow).getPasswordTxt()) != null) {
-                    System.out.println("usuario existe");
                     Session.setUser(controller.userExist(((Login) loginWindow).getUserTxt(), ((Login) loginWindow).getPasswordTxt()));
                     FocusTime focusTime = new FocusTime();
                     loginWindow.dispose();
 
                 } else {
                     ((Login) loginWindow).showMessage();
-                    System.out.println("no existe");
+
                 }
 
                 break;

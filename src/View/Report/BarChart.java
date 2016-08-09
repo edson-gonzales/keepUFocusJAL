@@ -9,6 +9,7 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 
 import javax.swing.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -40,13 +41,27 @@ public class BarChart extends JPanel {
     private CategoryDataset createDataset(String startDate, String endDate) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         applicationFocusTime = new ApplicationFocusTime();
-        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplication(startDate, endDate, Session.getUser().getUserId());
+        ArrayList<ApplicationFocusTime> appFocusTimeList = applicationFocusTime.getTrackedApplicationByCategory(startDate, endDate, Session.getUser().getUserId());
         for (ApplicationFocusTime app : appFocusTimeList){
-           //dataset.addValue(app.getTotalTime()/60, app.getApplicationCategory().getApplicationCategoryName(),app.getApplication().getApplicationName());
-            System.out.println(app.getTotalTime()/60);
-            dataset.addValue(app.getTotalTime()/60, app.getApplicationCategory().getApplicationCategoryName(),app.getApplicationCategory().getApplicationCategoryName());
+            Double time = validateTime(app.getTotalTime());
+            dataset.addValue(time, app.getApplicationCategory().getApplicationCategoryName(), app.getApplicationCategory().getApplicationCategoryName());
         }
         return dataset;
+    }
+
+    /**
+     * This method convert the totaltime in minutes
+     * @param time time in seconds
+     * @return the time in minutes
+     */
+    public Double validateTime(int time){
+        int value = time / 60;
+        if(time/60 < 1){
+            return 1.0;
+        }else {
+            return value*1.0;
+        }
+
     }
 
 }

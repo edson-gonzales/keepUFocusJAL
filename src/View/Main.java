@@ -30,6 +30,10 @@ public class Main extends JFrame {
         setVisible(true);
     }
 
+    public static void reset(){
+        main = new Main();
+    }
+
     public static Main getMain() {
         if (main == null) {
             main = new Main();

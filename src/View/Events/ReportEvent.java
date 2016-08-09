@@ -37,7 +37,6 @@ public class ReportEvent implements ActionListener {
 
         refreshMainFrame();
 
-        System.out.println(startDate);
     }
 
     /**
