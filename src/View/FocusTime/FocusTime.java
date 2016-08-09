@@ -113,10 +113,13 @@ public class FocusTime extends PopupMenu {
      * Method that build the Item Report where the user can track their used application
      */
     public void buildItemReport(){
-        report = new MenuItem("Report");
-        report.setActionCommand(Constants.ACTIVITY_REPORT);
-        report.addActionListener(new FocusTimeEvent(this));
-        this.add(report);
+        if(!Session.isAdmin()){
+            report = new MenuItem("Report");
+            report.setActionCommand(Constants.ACTIVITY_REPORT);
+            report.addActionListener(new FocusTimeEvent(this));
+            this.add(report);
+        }
+
     }
 
     /**
