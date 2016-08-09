@@ -35,7 +35,7 @@ public abstract class Constants {
     public static final String ABOUT = "about";
     public static final String ADMINISTRATION = "administration";
     public static final String OFFICE_TIMER = "office timer";
-    public static final String START_TRACK = "start";
+    public static final String RESTART_TRACK = "restart";
     public static final String STOP_TRACK = "stop";
     public static final String EXIT = "Exit";
     public static final String TRAY_ICON = "tray icon";

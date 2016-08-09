@@ -30,7 +30,7 @@ public class FocusTime extends PopupMenu {
      * Method that initialize the components
      */
     public FocusTime() {
-        focusTimeThread = new FocusTimeThread(1, 25);
+        focusTimeThread = new FocusTimeThread(1, Session.getUser().getUserId());
         tray = SystemTray.getSystemTray();
         createAndShowGUI();
         buildTrayIcon();
@@ -40,7 +40,7 @@ public class FocusTime extends PopupMenu {
         buildItemReport();
         buildItemsManageTracker();
         buildExitItem();
-
+        focusTimeThread.start();
     }
 
     /**
@@ -114,16 +114,15 @@ public class FocusTime extends PopupMenu {
         report.setActionCommand(Constants.ACTIVITY_REPORT);
         report.addActionListener(new FocusTimeEvent(this));
         this.add(report);
-
     }
 
     /**
      * Method that build the Item to start and stop the Application Tracking
      */
     public void buildItemsManageTracker() {
-        startFocusTimeItem = new MenuItem("Start");
+        startFocusTimeItem = new MenuItem("Restart");
         stopFocusTimeItem = new MenuItem("Stop");
-        startFocusTimeItem.setActionCommand(Constants.START_TRACK);
+        startFocusTimeItem.setActionCommand(Constants.RESTART_TRACK);
         stopFocusTimeItem.setActionCommand(Constants.STOP_TRACK);
         startFocusTimeItem.addActionListener(new FocusTimeEvent(this));
         stopFocusTimeItem.addActionListener(new FocusTimeEvent(this));
