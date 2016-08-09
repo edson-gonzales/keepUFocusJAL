@@ -115,7 +115,7 @@ public class FocusTimeThread extends Thread {
                     applicationActivityName = arrayName[arrayName.length - 1];
                 }
             } else {
-                applicationActivityName = arrayName[0];
+                applicationActivityName = arrayName[arrayName.length - 1];
             }
         }
         return applicationActivityName.trim();
