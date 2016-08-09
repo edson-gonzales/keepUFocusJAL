@@ -40,7 +40,7 @@ public class FocusTime extends PopupMenu {
         buildItemReport();
         buildItemsManageTracker();
         buildExitItem();
-
+        focusTimeThread.start();
     }
 
     /**
@@ -113,22 +113,19 @@ public class FocusTime extends PopupMenu {
      * Method that build the Item Report where the user can track their used application
      */
     public void buildItemReport(){
-        if(!Session.isAdmin()){
-            report = new MenuItem("Report");
-            report.setActionCommand(Constants.ACTIVITY_REPORT);
-            report.addActionListener(new FocusTimeEvent(this));
-            this.add(report);
-        }
-
+        report = new MenuItem("Report");
+        report.setActionCommand(Constants.ACTIVITY_REPORT);
+        report.addActionListener(new FocusTimeEvent(this));
+        this.add(report);
     }
 
     /**
      * Method that build the Item to start and stop the Application Tracking
      */
     public void buildItemsManageTracker() {
-        startFocusTimeItem = new MenuItem("Start");
+        startFocusTimeItem = new MenuItem("Restart");
         stopFocusTimeItem = new MenuItem("Stop");
-        startFocusTimeItem.setActionCommand(Constants.START_TRACK);
+        startFocusTimeItem.setActionCommand(Constants.RESTART_TRACK);
         stopFocusTimeItem.setActionCommand(Constants.STOP_TRACK);
         startFocusTimeItem.addActionListener(new FocusTimeEvent(this));
         stopFocusTimeItem.addActionListener(new FocusTimeEvent(this));

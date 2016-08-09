@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import Controller.FocusTime.FocusTimeThread;
 import Utils.Constants;
 import View.FocusTime.FocusTime;
+import View.Login.Session;
 import View.Main;
 import View.OfficeTime.OfficeTime;
 
@@ -48,15 +49,17 @@ public class FocusTimeEvent implements ActionListener {
             case Constants.OFFICE_TIMER:
                 OfficeTime officeTime = new OfficeTime();
                 break;
-            case Constants.START_TRACK:
+            case Constants.RESTART_TRACK:
                 if (FocusTime.focusTimeThread == null) {
-                    FocusTime.focusTimeThread = new FocusTimeThread(1, 25);
+                    FocusTime.focusTimeThread = new FocusTimeThread(1, Session.getUser().getUserId());
+                }else {
+                    FocusTime.focusTimeThread.interrupt();
+                    FocusTime.focusTimeThread = new FocusTimeThread(1, Session.getUser().getUserId());
                 }
                 FocusTime.focusTimeThread.start();
-                System.out.println("Start thread");
+                System.out.println("restart thread");
                 break;
             case Constants.STOP_TRACK:
-
                 FocusTime.focusTimeThread.interrupt();
                 FocusTime.focusTimeThread = null;
                 System.out.println("Stop thread");
