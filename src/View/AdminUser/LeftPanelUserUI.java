@@ -41,7 +41,7 @@ public class LeftPanelUserUI extends JPanel {
      * @return a panel with all their components
      */
     private void buildLeftPanel() {
-        Dimension txtSize = new Dimension(150, 25);
+        Dimension txtSize = new Dimension(200, 25);
         InitComponent.initLabel(nameLabel, resource.getString("admin.label.name"), this);
         nameTxt = InitComponent.initTextBox(nameTxt, txtSize, this);
 
