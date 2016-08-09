@@ -1,5 +1,9 @@
 package Utils;
 
+import javax.swing.*;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 /**
  * Helper for differents operations that help to Convert time,
  *
@@ -38,6 +42,38 @@ public class FocusTimeUtils {
         }
 
         return result;
+    }
+
+    /**
+     * Method that have the Hours to be selected, it start at 6:00 AM to 22:00 PM
+     *
+     * @return the hash map with the list of hours
+     */
+    public static ArrayList<HourUtil> hoursList() {
+        int startHour = 6;
+        int endHour = 22;
+        ArrayList<HourUtil> hourList = new ArrayList<>();
+        for (int i = 6; i <= endHour; i++) {
+            hourList.add(new HourUtil(i * 60, i + ":00 "));
+
+        }
+        return hourList;
+    }
+    public static String calculateTotalHour(int startHour,int endDate){
+        int totalHour = (endDate - startHour)/60;
+        return totalHour + " Hrs";
+
+    }
+    public static void convertTimeToTimeStamp(String date,String time){
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+        String dateInString = date+" "+time;
+        try{
+            Date datec = sdf.parse(dateInString);
+            System.out.println(datec);
+        }catch (Exception e){
+            System.out.printf("error");
+        }
+
     }
 
 }

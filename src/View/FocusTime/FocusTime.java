@@ -100,10 +100,13 @@ public class FocusTime extends PopupMenu {
      * Method that build the Item Office timer, where the user can register their activities
      */
     public void buildItemOfficeTimer(){
-        officeTimer = new MenuItem("Office Timer");
-        officeTimer.setActionCommand(Constants.OFFICE_TIMER);
-        officeTimer.addActionListener(new FocusTimeEvent(this));
-        this.add(officeTimer);
+        if(!Session.isAdmin()){
+            officeTimer = new MenuItem("Office Timer");
+            officeTimer.setActionCommand(Constants.OFFICE_TIMER);
+            officeTimer.addActionListener(new FocusTimeEvent(this));
+            this.add(officeTimer);
+        }
+
     }
 
     /**

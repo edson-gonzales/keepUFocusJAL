@@ -1,10 +1,13 @@
 package View.Events;
 
+import Controller.TrakingConfig.TrackingConfigController;
+import Model.Applications.TrackingConfiguration;
 import Utils.Constants;
+import Utils.HourUtil;
 import View.AdminUser.SearchUserUI;
 import View.Report.Activity;
 import View.config.Application.Application;
-import View.config.ConfigureFocusTime;
+import View.config.Tracking.ConfigureFocusTime;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -74,5 +77,19 @@ public class MenuEvents implements ActionListener {
         mainWindow.getContentPane().add(panel, BorderLayout.CENTER);
         mainWindow.setSize(mainWindow.getWidth() + 1, mainWindow.getHeight() + 1);
         mainWindow.setSize(mainWindow.getWidth() - 1, mainWindow.getHeight() - 1);
+    }
+    public void fillFocusTimeConfig(){
+        TrackingConfigController controller = new TrackingConfigController();
+        TrackingConfiguration trackConfig = controller.getTrackingConfiguration();
+        ConfigureFocusTime configFocusTime = new ConfigureFocusTime();
+
+        if(trackConfig!=null){
+//            configFocusTime.setStartHoursBox(configFocusTime.getHourUtils()..getTimeMinutes(trackConfig.getStartHour()));
+//            configFocusTime.setEndHoursBox(trackConfig.getEndHour());
+//            configFocusTime.setWeekDays(trackConfig);
+
+        }else{
+            configFocusTime = new ConfigureFocusTime();
+        }
     }
 }

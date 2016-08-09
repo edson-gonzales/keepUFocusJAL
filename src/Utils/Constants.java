@@ -28,9 +28,11 @@ public abstract class Constants {
     public static final int UPDATE_APPLICATION = 3; // column number where is the update icon
     public static final String UPDATE_APP = "update";
     public static final String CANCEL_APP = "cancel";
+
+    public static final int NOCATEGORY_APP = 1;
     public static final int PRODUCTIVE_APP = 2;
     public static final int NONPRODUCTIVE_APP = 3;
-    public static final int NOCATEGORY_APP = 1;
+
 
     public static final String ABOUT = "about";
     public static final String ADMINISTRATION = "administration";
@@ -39,6 +41,9 @@ public abstract class Constants {
     public static final String STOP_TRACK = "stop";
     public static final String EXIT = "Exit";
     public static final String TRAY_ICON = "tray icon";
+
+    public static final String CALCULATE_HOUR = "calculate hour";
+    public static final String SAVE_CONFIG = "save configuration";
 
 
 

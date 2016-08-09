@@ -32,7 +32,8 @@ public class ApplicationFocusTime {
      * @param endDate   end date of the focus time
      * @return the ArrayList of ApplicationFocusTime
      */
-    public ArrayList<ApplicationFocusTime> getTrackedApplication(String startDate, String endDate) {
+    public ArrayList<ApplicationFocusTime> getTrackedApplication(String startDate, String endDate, int userId) {
+        System.out.println(userId);
         ArrayList<ApplicationFocusTime> appFocusTime = new ArrayList<>();
         ApplicationFocusTime applicationFocusTime = null;
         ResultSet result = null;
@@ -47,9 +48,9 @@ public class ApplicationFocusTime {
         sql.append(String.format("Date(ft.startDate) between '%s' and ", startDate));
         sql.append(String.format("'%s' and ", endDate));
         sql.append(String.format("Date(ft.endDate) between '%s' and ", startDate));
-        sql.append(String.format("'%s' ", endDate));
+        sql.append(String.format("'%s' and userId = %s ", endDate,userId));
         sql.append("group by ft.applicationId) as res group by res.applicationId");
-
+        System.out.println(sql);
         try {
             result = dbAccess.select(sql.toString());
             while (result.next()) {
