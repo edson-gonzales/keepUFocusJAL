@@ -101,13 +101,24 @@ public class FocusTimeThread extends Thread {
      * @return the name of the active application.
      */
     private String getApplicationName() {
-        String name = getActiveWindowTitle();
-        String[] arrayName = name.split("-");
-        if (arrayName.length > 1) {
-            return arrayName[arrayName.length - 1].trim() + "-" + arrayName[0].trim();
+        String applicationActivityName = getActiveWindowTitle();
+        String[] arrayName = applicationActivityName.split("-");
+        if (applicationActivityName.isEmpty()) {
+            applicationActivityName = "Inactive";
         } else {
-            return arrayName[arrayName.length - 1].trim();
+            if (applicationActivityName.contains("Google Chrome") ||
+                    applicationActivityName.contains("Mozilla Firefox") ||
+                    applicationActivityName.contains("Internet Explorer")) {
+                applicationActivityName = arrayName[arrayName.length - 2];
+                if (applicationActivityName.contains("|")) {
+                    arrayName = applicationActivityName.split(" ");
+                    applicationActivityName = arrayName[arrayName.length - 1];
+                }
+            } else {
+                applicationActivityName = arrayName[0];
+            }
         }
+        return applicationActivityName.trim();
     }
 
     /**

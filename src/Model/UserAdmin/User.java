@@ -36,6 +36,7 @@ public class User {
     public void setUserId(int userId) {
         this.userId = userId;
     }
+
     /**
      * The method return the first name of the user
      *
@@ -71,6 +72,7 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+
     /**
      * The method return the userName of the user.
      *
@@ -162,9 +164,9 @@ public class User {
      * The method build the User object and instance the DataAccess class.
      *
      * @param firstName will be set in the user
-     * @param lastName will be set in the user
-     * @param userName will be set in the user
-     * @param password will be set in the user
+     * @param lastName  will be set in the user
+     * @param userName  will be set in the user
+     * @param password  will be set in the user
      */
     public User(String firstName, String lastName, String userName, String password) {
         super();
@@ -239,8 +241,9 @@ public class User {
         dbAccess.closeConnection();
         return deleted;
     }
+
     @Override
-    public String toString(){
+    public String toString() {
         return this.firstName;
     }
 }

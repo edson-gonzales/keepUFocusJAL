@@ -40,7 +40,7 @@ public class FocusTime extends PopupMenu {
         buildItemReport();
         buildItemsManageTracker();
         buildExitItem();
-
+        focusTimeThread.start();
     }
 
     /**
@@ -100,10 +100,13 @@ public class FocusTime extends PopupMenu {
      * Method that build the Item Office timer, where the user can register their activities
      */
     public void buildItemOfficeTimer(){
-        officeTimer = new MenuItem("Office Timer");
-        officeTimer.setActionCommand(Constants.OFFICE_TIMER);
-        officeTimer.addActionListener(new FocusTimeEvent(this));
-        this.add(officeTimer);
+        if(!Session.isAdmin()){
+            officeTimer = new MenuItem("Office Timer");
+            officeTimer.setActionCommand(Constants.OFFICE_TIMER);
+            officeTimer.addActionListener(new FocusTimeEvent(this));
+            this.add(officeTimer);
+        }
+
     }
 
     /**
@@ -114,16 +117,15 @@ public class FocusTime extends PopupMenu {
         report.setActionCommand(Constants.ACTIVITY_REPORT);
         report.addActionListener(new FocusTimeEvent(this));
         this.add(report);
-
     }
 
     /**
      * Method that build the Item to start and stop the Application Tracking
      */
     public void buildItemsManageTracker() {
-        startFocusTimeItem = new MenuItem("Start");
+        startFocusTimeItem = new MenuItem("Restart");
         stopFocusTimeItem = new MenuItem("Stop");
-        startFocusTimeItem.setActionCommand(Constants.START_TRACK);
+        startFocusTimeItem.setActionCommand(Constants.RESTART_TRACK);
         stopFocusTimeItem.setActionCommand(Constants.STOP_TRACK);
         startFocusTimeItem.addActionListener(new FocusTimeEvent(this));
         stopFocusTimeItem.addActionListener(new FocusTimeEvent(this));

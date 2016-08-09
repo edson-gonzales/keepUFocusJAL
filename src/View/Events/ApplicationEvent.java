@@ -93,6 +93,7 @@ public class ApplicationEvent extends MouseAdapter implements ActionListener {
         ApplicationControllers controller = new ApplicationControllers();
         application.setApplicationId(applicationForm.getApplication().getApplicationId());
         application.setCategoryId(Constants.NOCATEGORY_APP);
+
         if (applicationForm.getProductiveRadio().isSelected()) {
             application.setCategoryId(Constants.PRODUCTIVE_APP);
         } else if (applicationForm.getNonProductiveRadio().isSelected()) {
