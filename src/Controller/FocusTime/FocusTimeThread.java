@@ -87,7 +87,7 @@ public class FocusTimeThread extends Thread {
             endTime = 0;
             this.previousFocusTime = this.getFocusTime(new Timestamp(starTime), new Timestamp(endTime), application.getApplicationId(), this.userId);
             this.previousApplication = application;
-        }else if (!this.isRun){
+        } else if (!this.isRun) {
             endTime = starTime;
             this.previousFocusTime.setEndDate(new Timestamp(endTime));
             this.previousFocusTime.update();
@@ -103,7 +103,11 @@ public class FocusTimeThread extends Thread {
     private String getApplicationName() {
         String name = getActiveWindowTitle();
         String[] arrayName = name.split("-");
-        return arrayName[arrayName.length - 1].trim();
+        if (arrayName.length > 1) {
+            return arrayName[arrayName.length - 1].trim() + "-" + arrayName[0].trim();
+        } else {
+            return arrayName[arrayName.length - 1].trim();
+        }
     }
 
     /**

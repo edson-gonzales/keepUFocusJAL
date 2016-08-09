@@ -30,7 +30,7 @@ public class FocusTime extends PopupMenu {
      * Method that initialize the components
      */
     public FocusTime() {
-        focusTimeThread = new FocusTimeThread(1, 25);
+        focusTimeThread = new FocusTimeThread(1, Session.getUser().getUserId());
         tray = SystemTray.getSystemTray();
         createAndShowGUI();
         buildTrayIcon();
